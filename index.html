@@ -216,6 +216,32 @@
     padding:9px 10px;font-size:13px;background:var(--surface-2);color:var(--ink);
   }
 
+  /* ---------- Unified professional <select> styling (site-wide) ---------- */
+  select{
+    appearance:none;-webkit-appearance:none;-moz-appearance:none;
+    border:1px solid var(--border);
+    border-radius:var(--radius-s);
+    background-color:#fff;
+    color:var(--ink);
+    padding:9px 34px 9px 12px;
+    font-size:13.5px;
+    cursor:pointer;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='%23726B5E' d='M5.5 7.5 10 12l4.5-4.5' stroke='%23726B5E' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;
+    background-position:left 10px center;
+    background-size:16px;
+    transition:border-color .2s ease,box-shadow .2s ease,background-color .2s ease;
+  }
+  select:hover{border-color:var(--muted-2);}
+  select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(46,99,80,.14);}
+  select:disabled{opacity:.5;cursor:not-allowed;}
+  select option{background:#fff;color:var(--ink);}
+  .app-header select{
+    background-color:#22392F;color:#F3F1E9;border-color:#3B5147;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5.5 7.5 10 12l4.5-4.5' stroke='%23F3F1E9' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  }
+  .app-header select:focus{border-color:#6FAE8F;box-shadow:0 0 0 3px rgba(111,174,143,.18);}
+
   /* ---------- Department header ---------- */
   .dept-head{
     padding:16px 18px;display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap;
@@ -2370,9 +2396,7 @@ function closeDrawer(){
 
 /* ---------------------------- Sign-in flow ---------------------------- */
 
-const auth = { mode:'login', step:'email', email:'', meta:null, cooldowns:{}, msg:null, form:{} };
-const cooldownLeft = email => Math.max(0, Math.ceil(((auth.cooldowns[email] || 0) - Date.now())/1000));
-let cooldownTimer = null;
+const auth = { mode:'login', email:'', meta:null, msg:null, form:{} };
 
 function showScreen(name){
   document.body.dataset.screen = name;
@@ -2395,44 +2419,6 @@ function renderAuth(){
   const body = document.getElementById('authBody');
   const f = auth.form;
   const domains = CONFIG.ALLOWED_DOMAINS.map(d => '@' + d).join(' أو ');
-  if(auth.step === 'code'){
-    const left = cooldownLeft(auth.email);
-    body.innerHTML = `<div class="gate-step">
-      <h2>أدخل رمز التحقق</h2>
-      <p class="gate-sub">أرسلنا رمزًا من ${CONFIG.OTP_LENGTH} أرقام إلى <span class="email-ltr">${esc(auth.email)}</span>. تحقّق أيضًا من مجلد الرسائل غير المرغوب فيها.</p>
-      ${authMsgHTML()}
-      <div class="field">
-        <label for="otpInput">رمز التحقق</label>
-        <input class="input otp-input" id="otpInput" inputmode="numeric" autocomplete="one-time-code" maxlength="10" dir="ltr" placeholder="${'•'.repeat(CONFIG.OTP_LENGTH)}">
-      </div>
-      <button class="btn btn-primary btn-block" id="verifyBtn">${auth.mode === 'register' ? 'تأكيد وإرسال الطلب' : 'دخول'}</button>
-      <div class="gate-links">
-        <button class="link-btn" id="resendBtn" ${left ? 'disabled' : ''}>${left ? `إعادة الإرسال بعد ${left} ث` : 'إعادة إرسال الرمز'}</button>
-        <button class="link-btn" id="changeEmailBtn">تغيير البريد</button>
-      </div>
-    </div>`;
-    const otp = document.getElementById('otpInput');
-    otp.addEventListener('input', ()=>{
-      otp.value = otp.value.replace(/[^\d]/g, '');
-      if(otp.value.length === CONFIG.OTP_LENGTH) verifyCode();
-    });
-    otp.addEventListener('keydown', e=>{ if(e.key === 'Enter') verifyCode(); });
-    document.getElementById('verifyBtn').addEventListener('click', verifyCode);
-    document.getElementById('resendBtn').addEventListener('click', ()=> sendCode(true));
-    document.getElementById('changeEmailBtn').addEventListener('click', ()=>{ auth.step = 'email'; auth.msg = null; renderAuth(); });
-    setTimeout(()=> otp.focus(), 60);
-    clearInterval(cooldownTimer);
-    if(left) cooldownTimer = setInterval(()=>{
-      const b = document.getElementById('resendBtn');
-      const l = cooldownLeft(auth.email);
-      if(!b){ clearInterval(cooldownTimer); return; }
-      b.disabled = l > 0;
-      b.textContent = l ? `إعادة الإرسال بعد ${l} ث` : 'إعادة إرسال الرمز';
-      if(!l) clearInterval(cooldownTimer);
-    }, 1000);
-    return;
-  }
-
   const isReg = auth.mode === 'register';
   const depts = publicDepartments.map(d => `<option value="${esc(d.id)}" ${f.dept===d.id?'selected':''}>${esc(d.name)}</option>`).join('');
   body.innerHTML = `<div class="gate-step">
@@ -2441,13 +2427,16 @@ function renderAuth(){
       <button data-mode="register" class="${isReg?'on':''}" role="tab" aria-selected="${isReg}">طلب حساب جديد</button>
     </div>
     <h2>${isReg ? 'طلب حساب لعضو هيئة تدريس أو موظف' : 'الدخول ببريد الكلية'}</h2>
-    <p class="gate-sub">${isReg ? 'يُراجع نائب العميد طلبك ويعتمد صلاحياتك قبل الدخول إلى اللوحة.' : 'بدون كلمة مرور — نرسل لك رمز دخول لمرة واحدة.'}</p>
+    <p class="gate-sub">${isReg ? 'يُراجع نائب العميد طلبك ويعتمد صلاحياتك قبل الدخول إلى اللوحة.' : 'أدخل بريدك وكلمة المرور للدخول.'}</p>
     ${authMsgHTML()}
     ${isReg ? `<div class="field"><label for="fName">الاسم الكامل *</label>
       <input class="input" id="fName" maxlength="120" autocomplete="name" placeholder="مثال: د. أحمد محمد" value="${esc(f.name || '')}"></div>` : ''}
     <div class="field"><label for="fEmail">البريد الجامعي *</label>
       <input class="input ltr" id="fEmail" type="email" autocomplete="email" inputmode="email" placeholder="name${esc('@' + CONFIG.ALLOWED_DOMAINS[0])}" value="${esc(f.email || '')}">
       <span class="hint">يُقبل فقط بريد ينتهي بـ <span class="email-ltr">${esc(domains)}</span></span></div>
+    <div class="field"><label for="fPass">كلمة المرور *</label>
+      <input class="input ltr" id="fPass" type="password" autocomplete="${isReg ? 'new-password' : 'current-password'}" placeholder="${isReg ? '6 أحرف على الأقل' : ''}">
+    </div>
     ${isReg ? `
       <div class="field-row">
         <div class="field"><label for="fRole">الصفة المطلوبة *</label>
@@ -2468,10 +2457,10 @@ function renderAuth(){
           <option value="">${publicDepartments.length ? 'اختر القسم…' : 'تعذّر تحميل الأقسام — سيحدده نائب العميد'}</option>
           ${depts}
         </select></div>` : ''}
-    <button class="btn btn-primary btn-block" id="sendBtn">${isReg ? 'إرسال رمز التحقق' : 'إرسال رمز الدخول'}</button>
+    <button class="btn btn-primary btn-block" id="sendBtn">${isReg ? 'إنشاء الحساب وإرسال الطلب' : 'دخول'}</button>
     <div class="gate-foot">
       ${isReg
-        ? 'بعد إدخال الرمز يصل طلبك إلى نائب العميد للشؤون الأكاديمية. ستتمكن من الدخول فور اعتماده.'
+        ? 'بعد إنشاء الحساب يصل طلبك إلى نائب العميد للشؤون الأكاديمية. ستتمكن من الدخول فور اعتماده.'
         : 'ليس لديك حساب؟ اختر «طلب حساب جديد». الحسابات تُعتمد من نائب العميد للشؤون الأكاديمية.'}
     </div>
   </div>`;
@@ -2487,8 +2476,8 @@ function renderAuth(){
     document.getElementById('resReq').textContent = roleSel.value === 'viewer' ? '(اختياري)' : '*';
   };
   if(roleSel){ roleSel.addEventListener('change', syncReq); syncReq(); }
-  body.querySelectorAll('input').forEach(i => i.addEventListener('keydown', e=>{ if(e.key === 'Enter') sendCode(); }));
-  document.getElementById('sendBtn').addEventListener('click', ()=> sendCode());
+  body.querySelectorAll('input').forEach(i => i.addEventListener('keydown', e=>{ if(e.key === 'Enter') submitAuth(); }));
+  document.getElementById('sendBtn').addEventListener('click', ()=> submitAuth());
   setTimeout(()=>{ const first = document.getElementById(isReg ? 'fName' : 'fEmail'); if(first && !first.value) first.focus(); }, 60);
 }
 
@@ -2496,6 +2485,7 @@ function captureAuthForm(){
   const v = id => { const el = document.getElementById(id); return el ? el.value : undefined; };
   const f = auth.form;
   if(v('fEmail') !== undefined) f.email = v('fEmail').trim();
+  if(v('fPass') !== undefined) f.password = v('fPass');
   if(v('fName') !== undefined) f.name = v('fName');
   if(v('fRole') !== undefined) f.role = v('fRole');
   if(v('fRes') !== undefined) f.res = v('fRes');
@@ -2522,87 +2512,62 @@ function inlineError(text, fieldId){
   if(fieldId) markInvalid(fieldId);
 }
 
-async function sendCode(isResend){
-  if(!isResend){
-    captureAuthForm();
-    const f = auth.form;
-    const email = (f.email || '').toLowerCase();
-    if(auth.mode === 'register'){
-      const name = (f.name || '').trim().replace(/\s+/g,' ');
-      if(name.length < 5 || name.split(' ').length < 2) return inlineError('اكتب اسمك الكامل (الاسم واسم العائلة على الأقل)', 'fName');
-      if(!emailAllowed(email)) return inlineError('استخدم بريدك الجامعي الرسمي فقط', 'fEmail');
-      if(f.role !== 'viewer' && !f.res) return inlineError('حدّد مكان إقامتك الحالي', 'fRes');
-      if(f.role === 'head' && !f.dept && publicDepartments.length) return inlineError('اختر القسم الذي ترأسه', 'fDept');
-      auth.meta = { full_name: name, requested_role: f.role, dept_id: f.dept || '', residency: f.res || '' };
-    } else {
-      if(!emailAllowed(email)) return inlineError('استخدم بريدك الجامعي الرسمي فقط', 'fEmail');
-      auth.meta = null;
-    }
-    auth.email = email;
-  }
-  const wait0 = cooldownLeft(auth.email);
-  if(wait0){
-    if(!isResend && auth.step === 'email'){
-      // a code was already sent to this address moments ago — go straight to entering it
-      auth.step = 'code';
-      setAuthMsg('info', 'أُرسل رمز إلى هذا البريد قبل لحظات — أدخله هنا.');
-      renderAuth();
-    }
-    return;
-  }
+async function submitAuth(){
+  captureAuthForm();
+  const f = auth.form;
+  const email = (f.email || '').toLowerCase();
+  const password = f.password || '';
+  if(!emailAllowed(email)) return inlineError('استخدم بريدك الجامعي الرسمي فقط', 'fEmail');
+  if(password.length < 6) return inlineError('كلمة المرور 6 أحرف على الأقل', 'fPass');
 
-  const btn = document.getElementById(isResend ? 'resendBtn' : 'sendBtn');
+  if(busy.has('auth')) return;
+  busy.add('auth');
+  const btn = document.getElementById('sendBtn');
   if(btn){ btn.classList.add('loading'); btn.disabled = true; }
-  const { error } = await sb.auth.signInWithOtp({
-    email: auth.email,
-    options: auth.mode === 'register'
-      ? { shouldCreateUser: true, data: auth.meta }
-      : { shouldCreateUser: false },
-  }).catch(err => ({ error: err }));
+
+  if(auth.mode === 'register'){
+    const name = (f.name || '').trim().replace(/\s+/g,' ');
+    if(name.length < 5 || name.split(' ').length < 2){
+      busy.delete('auth'); if(btn){ btn.classList.remove('loading'); btn.disabled = false; }
+      return inlineError('اكتب اسمك الكامل (الاسم واسم العائلة على الأقل)', 'fName');
+    }
+    if(f.role !== 'viewer' && !f.res){
+      busy.delete('auth'); if(btn){ btn.classList.remove('loading'); btn.disabled = false; }
+      return inlineError('حدّد مكان إقامتك الحالي', 'fRes');
+    }
+    if(f.role === 'head' && !f.dept && publicDepartments.length){
+      busy.delete('auth'); if(btn){ btn.classList.remove('loading'); btn.disabled = false; }
+      return inlineError('اختر القسم الذي ترأسه', 'fDept');
+    }
+    const meta = { full_name: name, requested_role: f.role, dept_id: f.dept || '', residency: f.res || '' };
+    const { data, error } = await sb.auth.signUp({ email, password, options: { data: meta } }).catch(err => ({ error: err }));
+    busy.delete('auth');
+    if(btn){ btn.classList.remove('loading'); btn.disabled = false; }
+    if(error){
+      const m = String(error.message || '');
+      if(/already registered|already exists/i.test(m)) return inlineError('هذا البريد مسجّل بالفعل — اختر «تسجيل الدخول»', 'fEmail');
+      if(/Database error/i.test(m)) return inlineError('تعذّر إنشاء الطلب — تأكّد أن البريد من نطاق الكلية الرسمي', 'fEmail');
+      if(/fetch|network/i.test(m)) return inlineError('تعذّر الاتصال بالخادم — تحقّق من الإنترنت');
+      return inlineError('تعذّر إنشاء الحساب: ' + m);
+    }
+    auth.form = {};
+    if(data.session){ await handleSession(data.session); return; }
+    setAuthMsg('ok', 'تم إنشاء طلبك بنجاح. يمكنك تسجيل الدخول الآن، وستظهر لك حالة الطلب.');
+    auth.mode = 'login';
+    auth.form.email = email;
+    return renderAuth();
+  }
+
+  const { data, error } = await sb.auth.signInWithPassword({ email, password }).catch(err => ({ error: err }));
+  busy.delete('auth');
   if(btn){ btn.classList.remove('loading'); btn.disabled = false; }
-
   if(error){
     const m = String(error.message || '');
-    const wait = /(\d+)\s*seconds?/i.exec(m);
-    if(wait){
-      auth.cooldowns[auth.email] = Date.now() + (+wait[1]) * 1000;
-      return inlineError(`لأسباب أمنية انتظر ${wait[1]} ثانية قبل طلب رمز جديد`);
-    }
-    if(/signups? not allowed|otp_disabled|user not found/i.test(m + ' ' + (error.code || ''))){
-      auth.mode = 'register';
-      auth.form.email = auth.email;
-      setAuthMsg('info', 'لا يوجد حساب بهذا البريد بعد — أكمل بيانات طلب الحساب.');
-      return renderAuth();
-    }
-    if(/Database error/i.test(m)) return inlineError('تعذّر إنشاء الطلب — تأكّد أن البريد من نطاق الكلية الرسمي', 'fEmail');
-    if(/not authorized/i.test(m)) return inlineError('خدمة إرسال البريد غير مهيّأة بعد — تواصل مع مسؤول النظام (إعداد SMTP)');
-    if(/rate limit/i.test(m) || error.status === 429) return inlineError('تم تجاوز حد إرسال الرسائل مؤقتًا — حاول بعد قليل');
+    if(/invalid login credentials/i.test(m)) return inlineError('البريد أو كلمة المرور غير صحيحة', 'fPass');
     if(/fetch|network/i.test(m)) return inlineError('تعذّر الاتصال بالخادم — تحقّق من الإنترنت');
-    return inlineError('تعذّر إرسال الرمز: ' + m);
+    return inlineError('تعذّر الدخول: ' + m);
   }
-  auth.step = 'code';
-  auth.cooldowns[auth.email] = Date.now() + 60000;
-  setAuthMsg('ok', isResend ? 'أُعيد إرسال الرمز.' : 'تم إرسال الرمز بنجاح.');
-  renderAuth();
-}
-
-async function verifyCode(){
-  const input = document.getElementById('otpInput');
-  const token = (input.value || '').replace(/\D/g, '');
-  if(token.length < 6) return inlineError('أدخل الرمز كاملًا', 'otpInput');
-  if(busy.has('verify')) return;
-  busy.add('verify');
-  const btn = document.getElementById('verifyBtn');
-  btn.classList.add('loading'); btn.disabled = true; input.disabled = true;
-  const { data, error } = await sb.auth.verifyOtp({ email: auth.email, token, type: 'email' }).catch(err => ({ error: err }));
-  busy.delete('verify');
-  if(error){
-    btn.classList.remove('loading'); btn.disabled = false; input.disabled = false;
-    input.value = '';
-    const m = String(error.message || '');
-    return inlineError(/fetch|network/i.test(m) ? 'تعذّر الاتصال بالخادم' : 'الرمز غير صحيح أو انتهت صلاحيته — اطلب رمزًا جديدًا إن لزم', 'otpInput');
-  }
-  auth.step = 'email'; auth.msg = null; auth.form = {};
+  auth.msg = null; auth.form = {};
   await handleSession(data.session);
 }
 
@@ -2615,7 +2580,7 @@ async function signOut(){
 function resetToAuth(){
   teardownApp();
   me = null; state = null;
-  auth.step = 'email'; auth.msg = null; auth.mode = 'login'; auth.form = {};
+  auth.msg = null; auth.mode = 'login'; auth.form = {};
   renderAuth();
   showScreen('auth');
 }
