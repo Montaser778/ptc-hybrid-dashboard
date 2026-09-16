@@ -1,0 +1,3060 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#182E2A">
+<title>لوحة قرار التعليم الحضوري المدمج — كلية فلسطين التقنية دير البلح</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#182E2A;
+    --ink-soft:#33473F;
+    --accent:#2E6350;
+    --accent-deep:#1F4A3B;
+    --accent-tint:#E7EFE9;
+    --hybrid:#2A6F77;
+    --hybrid-tint:#E4EFF0;
+    --review:#A9701F;
+    --review-tint:#F5ECDC;
+    --remote:#5B6472;
+    --remote-tint:#ECEDEF;
+    --danger:#A93E33;
+    --danger-tint:#F5E6E3;
+    --paper:#F5F4EF;
+    --surface:#FFFFFF;
+    --surface-2:#FBFAF7;
+    --border:#DEDACE;
+    --border-soft:#EAE7DD;
+    --muted:#726B5E;
+    --muted-2:#948C7C;
+    --focus:#1F4A3B;
+    --radius-s:6px;
+    --radius-m:10px;
+    --radius-l:16px;
+    --shadow-card: 0 1px 2px rgba(24,46,42,0.06), 0 1px 1px rgba(24,46,42,0.04);
+    --font-ui: 'IBM Plex Sans Arabic', 'Segoe UI', Tahoma, sans-serif;
+    --font-code: 'IBM Plex Mono', ui-monospace, monospace;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:var(--font-ui);
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+  }
+  h1,h2,h3,h4{margin:0;font-weight:600;}
+  button{font-family:inherit;cursor:pointer;}
+  input,select,textarea{font-family:inherit;}
+  a{color:inherit;}
+  ::selection{background:var(--accent-tint);}
+
+  /* ---------- Layout shells ---------- */
+  .app-header{
+    background:var(--ink);
+    color:#F3F1E9;
+    padding:14px 20px;
+    position:sticky;
+    top:0;
+    z-index:40;
+    box-shadow:0 2px 10px rgba(0,0,0,0.14);
+  }
+  .app-header-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    flex-wrap:wrap;
+    max-width:1440px;
+    margin:0 auto;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  .brand-mark{
+    width:40px;height:40px;border-radius:10px;
+    background:linear-gradient(160deg, var(--accent), var(--accent-deep));
+    display:flex;align-items:center;justify-content:center;
+    font-weight:700;font-size:15px;color:#fff;
+    flex:none;
+    letter-spacing:0.5px;
+  }
+  .brand-text h1{font-size:16px;color:#fff;}
+  .brand-text p{margin:2px 0 0;font-size:12px;color:#B9C4BC;}
+  .header-controls{
+    display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  }
+  .header-controls .field-inline{
+    display:flex;flex-direction:column;gap:2px;
+  }
+  .header-controls label{font-size:10.5px;color:#B9C4BC;padding-inline-start:2px;}
+  .hc-select, .hc-input{
+    background:#22392F;
+    border:1px solid #3B5147;
+    color:#F3F1E9;
+    border-radius:var(--radius-s);
+    padding:7px 10px;
+    font-size:13px;
+    min-width:120px;
+  }
+  .hc-input::placeholder{color:#8FA096;}
+  .hc-select:focus,.hc-input:focus{outline:2px solid #6FAE8F;outline-offset:1px;}
+  .btn{
+    border:1px solid var(--border);
+    background:var(--surface);
+    color:var(--ink);
+    padding:8px 14px;
+    border-radius:var(--radius-s);
+    font-size:13px;
+    font-weight:500;
+    display:inline-flex;align-items:center;gap:6px;
+    transition:background .15s ease, border-color .15s ease, transform .04s ease;
+    white-space:nowrap;
+  }
+  .btn:hover{border-color:var(--muted-2);}
+  .btn:active{transform:translateY(1px);}
+  .btn:disabled{opacity:.45;cursor:not-allowed;}
+  .btn-primary{background:var(--accent);border-color:var(--accent-deep);color:#fff;}
+  .btn-primary:hover{background:var(--accent-deep);}
+  .btn-ghost-dark{background:transparent;border-color:#3B5147;color:#F3F1E9;}
+  .btn-ghost-dark:hover{background:#22392F;}
+  .btn-danger{background:transparent;border-color:var(--danger);color:var(--danger);}
+  .btn-danger:hover{background:var(--danger-tint);}
+  .btn-sm{padding:5px 10px;font-size:12px;border-radius:6px;}
+
+  .header-note{
+    font-size:11px;color:#93A79C;max-width:1440px;margin:6px auto 0;padding:0 2px;
+  }
+
+  /* ---------- Stats strip ---------- */
+  .stats-wrap{max-width:1440px;margin:0 auto;padding:16px 20px 0;}
+  .stats-strip{
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+    gap:10px;
+  }
+  .stat-card{
+    background:var(--surface);
+    border:1px solid var(--border-soft);
+    border-radius:var(--radius-m);
+    padding:12px 14px;
+    box-shadow:var(--shadow-card);
+  }
+  .stat-card .num{font-size:22px;font-weight:700;color:var(--ink);font-family:var(--font-code);}
+  .stat-card .lbl{font-size:11.5px;color:var(--muted);margin-top:3px;}
+  .stat-card.accent .num{color:var(--accent);}
+  .stat-card.hybrid .num{color:var(--hybrid);}
+  .stat-card.review .num{color:var(--review);}
+  .stat-card.danger .num{color:var(--danger);}
+
+  /* ---------- Banners ---------- */
+  .banner{
+    max-width:1440px;margin:14px auto 0;padding:12px 16px;border-radius:var(--radius-m);
+    display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+    font-size:13.5px;
+  }
+  .banner-lock{background:#EFEAD9;border:1px solid #D8CCA6;color:#5B4A1F;}
+  .banner-vp{background:var(--accent-tint);border:1px solid #BFDACB;color:var(--accent-deep);}
+  .banner strong{font-weight:600;}
+
+  /* ---------- Main grid ---------- */
+  .main-wrap{
+    max-width:1440px;margin:0 auto;padding:16px 20px 60px;
+    display:grid;
+    grid-template-columns:270px 1fr;
+    gap:16px;
+    align-items:start;
+  }
+  .panel{
+    background:var(--surface);
+    border:1px solid var(--border-soft);
+    border-radius:var(--radius-l);
+    box-shadow:var(--shadow-card);
+  }
+  .nav-panel{padding:12px;position:sticky;top:96px;max-height:calc(100vh - 116px);overflow:auto;}
+  .nav-title{font-size:12px;color:var(--muted);padding:4px 8px 8px;font-weight:600;}
+  .nav-item{
+    display:flex;flex-direction:column;gap:4px;
+    padding:9px 10px;border-radius:var(--radius-s);
+    cursor:pointer;margin-bottom:2px;
+    border:1px solid transparent;
+  }
+  .nav-item:hover{background:var(--surface-2);}
+  .nav-item.active{background:var(--accent-tint);border-color:#BFDACB;}
+  .nav-item .nav-row1{display:flex;justify-content:space-between;align-items:center;gap:6px;}
+  .nav-item .nav-name{font-size:13px;font-weight:500;color:var(--ink);}
+  .nav-item .nav-count{font-size:11px;color:var(--muted);font-family:var(--font-code);flex:none;}
+  .nav-bar{height:4px;border-radius:3px;background:var(--border-soft);overflow:hidden;}
+  .nav-bar > span{display:block;height:100%;background:var(--accent);}
+  .nav-item.all-item{border-bottom:1px solid var(--border-soft);margin-bottom:8px;padding-bottom:12px;border-radius:0;}
+  .nav-lock-flag{font-size:10.5px;color:var(--accent);}
+
+  .content-col{display:flex;flex-direction:column;gap:14px;min-width:0;}
+
+  /* ---------- Controls bar ---------- */
+  .controls-bar{
+    display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:12px 14px;
+  }
+  .search-input{
+    flex:1;min-width:180px;
+    border:1px solid var(--border);
+    border-radius:var(--radius-s);
+    padding:9px 12px;font-size:13.5px;background:var(--surface-2);
+  }
+  .search-input:focus{outline:none;border-color:var(--accent);background:#fff;}
+  .filter-select{
+    border:1px solid var(--border);border-radius:var(--radius-s);
+    padding:9px 10px;font-size:13px;background:var(--surface-2);color:var(--ink);
+  }
+
+  /* ---------- Department header ---------- */
+  .dept-head{
+    padding:16px 18px;display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap;
+  }
+  .dept-head h2{font-size:17px;}
+  .dept-head .dept-year{font-size:11.5px;color:var(--muted);font-family:var(--font-code);margin-top:3px;}
+  .dept-progress-line{display:flex;align-items:center;gap:8px;margin-top:8px;}
+  .dept-progress-line .track{width:160px;height:6px;border-radius:4px;background:var(--border-soft);overflow:hidden;}
+  .dept-progress-line .track>span{display:block;height:100%;background:var(--accent);}
+  .dept-progress-line .txt{font-size:11.5px;color:var(--muted);}
+  .dept-actions{display:flex;flex-direction:column;align-items:flex-end;gap:8px;}
+  .stage-flag{
+    font-size:12px;padding:6px 10px;border-radius:20px;display:inline-flex;align-items:center;gap:6px;
+  }
+  .stage-flag.locked{background:var(--accent-tint);color:var(--accent-deep);border:1px solid #BFDACB;}
+  .stage-flag.open{background:var(--surface-2);color:var(--muted);border:1px solid var(--border);}
+
+  /* ---------- All-view department block ---------- */
+  details.dept-block{border:1px solid var(--border-soft);border-radius:var(--radius-l);background:var(--surface);overflow:hidden;box-shadow:var(--shadow-card);}
+  details.dept-block+details.dept-block{margin-top:12px;}
+  details.dept-block summary{list-style:none;cursor:pointer;padding:14px 16px;}
+  details.dept-block summary::-webkit-details-marker{display:none;}
+  .summary-row{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;}
+  .summary-left{display:flex;align-items:center;gap:10px;}
+  .chev{transition:transform .15s ease;color:var(--muted);}
+  details[open] .chev{transform:rotate(90deg);}
+  .summary-mini{display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+  .mini-stat{font-size:11.5px;color:var(--muted);font-family:var(--font-code);}
+  details.dept-block .dept-block-body{padding:0 16px 16px;border-top:1px solid var(--border-soft);}
+
+  /* ---------- Course cards ---------- */
+  .course-list{display:flex;flex-direction:column;gap:10px;padding:0 16px 16px;}
+  details.dept-block .course-list{padding:14px 0 0;}
+  .course-card{
+    border:1px solid var(--border-soft);border-radius:var(--radius-m);
+    padding:13px 15px;background:var(--surface-2);
+  }
+  .course-top{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:6px;}
+  .chip{
+    font-size:11px;padding:3px 8px;border-radius:20px;border:1px solid var(--border);
+    background:#fff;color:var(--muted);white-space:nowrap;
+  }
+  .chip-code{font-family:var(--font-code);font-weight:600;color:var(--ink-soft);background:#fff;letter-spacing:.2px;}
+  .chip-manual{color:var(--hybrid);border-color:#BFD9DC;background:var(--hybrid-tint);}
+  .chip-req-college{color:#5B4B8A;border-color:#D3CBEA;background:#EDE9F5;}
+  .chip-req-program{color:#2E6B8A;border-color:#C7DEE8;background:#E3EEF3;}
+  .chip-req-major{color:#8A2E52;border-color:#E8C7D4;background:#F5E3EA;}
+  .chip-req-other{color:var(--muted);border-color:var(--border);background:#fff;}
+  .course-name{font-size:14.5px;font-weight:600;color:var(--ink);margin-bottom:8px;}
+
+  .status-group{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;}
+  .status-btn{
+    border:1px solid var(--border);background:#fff;color:var(--muted);
+    padding:6px 11px;border-radius:20px;font-size:12px;font-weight:500;
+    display:inline-flex;align-items:center;gap:5px;
+  }
+  .status-btn .dot{width:7px;height:7px;border-radius:50%;background:currentColor;opacity:.55;}
+  .status-btn:hover:not(:disabled){border-color:var(--muted-2);}
+  .status-btn.active{color:#fff;border-color:transparent;}
+  .status-btn.active .dot{opacity:1;background:#fff;}
+  .status-btn[data-s="remote"].active{background:var(--remote);}
+  .status-btn[data-s="review"].active{background:var(--review);}
+  .status-btn[data-s="onsite"].active{background:var(--accent);}
+  .status-btn[data-s="hybrid"].active{background:var(--hybrid);}
+  .status-btn:disabled{opacity:.5;cursor:not-allowed;}
+
+  .undecided-flag{font-size:11px;color:var(--review);background:var(--review-tint);border:1px solid #E7D3AC;padding:2px 8px;border-radius:20px;display:inline-flex;align-items:center;gap:4px;}
+
+  .justify-wrap{margin-bottom:8px;}
+  .justify-wrap label{display:block;font-size:11px;color:var(--muted);margin-bottom:4px;}
+  .justify-wrap textarea{
+    width:100%;border:1px solid var(--border);border-radius:var(--radius-s);
+    padding:8px 10px;font-size:13px;resize:vertical;min-height:40px;background:#fff;
+    font-family:var(--font-ui);
+  }
+  .justify-wrap textarea:focus{outline:none;border-color:var(--accent);}
+
+  .meta-line{font-size:11px;color:var(--muted-2);margin-bottom:6px;}
+
+  .lecturer-box{border-top:1px dashed var(--border);padding-top:9px;margin-top:4px;}
+  .lecturer-box-title{font-size:12px;font-weight:600;color:var(--ink-soft);margin-bottom:7px;display:flex;align-items:center;gap:6px;}
+  .lecturer-hint{font-size:12px;color:var(--muted);background:#fff;border:1px dashed var(--border);padding:8px 10px;border-radius:var(--radius-s);}
+  .lecturer-chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:8px;}
+  .lect-chip{
+    display:flex;align-items:center;gap:7px;background:#fff;border:1px solid var(--border);
+    border-radius:20px;padding:5px 6px 5px 10px;font-size:12.5px;
+  }
+  .lect-chip.eligible{border-color:#BFDACB;}
+  .lect-chip.excluded{border-color:#E3BEB6;background:var(--danger-tint);}
+  .lect-chip .lect-name{font-weight:500;}
+  .lect-chip .lect-badge{font-size:10.5px;padding:2px 6px;border-radius:12px;}
+  .lect-chip.eligible .lect-badge{background:var(--accent-tint);color:var(--accent-deep);}
+  .lect-chip.excluded .lect-badge{background:#F3D9D3;color:var(--danger);}
+  .lect-assign-toggle{
+    border:1px solid var(--border);background:#fff;border-radius:12px;font-size:10.5px;padding:2px 8px;color:var(--muted);
+  }
+  .lect-assign-toggle.assigned{background:var(--accent);border-color:var(--accent-deep);color:#fff;}
+  .lect-assign-toggle:disabled{opacity:.4;cursor:not-allowed;}
+  .lect-remove{
+    border:none;background:transparent;color:var(--muted-2);font-size:13px;line-height:1;padding:2px 4px;border-radius:50%;
+  }
+  .lect-remove:hover{color:var(--danger);}
+  .coverage-warn{font-size:11.5px;color:var(--danger);background:var(--danger-tint);border:1px solid #E3BEB6;padding:5px 9px;border-radius:var(--radius-s);margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+
+  .add-lect-form{display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
+  .add-lect-form input[type=text]{
+    border:1px solid var(--border);border-radius:var(--radius-s);padding:6px 9px;font-size:12.5px;flex:1;min-width:130px;background:#fff;
+  }
+  .add-lect-form select{border:1px solid var(--border);border-radius:var(--radius-s);padding:6px 8px;font-size:12.5px;background:#fff;}
+  .residency-hint{font-size:10.5px;color:var(--muted);width:100%;}
+  .residency-hint.warn{color:var(--danger);}
+
+  .add-course-toggle-wrap{padding:0 16px 16px;}
+  .add-course-form{
+    border:1px dashed var(--border);border-radius:var(--radius-m);padding:12px;display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end;background:var(--surface-2);
+  }
+  .add-course-form .f-group{display:flex;flex-direction:column;gap:4px;}
+  .add-course-form label{font-size:11px;color:var(--muted);}
+  .add-course-form input,.add-course-form select{border:1px solid var(--border);border-radius:var(--radius-s);padding:7px 9px;font-size:13px;background:#fff;}
+  .add-course-form input[name=cname]{min-width:220px;}
+
+  .empty-state{padding:30px;text-align:center;color:var(--muted);font-size:13.5px;}
+
+  /* ---------- Audit drawer ---------- */
+  .drawer-overlay{
+    position:fixed;inset:0;background:rgba(24,46,42,0.35);z-index:60;
+    display:none;
+  }
+  .drawer-overlay.open{display:block;}
+  .drawer{
+    position:fixed;top:0;bottom:0;left:0;width:min(380px,92vw);
+    background:var(--surface);z-index:61;box-shadow:6px 0 24px rgba(0,0,0,.18);
+    transform:translateX(-100%);transition:transform .2s ease;
+    display:flex;flex-direction:column;
+  }
+  .drawer.open{transform:translateX(0);}
+  .drawer-head{padding:14px 16px;border-bottom:1px solid var(--border-soft);display:flex;justify-content:space-between;align-items:center;}
+  .drawer-head h3{font-size:14.5px;}
+  .drawer-body{overflow:auto;padding:10px 14px;flex:1;}
+  .drawer-filter{padding:0 16px 10px;}
+  .log-entry{padding:9px 0;border-bottom:1px solid var(--border-soft);font-size:12.5px;}
+  .log-entry .log-ts{font-family:var(--font-code);font-size:10.5px;color:var(--muted-2);}
+  .log-entry .log-actor{font-weight:600;color:var(--ink-soft);}
+  .log-entry .log-dept{color:var(--accent);}
+
+  .toast{
+    position:fixed;bottom:18px;right:18px;z-index:70;
+    background:var(--ink);color:#fff;padding:9px 16px;border-radius:var(--radius-s);
+    font-size:12.5px;box-shadow:0 6px 18px rgba(0,0,0,.2);
+    opacity:0;transform:translateY(8px);transition:opacity .2s ease, transform .2s ease;
+    pointer-events:none;
+  }
+  .toast.show{opacity:1;transform:translateY(0);}
+
+  .locked-banner{
+    max-width:1440px;margin:14px auto 0;padding:14px 18px;border-radius:var(--radius-m);
+    background:var(--ink);color:#F3F1E9;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;
+  }
+
+  /* ======================================================================
+     Enhancements — motion, background, modal, feedback (same design tokens)
+  ====================================================================== */
+  html{scroll-behavior:smooth;}
+  :focus-visible{outline:2px solid var(--focus);outline-offset:2px;}
+  .app-header :focus-visible{outline-color:#6FAE8F;}
+
+  /* Fix: arrow should point down when open (RTL) */
+  details[open] .chev{transform:rotate(-90deg);}
+  .chev{display:inline-block;transition:transform .3s cubic-bezier(.2,.8,.2,1);}
+  /* Fix: year label inside collapsed blocks had no styling */
+  .summary-left .dept-year{font-size:11.5px;color:var(--muted);font-family:var(--font-code);margin-top:2px;}
+  /* Fix: banners touched screen edges below 1440px */
+  #lockedBannerHost,#vpBannerHost{padding:0 20px;}
+
+  /* Animated background */
+  #bgCanvas{position:fixed;inset:0;z-index:0;pointer-events:none;display:block;}
+  #lockedBannerHost,#vpBannerHost,.stats-wrap,.main-wrap{position:relative;z-index:1;}
+  .panel,.stat-card,details.dept-block{
+    background:rgba(255,255,255,.93);
+    -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  }
+
+  /* Save status pill */
+  .save-state{
+    display:inline-flex;align-items:center;gap:6px;font-size:11px;color:#B9C4BC;
+    border:1px solid #3B5147;padding:3px 10px;border-radius:20px;margin-inline-start:4px;white-space:nowrap;
+    transition:color .2s ease,border-color .2s ease;
+  }
+  .save-state::before{content:"";width:7px;height:7px;border-radius:50%;background:#6FAE8F;transition:background .2s ease;}
+  .save-state[data-state="saving"]::before{background:#E0B566;animation:pulseDot .9s ease-in-out infinite;}
+  .save-state[data-state="error"]{color:#F0B3AB;border-color:#7A3E37;}
+  .save-state[data-state="error"]::before{background:#E08A80;}
+  .save-state[data-state="local"]::before{background:#9FB3C8;}
+  @keyframes pulseDot{50%{transform:scale(.45);opacity:.5}}
+
+  .brand-mark{position:relative;overflow:hidden;}
+  .brand-mark::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.45) 50%,transparent 65%);
+    transform:translateX(-120%);animation:markShine 5s ease-in-out 1.2s infinite;
+  }
+  @keyframes markShine{0%,70%{transform:translateX(-120%)}100%{transform:translateX(120%)}}
+
+  /* Interactive elements */
+  .btn,.status-btn,.lect-assign-toggle,.nav-item,.lect-remove{
+    transition:background-color .2s ease,border-color .2s ease,color .2s ease,box-shadow .25s ease,transform .2s cubic-bezier(.3,1.6,.5,1);
+  }
+  .btn:active:not(:disabled),.status-btn:active:not(:disabled),.lect-assign-toggle:active:not(:disabled){transform:scale(.94);}
+  .btn-primary{box-shadow:0 1px 0 rgba(255,255,255,.12) inset;}
+  .btn-primary:hover{box-shadow:0 6px 16px -6px rgba(31,74,59,.55);}
+  .btn-ghost-dark:hover{border-color:#6FAE8F;}
+  .btn-danger-solid{background:var(--danger);border-color:#8A3128;color:#fff;}
+  .btn-danger-solid:hover{background:#8A3128;box-shadow:0 6px 16px -6px rgba(169,62,51,.55);}
+
+  .status-btn[data-s="remote"]{--sc:rgba(91,100,114,.5);}
+  .status-btn[data-s="review"]{--sc:rgba(169,112,31,.5);}
+  .status-btn[data-s="onsite"]{--sc:rgba(46,99,80,.5);}
+  .status-btn[data-s="hybrid"]{--sc:rgba(42,111,119,.5);}
+  .status-btn.active{box-shadow:0 4px 12px -4px var(--sc);}
+  .status-btn:hover:not(:disabled):not(.active){background:var(--surface-2);}
+
+  .nav-item{position:relative;}
+  .nav-item::before{
+    content:"";position:absolute;inset-inline-start:0;top:9px;bottom:9px;width:3px;border-radius:3px;
+    background:var(--accent);transform:scaleY(0);transition:transform .3s cubic-bezier(.2,.8,.2,1);
+  }
+  .nav-item.active::before{transform:scaleY(1);}
+  .nav-item:hover:not(.active){transform:translateX(-2px);}
+
+  .nav-bar > span,.dept-progress-line .track>span{
+    background:linear-gradient(90deg,var(--accent-deep),#4F8F74);
+    transition:width .9s cubic-bezier(.2,.8,.2,1);
+  }
+  .search-input:focus,.filter-select:focus{box-shadow:0 0 0 3px rgba(46,99,80,.14);}
+  .search-input{transition:border-color .2s ease,box-shadow .2s ease,background .2s ease;}
+
+  .stat-card{position:relative;overflow:hidden;}
+  .stat-card .num{display:inline-block;transform-origin:right center;}
+  .stat-card .num.bump{animation:numBump .55s cubic-bezier(.3,1.6,.5,1);}
+  @keyframes numBump{40%{transform:scale(1.16)}}
+
+  details.dept-block{transition:box-shadow .3s ease,border-color .3s ease;}
+  details.dept-block[open]{border-color:var(--border);box-shadow:0 8px 24px -14px rgba(24,46,42,.28);}
+  details.dept-block .dept-block-body{overflow:hidden;}
+  details.dept-block summary{transition:background .2s ease;}
+  details.dept-block summary:hover{background:var(--surface-2);}
+
+  .course-card{transition:border-color .25s ease,box-shadow .25s ease;}
+
+  /* Feedback after an action */
+  .fx-flash{animation:fxFlash 1.1s cubic-bezier(.2,.8,.2,1);}
+  @keyframes fxFlash{
+    0%{border-color:var(--fx-color);box-shadow:0 0 0 0 color-mix(in srgb,var(--fx-color) 45%,transparent);background:color-mix(in srgb,var(--fx-color) 9%,var(--surface-2));}
+    100%{border-color:var(--border-soft);box-shadow:0 0 0 16px transparent;background:var(--surface-2);}
+  }
+  .fx-pop{animation:fxPop .5s cubic-bezier(.3,1.6,.5,1);}
+  @keyframes fxPop{0%{transform:scale(.82)}55%{transform:scale(1.08)}100%{transform:scale(1)}}
+
+  .fx-enter > *{animation:riseIn .45s cubic-bezier(.2,.8,.2,1) both;}
+  .fx-enter > *:nth-child(2){animation-delay:.04s}
+  .fx-enter > *:nth-child(3){animation-delay:.08s}
+  .fx-enter > *:nth-child(4){animation-delay:.12s}
+  .fx-enter > *:nth-child(5){animation-delay:.16s}
+  .fx-enter > *:nth-child(n+6){animation-delay:.2s}
+  @keyframes riseIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+  /* One-time load sequence */
+  body.is-booting .stat-card{animation:riseIn .6s cubic-bezier(.2,.8,.2,1) both;}
+  body.is-booting .stat-card:nth-child(2){animation-delay:.05s}
+  body.is-booting .stat-card:nth-child(3){animation-delay:.1s}
+  body.is-booting .stat-card:nth-child(4){animation-delay:.15s}
+  body.is-booting .stat-card:nth-child(5){animation-delay:.2s}
+  body.is-booting .stat-card:nth-child(6){animation-delay:.25s}
+  body.is-booting .nav-panel,body.is-booting .controls-bar{animation:riseIn .65s .2s cubic-bezier(.2,.8,.2,1) both;}
+  body.is-booting #mainContent > *{animation:riseIn .65s .3s cubic-bezier(.2,.8,.2,1) both;}
+  body.is-booting .banner,body.is-booting .locked-banner{animation:riseIn .6s .1s both;}
+
+  .skeleton{
+    height:68px;border-radius:var(--radius-m);
+    background:linear-gradient(90deg,#ECE9E0 25%,#F7F5EF 50%,#ECE9E0 75%);background-size:200% 100%;
+    animation:shimmer 1.2s linear infinite;
+  }
+  @keyframes shimmer{to{background-position:-200% 0}}
+
+  /* Click effects layer */
+  .fx-layer{position:fixed;inset:0;pointer-events:none;z-index:95;overflow:hidden;}
+  .fx-ring{
+    position:absolute;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;
+    border:2px solid var(--c);animation:fxRing .55s cubic-bezier(.2,.7,.3,1) forwards;
+  }
+  .fx-ring.strong{border-width:2px;box-shadow:0 0 18px 2px color-mix(in srgb,var(--c) 40%,transparent);animation-duration:.75s;}
+  .fx-ring.strong::after{content:"";position:absolute;inset:2px;border-radius:50%;background:var(--c);opacity:.35;animation:fxCore .45s ease-out forwards;}
+  @keyframes fxRing{from{transform:scale(.4);opacity:.95}to{transform:scale(4.4);opacity:0}}
+  @keyframes fxCore{to{transform:scale(.1);opacity:0}}
+  .fx-spark{
+    position:absolute;width:5px;height:5px;margin:-2.5px 0 0 -2.5px;border-radius:50%;
+    background:var(--c);animation:fxSpark .65s cubic-bezier(.15,.7,.3,1) forwards;
+  }
+  @keyframes fxSpark{
+    from{transform:rotate(var(--a)) translateX(4px) scale(1);opacity:1}
+    to{transform:rotate(var(--a)) translateX(var(--d)) scale(.15);opacity:0}
+  }
+  .confetti{
+    position:absolute;top:-18px;width:8px;height:14px;border-radius:2px;background:var(--c);
+    animation:confettiFall var(--t) cubic-bezier(.25,.6,.4,1) var(--delay) forwards;opacity:0;
+  }
+  @keyframes confettiFall{
+    0%{transform:translate3d(0,0,0) rotate(0);opacity:1}
+    100%{transform:translate3d(var(--x),108vh,0) rotate(var(--r));opacity:.85}
+  }
+
+  /* Confirmation dialog (replaces blocked confirm()) */
+  .modal-backdrop{
+    position:fixed;inset:0;z-index:80;background:rgba(24,46,42,.42);
+    -webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
+    display:flex;align-items:center;justify-content:center;padding:20px;
+    opacity:0;visibility:hidden;transition:opacity .22s ease,visibility .22s;
+  }
+  .modal-backdrop.open{opacity:1;visibility:visible;}
+  .modal{
+    background:var(--surface);border-radius:var(--radius-l);width:min(440px,100%);
+    padding:22px 22px 18px;box-shadow:0 24px 60px -12px rgba(24,46,42,.45);
+    transform:translateY(16px) scale(.95);transition:transform .35s cubic-bezier(.2,1.25,.3,1);
+  }
+  .modal-backdrop.open .modal{transform:none;}
+  .modal-icon{
+    width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+    font-size:20px;background:var(--accent-tint);color:var(--accent-deep);margin-bottom:12px;
+  }
+  .modal[data-tone="danger"] .modal-icon{background:var(--danger-tint);color:var(--danger);}
+  .modal[data-tone="warn"] .modal-icon{background:var(--review-tint);color:var(--review);}
+  .modal h3{font-size:16px;margin-bottom:6px;}
+  .modal p{margin:0 0 18px;font-size:13.5px;color:var(--ink-soft);}
+  .modal-actions{display:flex;gap:8px;flex-wrap:wrap;}
+
+  /* Drawer */
+  .drawer-overlay{
+    display:block;opacity:0;visibility:hidden;transition:opacity .3s ease,visibility .3s;
+    -webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);
+  }
+  .drawer-overlay.open{opacity:1;visibility:visible;}
+  .drawer{transition:transform .38s cubic-bezier(.2,.9,.2,1);}
+  .drawer-body.animate-in .log-entry{animation:slideIn .4s cubic-bezier(.2,.8,.2,1) both;}
+  .drawer-body.animate-in .log-entry:nth-child(2){animation-delay:.03s}
+  .drawer-body.animate-in .log-entry:nth-child(3){animation-delay:.06s}
+  .drawer-body.animate-in .log-entry:nth-child(4){animation-delay:.09s}
+  .drawer-body.animate-in .log-entry:nth-child(5){animation-delay:.12s}
+  .drawer-body.animate-in .log-entry:nth-child(n+6){animation-delay:.15s}
+  @keyframes slideIn{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:none}}
+
+  /* Toast */
+  .toast{
+    display:flex;align-items:center;gap:10px;padding:10px 14px 12px;border-radius:var(--radius-m);
+    overflow:hidden;max-width:min(420px,calc(100vw - 36px));
+    transform:translateY(16px) scale(.96);
+    transition:opacity .25s ease,transform .4s cubic-bezier(.2,1.3,.3,1);
+  }
+  .toast.show{transform:none;}
+  .toast-icon{
+    width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-weight:700;font-size:12px;flex:none;background:var(--accent);color:#fff;
+  }
+  .toast.t-error .toast-icon{background:var(--danger);}
+  .toast.t-warn .toast-icon{background:var(--review);}
+  .toast.t-info .toast-icon{background:var(--hybrid);}
+  .toast-bar{
+    position:absolute;bottom:0;right:0;height:2px;width:100%;background:#6FAE8F;
+    transform-origin:right;animation:toastBar 2.6s linear forwards;
+  }
+  .toast.t-error .toast-bar{background:#E08A80;}
+  .toast.t-warn .toast-bar{background:#E0B566;}
+  @keyframes toastBar{to{transform:scaleX(0)}}
+
+  .kbd{font-family:var(--font-code);font-size:10.5px;border:1px solid var(--border);border-bottom-width:2px;border-radius:4px;padding:0 5px;color:var(--muted);background:#fff;}
+
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;scroll-behavior:auto !important;}
+  }
+
+  /* ======================================================================
+     Accounts, sign-in, roles
+  ====================================================================== */
+  #appRoot,#authScreen,#statusScreen,#setupScreen,#loadingScreen{display:none;}
+  body[data-screen="app"] #appRoot{display:block;}
+  body[data-screen="auth"] #authScreen,
+  body[data-screen="status"] #statusScreen,
+  body[data-screen="setup"] #setupScreen,
+  body[data-screen="loading"] #loadingScreen{display:flex;}
+
+  .save-state[data-state="live"]::before{background:#6FAE8F;box-shadow:0 0 0 0 rgba(111,174,143,.6);animation:liveRing 2.4s ease-out infinite;}
+  .save-state[data-state="offline"]{color:#C9B9A0;}
+  .save-state[data-state="offline"]::before{background:#948C7C;}
+  @keyframes liveRing{0%{box-shadow:0 0 0 0 rgba(111,174,143,.6)}70%,100%{box-shadow:0 0 0 7px rgba(111,174,143,0)}}
+
+  .gate{min-height:100vh;align-items:center;justify-content:center;padding:28px 16px;position:relative;z-index:1;}
+  .gate-card{
+    width:min(470px,100%);background:rgba(255,255,255,.96);
+    -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+    border:1px solid var(--border-soft);border-radius:20px;overflow:hidden;
+    box-shadow:0 30px 70px -30px rgba(24,46,42,.5);
+    animation:riseIn .6s cubic-bezier(.2,.8,.2,1) both;
+  }
+  .gate-head{background:var(--ink);color:#F3F1E9;padding:20px 22px;display:flex;gap:12px;align-items:center;}
+  .gate-head h1{font-size:15.5px;color:#fff;line-height:1.4;}
+  .gate-head p{margin:3px 0 0;font-size:12px;color:#B9C4BC;}
+  .gate-body{padding:20px 22px 22px;}
+  .gate-body h2{font-size:17px;margin-bottom:4px;}
+  .gate-sub{font-size:13px;color:var(--muted);margin:0 0 16px;}
+  .gate-foot{font-size:11.5px;color:var(--muted);margin-top:16px;line-height:1.75;border-top:1px dashed var(--border);padding-top:12px;}
+  .gate-step{animation:riseIn .35s cubic-bezier(.2,.8,.2,1) both;}
+
+  .seg{display:flex;background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:3px;margin-bottom:16px;gap:3px;}
+  .seg button{flex:1;border:0;background:transparent;padding:8px 10px;border-radius:7px;font-size:13px;color:var(--muted);font-weight:500;transition:background .2s ease,color .2s ease,box-shadow .2s ease;}
+  .seg button.on{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(24,46,42,.12);}
+  .seg button .count-badge{margin-inline-start:4px;}
+
+  .field{display:flex;flex-direction:column;gap:5px;margin-bottom:12px;}
+  .field > label{font-size:12px;color:var(--ink-soft);font-weight:500;}
+  .field .hint{font-size:11px;color:var(--muted);}
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .input{
+    border:1px solid var(--border);border-radius:8px;padding:10px 12px;font-size:14px;
+    background:#fff;width:100%;color:var(--ink);transition:border-color .2s ease,box-shadow .2s ease;
+  }
+  .input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(46,99,80,.14);}
+  .input[readonly]{background:var(--surface-2);color:var(--muted);}
+  .input.ltr{direction:ltr;text-align:left;}
+  .input.invalid{border-color:var(--danger);box-shadow:0 0 0 3px rgba(169,62,51,.12);}
+  .otp-input{font-family:var(--font-code);font-size:26px;letter-spacing:.45em;text-align:center;padding:12px;}
+  .email-ltr{direction:ltr;unicode-bidi:isolate;font-family:var(--font-code);font-size:.95em;}
+
+  .btn-block{width:100%;justify-content:center;padding:11px 14px;font-size:14px;}
+  .btn.loading{pointer-events:none;opacity:.85;}
+  .btn.loading::before{content:"";width:13px;height:13px;border:2px solid currentColor;border-inline-end-color:transparent;border-radius:50%;animation:spin .7s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .link-btn{background:none;border:0;color:var(--accent);padding:0;font-size:12.5px;text-decoration:underline;text-underline-offset:3px;}
+  .link-btn:disabled{color:var(--muted-2);text-decoration:none;cursor:default;}
+  .gate-links{display:flex;justify-content:space-between;gap:10px;margin-top:12px;flex-wrap:wrap;}
+  .btn-hybrid{border-color:#BFD9DC;color:var(--hybrid);background:var(--hybrid-tint);}
+  .btn-hybrid:hover{border-color:var(--hybrid);}
+
+  .form-msg{font-size:12.5px;padding:9px 11px;border-radius:8px;margin-bottom:12px;line-height:1.6;animation:riseIn .3s both;}
+  .form-msg.err{background:var(--danger-tint);color:var(--danger);border:1px solid #E3BEB6;}
+  .form-msg.ok{background:var(--accent-tint);color:var(--accent-deep);border:1px solid #BFDACB;}
+  .form-msg.info{background:var(--hybrid-tint);color:var(--hybrid);border:1px solid #BFD9DC;}
+  .form-msg.warn{background:var(--review-tint);color:#6B4712;border:1px solid #E7D3AC;}
+
+  .status-icon{width:64px;height:64px;border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:30px;margin-bottom:14px;background:var(--review-tint);}
+  .status-icon.bad{background:var(--danger-tint);}
+  .status-icon.wait{animation:breathe 2.4s ease-in-out infinite;}
+  @keyframes breathe{50%{transform:scale(1.06)}}
+  .kv{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:13px;margin:12px 0 4px;background:var(--surface-2);border:1px solid var(--border-soft);border-radius:10px;padding:10px 12px;}
+  .kv dt{color:var(--muted);}
+  .kv dd{margin:0;font-weight:500;}
+
+  .setup-steps{margin:0;padding-inline-start:20px;font-size:13px;line-height:1.9;color:var(--ink-soft);}
+  .setup-steps code{font-family:var(--font-code);font-size:12px;background:var(--surface-2);border:1px solid var(--border-soft);padding:1px 5px;border-radius:4px;direction:ltr;unicode-bidi:isolate;}
+
+  /* Header user */
+  .user-chip{display:flex;align-items:center;gap:8px;padding:4px 4px 4px 12px;border:1px solid #3B5147;border-radius:24px;background:rgba(255,255,255,.04);}
+  .avatar{width:30px;height:30px;border-radius:50%;flex:none;background:linear-gradient(160deg,#4F8F74,var(--accent-deep));display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;color:#fff;}
+  .u-name{font-size:12.5px;color:#fff;line-height:1.25;max-width:170px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .u-role{font-size:10.5px;color:#B9C4BC;max-width:170px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .count-badge{display:inline-block;background:#E0B566;color:#3A2A08;border-radius:10px;padding:0 6px;font-size:11px;font-weight:700;min-width:18px;text-align:center;line-height:18px;}
+  .count-badge.pulse{animation:badgePulse 1.8s ease-in-out infinite;}
+  @keyframes badgePulse{50%{box-shadow:0 0 0 4px rgba(224,181,102,.25)}}
+
+  .banner-warn{background:var(--review-tint);border:1px solid #E7D3AC;color:#6B4712;}
+  .nav-mine{font-size:10.5px;color:var(--hybrid);font-weight:500;}
+  .lect-tag{font-size:10px;padding:1px 6px;border-radius:10px;background:var(--hybrid-tint);color:var(--hybrid);white-space:nowrap;}
+  .self-nom{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px;}
+  .self-nom .hint{font-size:11px;color:var(--muted);}
+  .add-lect-form [data-manual]{display:contents;}
+  .add-lect-form select[name=lpick]{max-width:260px;}
+  .log-foot{font-size:11px;color:var(--muted-2);text-align:center;padding:10px 0 4px;}
+
+  /* Sheet (accounts, my profile) */
+  .sheet-backdrop{
+    position:fixed;inset:0;z-index:75;background:rgba(24,46,42,.42);
+    -webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
+    display:flex;align-items:center;justify-content:center;padding:16px;
+    opacity:0;visibility:hidden;transition:opacity .25s ease,visibility .25s;
+  }
+  .sheet-backdrop.open{opacity:1;visibility:visible;}
+  .sheet{
+    width:min(860px,100%);max-height:min(90vh,920px);display:flex;flex-direction:column;
+    background:var(--surface);border-radius:var(--radius-l);box-shadow:0 30px 70px -20px rgba(24,46,42,.5);
+    transform:translateY(18px) scale(.97);transition:transform .38s cubic-bezier(.2,1.2,.3,1);
+  }
+  .sheet.narrow{width:min(480px,100%);}
+  .sheet-backdrop.open .sheet{transform:none;}
+  .sheet-head{padding:14px 18px;border-bottom:1px solid var(--border-soft);display:flex;justify-content:space-between;align-items:center;gap:10px;}
+  .sheet-head h3{font-size:15.5px;}
+  .sheet-body{overflow:auto;padding:16px 18px 20px;}
+  .sheet-tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px;}
+  .sheet-tools .seg{margin:0;flex:1;min-width:260px;}
+  .sheet-tools .search-input{max-width:240px;}
+
+  .user-card{
+    border:1px solid var(--border-soft);border-radius:var(--radius-m);padding:12px 14px;background:var(--surface-2);
+    display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center;
+  }
+  .user-card + .user-card{margin-top:8px;}
+  .user-card.me{border-color:#BFDACB;}
+  .user-main{min-width:0;flex:1 1 260px;}
+  .user-main strong{font-size:14px;}
+  .user-email{display:block;font-size:12px;color:var(--muted);direction:ltr;text-align:right;unicode-bidi:plaintext;margin-top:1px;}
+  .user-meta{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px;}
+  .user-note{font-size:11.5px;color:var(--danger);margin-top:6px;}
+  .user-actions{display:flex;flex-wrap:wrap;gap:6px;align-items:center;}
+  .user-actions select{border:1px solid var(--border);border-radius:6px;padding:6px 8px;font-size:12px;background:#fff;max-width:200px;}
+  .chip-ok{color:var(--accent-deep);background:var(--accent-tint);border-color:#BFDACB;}
+  .chip-warn{color:var(--review);background:var(--review-tint);border-color:#E7D3AC;}
+  .chip-bad{color:var(--danger);background:var(--danger-tint);border-color:#E3BEB6;}
+  .chip-role{color:var(--hybrid);background:var(--hybrid-tint);border-color:#BFD9DC;}
+  .section-label{font-size:12px;color:var(--muted);font-weight:600;margin:16px 0 8px;}
+
+  .modal textarea{width:100%;min-height:70px;border:1px solid var(--border);border-radius:8px;padding:8px 10px;font-size:13px;margin:-6px 0 14px;resize:vertical;}
+  .modal textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(46,99,80,.14);}
+
+  @media (max-width: 560px){
+    .field-row{grid-template-columns:1fr;}
+    .u-name,.u-role{max-width:110px;}
+    .sheet-tools .search-input{max-width:none;}
+    .user-actions{width:100%;}
+  }
+  @media (max-width: 880px){
+    .main-wrap{grid-template-columns:1fr;}
+    .nav-panel{position:static;max-height:none;}
+    .stats-strip{grid-template-columns:repeat(2,1fr);}
+    .app-header{position:relative;}
+  }
+  @media (max-width: 520px){
+    .brand-text h1{font-size:14.5px;}
+    .kbd{display:none;}
+    #lockedBannerHost,#vpBannerHost,.stats-wrap{padding-left:12px;padding-right:12px;}
+    .main-wrap{padding-left:12px;padding-right:12px;}
+    .dept-actions{align-items:flex-start;}
+  }
+
+  @media print{
+    .app-header,.controls-bar,.drawer,.drawer-overlay,.add-course-toggle-wrap,.status-group button,.lect-remove,.add-lect-form,.nav-panel,.header-note,
+    #bgCanvas,.fx-layer,.modal-backdrop,.sheet-backdrop,.toast,.self-nom,#vpBannerHost{display:none !important;}
+    body{background:#fff;}
+    .panel,.stat-card,details.dept-block{background:#fff !important;backdrop-filter:none !important;box-shadow:none !important;}
+    .main-wrap{grid-template-columns:1fr;padding:0;}
+    details.dept-block{break-inside:avoid;}
+    details.dept-block .dept-block-body{overflow:visible;}
+    *{animation:none !important;transition:none !important;}
+  }
+</style>
+</head>
+<body data-screen="loading">
+
+<canvas id="bgCanvas" aria-hidden="true"></canvas>
+
+<!-- ============================ Loading ============================ -->
+<section class="gate" id="loadingScreen" aria-busy="true">
+  <div class="gate-card" style="width:min(320px,100%)">
+    <div class="gate-body" style="text-align:center;padding:28px">
+      <div class="brand-mark" style="margin:0 auto 14px">PTC</div>
+      <div class="skeleton" style="height:12px;margin-bottom:8px"></div>
+      <div class="skeleton" style="height:12px;width:60%;margin:0 auto"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ Setup needed ============================ -->
+<section class="gate" id="setupScreen">
+  <div class="gate-card" style="width:min(560px,100%)">
+    <div class="gate-head">
+      <div class="brand-mark">PTC</div>
+      <div><h1>اللوحة بحاجة لربطها بقاعدة البيانات</h1><p>خطوة لمرة واحدة من مسؤول النظام</p></div>
+    </div>
+    <div class="gate-body">
+      <ol class="setup-steps">
+        <li>أنشئ مشروعًا في Supabase وشغّل ملف <code>supabase-setup.sql</code> من SQL Editor.</li>
+        <li>من Project Settings ← API انسخ <code>Project URL</code> والمفتاح العام <code>anon / publishable</code>.</li>
+        <li>افتح <code>index.html</code> وضع القيمتين داخل <code>CONFIG</code> في بداية السكربت.</li>
+        <li>اضبط SMTP وقالب البريد كما في ملف <code>SETUP.md</code>.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ Sign in / register ============================ -->
+<section class="gate" id="authScreen">
+  <div class="gate-card">
+    <div class="gate-head">
+      <div class="brand-mark">PTC</div>
+      <div>
+        <h1>لوحة قرار التعليم الحضوري المدمج</h1>
+        <p>كلية فلسطين التقنية – دير البلح · الفصل الدراسي الأول</p>
+      </div>
+    </div>
+    <div class="gate-body" id="authBody"></div>
+  </div>
+</section>
+
+<!-- ============================ Pending / rejected ============================ -->
+<section class="gate" id="statusScreen">
+  <div class="gate-card">
+    <div class="gate-head">
+      <div class="brand-mark">PTC</div>
+      <div><h1>حالة حسابك</h1><p>كلية فلسطين التقنية – دير البلح</p></div>
+    </div>
+    <div class="gate-body" id="statusBody"></div>
+  </div>
+</section>
+
+<!-- ============================ Dashboard ============================ -->
+<div id="appRoot">
+  <header class="app-header">
+    <div class="app-header-row">
+      <div class="brand">
+        <div class="brand-mark">PTC</div>
+        <div class="brand-text">
+          <h1>لوحة قرار التعليم الحضوري المدمج — الفصل الدراسي الأول</h1>
+          <p>كلية فلسطين التقنية – دير البلح · مكتب نائب العميد للشؤون الأكاديمية</p>
+        </div>
+        <span class="save-state" id="saveState" data-state="offline" role="status" aria-live="polite">جارٍ الاتصال…</span>
+      </div>
+      <div class="header-controls" id="headerControls"></div>
+    </div>
+    <div class="header-note" id="headerNote"></div>
+  </header>
+
+  <div id="lockedBannerHost"></div>
+  <div id="vpBannerHost"></div>
+
+  <div class="stats-wrap">
+    <div class="stats-strip" id="statsStrip">
+      <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+      <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+    </div>
+  </div>
+
+  <div class="main-wrap">
+    <aside class="panel nav-panel" id="navPanel" aria-label="الأقسام والبرامج"></aside>
+    <div class="content-col">
+      <div class="panel controls-bar" id="controlsBar"></div>
+      <div id="mainContent"></div>
+    </div>
+  </div>
+
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+  <div class="drawer" id="auditDrawer" role="dialog" aria-label="سجل تتبع القرارات" aria-hidden="true">
+    <div class="drawer-head">
+      <h3>سجل تتبع القرارات</h3>
+      <button class="btn btn-sm" id="closeDrawerBtn">إغلاق ✕</button>
+    </div>
+    <div class="drawer-filter">
+      <select class="filter-select" id="logDeptFilter" style="width:100%" aria-label="تصفية السجل حسب القسم"></select>
+    </div>
+    <div class="drawer-body" id="drawerBody"></div>
+  </div>
+</div>
+
+<!-- ============================ Shared dialogs ============================ -->
+<div class="sheet-backdrop" id="sheetBackdrop">
+  <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+    <div class="sheet-head">
+      <h3 id="sheetTitle"></h3>
+      <button class="btn btn-sm" id="sheetClose">إغلاق ✕</button>
+    </div>
+    <div class="sheet-body" id="sheetBody"></div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal" role="alertdialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalMsg">
+    <div class="modal-icon" id="modalIcon">✓</div>
+    <h3 id="modalTitle"></h3>
+    <p id="modalMsg"></p>
+    <textarea id="modalInput" hidden></textarea>
+    <div class="modal-actions">
+      <button class="btn btn-primary" id="modalOk">متابعة</button>
+      <button class="btn" id="modalCancel">إلغاء</button>
+    </div>
+  </div>
+</div>
+
+<div class="fx-layer" id="fxLayer" aria-hidden="true"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0/dist/umd/supabase.js"></script>
+
+<script>
+/* ============================================================================
+   PTC Hybrid On-Site Decision Dashboard — Semester One
+   v3: Supabase backend · college-email sign-in · role permissions ·
+       VP approval of registrations · realtime sync · server-side audit log
+============================================================================ */
+
+/* ✏️ إعدادات الربط — انسخها من Supabase ← Project Settings ← API */
+const CONFIG = {
+  SUPABASE_URL: 'https://fxjudeyekvjaedyaahee.supabase.co',
+  SUPABASE_KEY: 'sb_publishable_CrrSvdSc6PubhE4wFL8OBw_OZlWZm8Q',
+  ALLOWED_DOMAINS: ['ptcdb.edu.ps'],   // يجب أن يطابق allowed_domains في ملف SQL
+  OTP_LENGTH: 6,                        // طول رمز الدخول في إعدادات Supabase
+};
+
+const STATUS_LABELS = {
+  remote:  { label: 'عن بُعد' },
+  review:  { label: 'قيد المراجعة' },
+  onsite:  { label: 'حضوري بالكامل' },
+  hybrid:  { label: 'هجين (مدمج)' },
+};
+const STATUS_ORDER = ['remote','review','onsite','hybrid'];
+const STATUS_COLORS = { remote:'#5B6472', review:'#A9701F', onsite:'#2E6350', hybrid:'#2A6F77', danger:'#A93E33' };
+const ROLE_LABELS = { vp:'نائب العميد للشؤون الأكاديمية', head:'رئيس قسم', lecturer:'محاضر', viewer:'مشاهد' };
+const RES_LABELS = { gaza:'داخل قطاع غزة', outside:'خارج قطاع غزة' };
+const REDUCED_MOTION = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+const TABLES = ['departments','courses','course_lecturers','app_settings','profiles','audit_log'];
+
+let sb = null;           // Supabase client
+let me = null;           // current user's profile row
+let state = null;        // { departments, auditLog, finalApproval, profiles }
+let view = { type: 'all', deptId: null };
+let filters = { q: '', status: 'all' };
+let expandedAll = false;
+let channel = null;
+let statusChannel = null;
+let bg = null;
+let appStarted = false;
+
+const openBlocks = new Set();
+let pendingFx = null;
+const prevCounts = {};
+const prevBars = {};
+const busy = new Set();
+
+/* ---------------------------- Helpers ---------------------------- */
+
+function esc(s){
+  return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function cssEsc(v){ return (window.CSS && CSS.escape) ? CSS.escape(v) : String(v).replace(/"/g,'\\"'); }
+function fmtTs(v){
+  if(!v) return '';
+  const d = v instanceof Date ? v : new Date(v);
+  if(isNaN(d)) return '';
+  const pad = n => String(n).padStart(2,'0');
+  return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+function groupBy(arr, key){
+  const out = {};
+  arr.forEach(x => { (out[x[key]] = out[x[key]] || []).push(x); });
+  return out;
+}
+function initials(name){
+  const parts = String(name || '').replace(/^(د\.|أ\.|م\.)\s*/,'').trim().split(/\s+/);
+  return ((parts[0] || '?')[0] + (parts[1] ? parts[1][0] : '')).toUpperCase();
+}
+function emailAllowed(email){
+  const m = /^[^\s@]+@([^\s@]+\.[^\s@]+)$/.exec(String(email).trim().toLowerCase());
+  return !!m && CONFIG.ALLOWED_DOMAINS.map(d => d.toLowerCase()).includes(m[1]);
+}
+function isConfigured(){
+  return /^https:\/\//.test(CONFIG.SUPABASE_URL) && !/YOUR-/.test(CONFIG.SUPABASE_URL + CONFIG.SUPABASE_KEY);
+}
+function myLabel(){ return me ? `${me.full_name} (${ROLE_LABELS[me.role] || ''})` : ''; }
+function deptName(id){ const d = state && state.departments.find(x => x.id === id); return d ? d.name : ''; }
+
+const REQ_TYPE_MAP = {
+  'كلية':   { cls:'chip-req-college', label:'متطلب كلية',   title:'مقرر متطلب عام لجميع طلبة الكلية، بصرف النظر عن التخصص' },
+  'برنامج': { cls:'chip-req-program', label:'متطلب برنامج', title:'مقرر متطلب أساسي لبرنامج القسم' },
+  'تخصص':  { cls:'chip-req-major',   label:'متطلب تخصص',   title:'مقرر مرتبط مباشرة بالتخصص الدقيق للطالب' },
+};
+function reqTypeChipHTML(reqType){
+  const info = REQ_TYPE_MAP[reqType] || { cls:'chip-req-other', label: reqType || 'غير محدد', title:'نوع المتطلب غير محدد' };
+  return `<span class="chip ${info.cls}" title="${esc(info.title)}">${esc(info.label)}</span>`;
+}
+
+function findDept(id){ return state.departments.find(d => d.id === id); }
+function findCourse(dept, id){ return dept.courses.find(c => c.id === id); }
+
+function canEditDept(deptId){
+  if(!me || !state || state.finalApproval) return false;
+  if(me.role === 'vp') return true;
+  return me.role === 'head' && me.dept_id === deptId;
+}
+function canNominate(){
+  return !!me && ['lecturer','head'].includes(me.role) && !!state && !state.finalApproval;
+}
+function pendingRegistrations(){
+  return state ? state.profiles.filter(p => p.status === 'pending' && p.email_verified).length : 0;
+}
+
+/* ---------------------------- Feedback ---------------------------- */
+
+function showToastMsg(msg, type){
+  const t = document.getElementById('toast');
+  if(!type) type = /تعذّر|فشل|لا تملك/.test(msg) ? 'error' : 'success';
+  const icons = { success:'✓', error:'!', warn:'!', info:'i' };
+  t.className = 'toast t-' + type;
+  t.innerHTML = `<span class="toast-icon">${icons[type] || 'i'}</span><span class="toast-msg">${esc(msg)}</span><span class="toast-bar"></span>`;
+  void t.offsetWidth;
+  t.classList.add('show');
+  clearTimeout(showToastMsg._t);
+  showToastMsg._t = setTimeout(()=> t.classList.remove('show'), type === 'error' ? 4200 : 2600);
+}
+
+let liveState = 'offline';
+function setSaveIndicator(kind){
+  const el = document.getElementById('saveState');
+  if(!el) return;
+  if(kind === 'live' || kind === 'offline') liveState = kind;
+  const text = {
+    saving:  'جارٍ الحفظ…',
+    saved:   'تم الحفظ',
+    error:   'فشل الحفظ',
+    live:    'متصل — تحديث لحظي',
+    offline: 'غير متصل لحظيًا',
+  }[kind] || '';
+  el.dataset.state = kind;
+  el.textContent = text;
+  clearTimeout(setSaveIndicator._t);
+  if(kind === 'saved' || kind === 'error'){
+    setSaveIndicator._t = setTimeout(()=> setSaveIndicator(liveState), kind === 'saved' ? 1600 : 4000);
+  }
+}
+
+function friendlyError(err){
+  const msg = String((err && (err.message || err.error_description)) || err || '');
+  const code = err && err.code;
+  if(code === 'NO_ROWS') return 'لا تملك صلاحية تنفيذ هذا الإجراء الآن — ربما تغيّرت صلاحياتك أو اعتُمدت الخطة نهائيًا';
+  if(/Failed to fetch|NetworkError|Load failed|network/i.test(msg)) return 'تعذّر الاتصال بالخادم — تحقّق من الإنترنت وأعد المحاولة';
+  if(code === '42501' || /row-level security|permission denied/i.test(msg)) return 'لا تملك صلاحية تنفيذ هذا الإجراء';
+  if(code === '23505') return 'هذا المحاضر مُدرج مسبقًا في المقرر';
+  if(code === '23514') return 'قيمة غير مقبولة — تحقّق من الحقول (الطول أو الصيغة)';
+  if(/JWT|session/i.test(msg) && /expired|missing|invalid/i.test(msg)) return 'انتهت الجلسة — سجّل الدخول مجددًا';
+  if(code === 'P0001' || /[\u0600-\u06FF]/.test(msg)) return msg;
+  return 'تعذّر تنفيذ العملية: ' + msg;
+}
+
+/* Every write goes through here: it checks that a row was really affected
+   (RLS silently filters writes it does not allow) and resyncs on failure. */
+async function dbWrite(run, opts){
+  opts = opts || {};
+  setSaveIndicator('saving');
+  try{
+    const { data, error } = await run();
+    if(error) throw error;
+    if(Array.isArray(data) && data.length === 0) throw { code:'NO_ROWS' };
+    setSaveIndicator('saved');
+    if(opts.success) showToastMsg(opts.success, 'success');
+    scheduleReload(900);
+    return { ok:true, data };
+  }catch(err){
+    setSaveIndicator('error');
+    showToastMsg(friendlyError(err), 'error');
+    scheduleReload(0);
+    return { ok:false, error: err };
+  }
+}
+async function guarded(key, fn){
+  if(busy.has(key)) return;
+  busy.add(key);
+  try{ return await fn(); } finally { busy.delete(key); }
+}
+
+/* Promise-based dialog with optional text input */
+let modalResolve = null;
+function uiConfirm(opts){
+  const { title, message, okText = 'متابعة', cancelText = 'إلغاء', tone = 'primary', input = null } = opts;
+  return new Promise(resolve=>{
+    const bd = document.getElementById('modalBackdrop');
+    const box = bd.querySelector('.modal');
+    const ok = document.getElementById('modalOk');
+    const cancel = document.getElementById('modalCancel');
+    const field = document.getElementById('modalInput');
+    document.getElementById('modalTitle').textContent = title;
+    document.getElementById('modalMsg').textContent = message;
+    document.getElementById('modalIcon').textContent = tone === 'danger' ? '✕' : tone === 'warn' ? '!' : '✓';
+    box.dataset.tone = tone;
+    ok.textContent = okText;
+    cancel.textContent = cancelText;
+    ok.className = 'btn ' + (tone === 'danger' ? 'btn-danger-solid' : 'btn-primary');
+    field.hidden = !input;
+    field.value = '';
+    field.placeholder = input ? (input.placeholder || '') : '';
+    field.maxLength = 300;
+    const lastFocus = document.activeElement;
+    bd.classList.add('open');
+    setTimeout(()=> (input ? field : ok).focus(), 60);
+
+    function close(value){
+      bd.classList.remove('open');
+      ok.removeEventListener('click', onOk);
+      cancel.removeEventListener('click', onCancel);
+      bd.removeEventListener('click', onBackdrop);
+      modalResolve = null;
+      if(lastFocus && document.contains(lastFocus)) lastFocus.focus({ preventScroll:true });
+      resolve(value);
+    }
+    function onOk(){ close(input ? { value: field.value.trim() } : true); }
+    function onCancel(){ close(false); }
+    function onBackdrop(e){ if(e.target === bd) close(false); }
+    ok.addEventListener('click', onOk);
+    cancel.addEventListener('click', onCancel);
+    bd.addEventListener('click', onBackdrop);
+    modalResolve = close;
+  });
+}
+
+/* Generic sheet (accounts / my profile) */
+let sheetKind = null;
+function openSheet(kind){
+  sheetKind = kind;
+  const sheet = document.getElementById('sheet');
+  sheet.classList.toggle('narrow', kind === 'profile');
+  renderSheet();
+  document.getElementById('sheetBackdrop').classList.add('open');
+  setTimeout(()=> document.getElementById('sheetClose').focus(), 80);
+}
+function closeSheet(){
+  sheetKind = null;
+  document.getElementById('sheetBackdrop').classList.remove('open');
+}
+function renderSheet(){
+  if(!sheetKind) return;
+  if(sheetKind === 'users') renderUsersSheet();
+  else if(sheetKind === 'profile') renderProfileSheet();
+}
+
+/* ---------------------------- Counters & bars ---------------------------- */
+
+function countHTML(key, value, suffix){
+  suffix = suffix || '';
+  const from = prevCounts[key] != null ? prevCounts[key] : 0;
+  return `<span data-count="${key}" data-to="${value}" data-suffix="${suffix}">${REDUCED_MOTION ? value : from}${suffix}</span>`;
+}
+function barSpan(key, pct){
+  const from = REDUCED_MOTION ? pct : (prevBars[key] != null ? prevBars[key] : 0);
+  return `<span data-bar="${key}" data-w="${pct}" style="width:${from}%"></span>`;
+}
+function animateCounters(){
+  document.querySelectorAll('#appRoot [data-count]').forEach(el=>{
+    const key = el.dataset.count, to = +el.dataset.to, suffix = el.dataset.suffix || '';
+    const known = prevCounts[key] != null;
+    const from = known ? prevCounts[key] : 0;
+    prevCounts[key] = to;
+    if(from === to || REDUCED_MOTION){ el.textContent = to + suffix; return; }
+    const num = el.closest('.num');
+    if(known && num){ num.classList.remove('bump'); void num.offsetWidth; num.classList.add('bump'); }
+    const dur = known ? 600 : 1100, t0 = performance.now();
+    (function step(t){
+      const p = Math.min(1, Math.max(0, (t - t0) / dur));
+      const e = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(from + (to - from) * e) + suffix;
+      if(p < 1) requestAnimationFrame(step);
+    })(t0);
+  });
+}
+function animateBars(){
+  const els = document.querySelectorAll('#appRoot [data-bar]');
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    els.forEach(el=>{
+      el.style.width = el.dataset.w + '%';
+      prevBars[el.dataset.bar] = +el.dataset.w;
+    });
+  }));
+}
+
+/* ---------------------------- Data layer ---------------------------- */
+
+let publicDepartments = [];
+
+function mapCourse(c, lecturers){
+  return {
+    id: c.id, deptId: c.dept_id, code: c.code, name: c.name, credit: c.credit,
+    reqType: c.req_type, source: c.source, status: c.status, decided: c.decided,
+    justification: c.justification || '',
+    updatedBy: c.updated_by_name || '', updatedAt: fmtTs(c.updated_at),
+    lecturers: (lecturers || []).map(mapLecturer),
+  };
+}
+function mapLecturer(l){
+  return { id: l.id, name: l.name, residency: l.residency, assigned: l.assigned,
+           profileId: l.profile_id, selfNominated: l.self_nominated };
+}
+
+async function fetchAll(){
+  const results = await Promise.all([
+    sb.from('departments').select('*').order('sort_order'),
+    sb.from('courses').select('*').order('sort_order').order('created_at'),
+    sb.from('course_lecturers').select('*').order('created_at'),
+    sb.from('app_settings').select('final_approved,final_approved_by_name,final_approved_at').eq('id', 1).maybeSingle(),
+    sb.from('audit_log').select('ts,actor_label,dept_name,text').order('ts', { ascending:false }).limit(400),
+    sb.from('profiles').select('id,email,full_name,requested_role,role,dept_id,residency,status,email_verified,review_note,created_at,reviewed_at').order('created_at', { ascending:false }),
+  ]);
+  const failed = results.find(r => r.error);
+  if(failed) throw failed.error;
+  const [deps, crs, lects, settings, logs, profs] = results.map(r => r.data);
+  const lectByCourse = groupBy(lects || [], 'course_id');
+  const coursesByDept = groupBy(crs || [], 'dept_id');
+  return {
+    departments: (deps || []).map(d => ({
+      id: d.id, name: d.name, year: d.year,
+      stage1Locked: d.stage1_locked,
+      stage1LockedBy: d.stage1_locked_by_name || '',
+      stage1LockedAt: fmtTs(d.stage1_locked_at),
+      courses: (coursesByDept[d.id] || []).map(c => mapCourse(c, lectByCourse[c.id])),
+    })),
+    auditLog: (logs || []).map(l => ({ ts: fmtTs(l.ts), actor: l.actor_label, deptName: l.dept_name, text: l.text })),
+    finalApproval: settings && settings.final_approved
+      ? { by: settings.final_approved_by_name, ts: fmtTs(settings.final_approved_at) } : null,
+    profiles: profs || [],
+  };
+}
+
+let reloadTimer = null;
+let reloadDeferred = false;
+let reloading = false;
+let lastReloadFailed = false;
+
+function isUserEditing(){
+  const a = document.activeElement;
+  if(!a || !a.matches) return false;
+  if(!a.matches('textarea, select, input:not([type=button]):not([type=submit])')) return false;
+  return !!a.closest('#appRoot, #sheetBackdrop');
+}
+function scheduleReload(ms){
+  if(!appStarted) return;
+  clearTimeout(reloadTimer);
+  reloadTimer = setTimeout(()=>{
+    if(isUserEditing()){ reloadDeferred = true; return; }
+    reloadData();
+  }, ms);
+}
+document.addEventListener('focusout', ()=>{
+  setTimeout(()=>{
+    if(reloadDeferred && !isUserEditing()){ reloadDeferred = false; reloadData(); }
+  }, 60);
+});
+
+async function reloadData(){
+  if(!appStarted || reloading){ if(reloading) scheduleReload(400); return; }
+  reloading = true;
+  try{
+    const next = await fetchAll();
+    lastReloadFailed = false;
+    const mine = next.profiles.find(p => p.id === me.id);
+    if(!mine || mine.status !== 'approved'){
+      reloading = false;
+      await enterWithProfile(mine || null);
+      return;
+    }
+    const roleChanged = mine.role !== me.role || mine.dept_id !== me.dept_id;
+    me = mine;
+    state = next;
+    if(view.type === 'dept' && !findDept(view.deptId)) view = { type:'all' };
+    renderAll();
+    if(sheetKind && !isUserEditing()) renderSheet();
+    if(roleChanged) showToastMsg(`تم تحديث صلاحياتك: ${ROLE_LABELS[me.role]}`, 'info');
+  }catch(err){
+    if(!lastReloadFailed) showToastMsg(friendlyError(err), 'error');
+    lastReloadFailed = true;
+    setSaveIndicator('offline');
+  }finally{
+    reloading = false;
+  }
+}
+
+function subscribeRealtime(){
+  if(channel) sb.removeChannel(channel);
+  channel = sb.channel('ptc-dashboard');
+  TABLES.forEach(t => channel.on('postgres_changes', { event:'*', schema:'public', table:t }, ()=> scheduleReload(350)));
+  channel.subscribe(status=>{
+    if(status === 'SUBSCRIBED') setSaveIndicator('live');
+    else if(['CHANNEL_ERROR','TIMED_OUT','CLOSED'].includes(status)) setSaveIndicator('offline');
+  });
+}
+
+/* ---------------------------- Mutations ---------------------------- */
+
+function setCourseStatus(dept, course, status){
+  if(!canEditDept(dept.id)) return;
+  return guarded('status-'+course.id, async ()=>{
+    course.status = status;
+    course.decided = true;
+    course.updatedBy = myLabel();
+    course.updatedAt = fmtTs(new Date());
+    pendingFx = { type:'course', id: course.id, status };
+    renderAll();
+    await dbWrite(()=> sb.from('courses').update({ status, decided:true }).eq('id', course.id).select('id'),
+                  { success:'تم حفظ حالة المقرر لجميع المستخدمين' });
+  });
+}
+
+function setJustification(dept, course, text){
+  if(!canEditDept(dept.id)) return;
+  text = text.slice(0, 2000);
+  if((course.justification || '') === text) return;
+  course.justification = text;
+  dbWrite(()=> sb.from('courses').update({ justification:text }).eq('id', course.id).select('id'));
+}
+
+function registeredLecturers(){
+  return state.profiles
+    .filter(p => p.status === 'approved' && (p.role === 'lecturer' || p.role === 'head'))
+    .sort((a,b)=> a.full_name.localeCompare(b.full_name, 'ar'));
+}
+
+function addLecturer(dept, course, pick){
+  if(!canEditDept(dept.id)) return;
+  return guarded('addlect-'+course.id, async ()=>{
+    let payload;
+    if(pick.profileId){
+      const p = state.profiles.find(x => x.id === pick.profileId);
+      if(!p){ showToastMsg('اختر محاضرًا من القائمة', 'warn'); return; }
+      if(!p.residency){ showToastMsg(`لم يحدد «${p.full_name}» مكان إقامته بعد`, 'warn'); return; }
+      if(course.lecturers.some(l => l.profileId === p.id)){ showToastMsg(`«${p.full_name}» مُدرج مسبقًا في هذا المقرر`, 'warn'); return; }
+      payload = { course_id: course.id, profile_id: p.id, name: p.full_name, residency: p.residency };
+    } else {
+      const name = (pick.name || '').trim().replace(/\s+/g,' ');
+      if(name.length < 2){ showToastMsg('اكتب اسم المحاضر (حرفان على الأقل)', 'warn'); return; }
+      if(course.lecturers.some(l => !l.profileId && l.name.trim() === name)){ showToastMsg(`«${name}» مُدرج مسبقًا في هذا المقرر`, 'warn'); return; }
+      payload = { course_id: course.id, profile_id: null, name, residency: pick.residency };
+    }
+    const res = await dbWrite(()=> sb.from('course_lecturers').insert(payload).select('*'),
+      { success: payload.residency === 'outside' ? 'أُضيف المحاضر كمستبعد (خارج القطاع)' : 'تمت إضافة المحاضر' });
+    if(res.ok && res.data[0]){
+      course.lecturers.push(mapLecturer(res.data[0]));
+      pendingFx = { type:'course', id: course.id, status: payload.residency === 'outside' ? 'danger' : 'onsite' };
+      renderAll();
+    }
+  });
+}
+
+async function removeLecturer(dept, course, lectId){
+  const lect = course.lecturers.find(l => l.id === lectId);
+  if(!lect) return;
+  const own = lect.profileId === me.id;
+  if(!canEditDept(dept.id) && !(own && !lect.assigned)) return;
+  const ok = await uiConfirm(own && !canEditDept(dept.id) ? {
+    title: 'سحب الترشيح', message: `سيُسحب ترشيحك من مقرر «${course.name}».`, okText: 'سحب الترشيح', tone: 'warn',
+  } : {
+    title: 'إزالة المحاضر', message: `سيُزال «${lect.name}» من مقرر «${course.name}».`, okText: 'إزالة', tone: 'danger',
+  });
+  if(!ok) return;
+  return guarded('rmlect-'+lectId, async ()=>{
+    const res = await dbWrite(()=> sb.from('course_lecturers').delete().eq('id', lectId).select('id'),
+                              { success: own ? 'تم سحب ترشيحك' : 'تمت إزالة المحاضر' });
+    if(res.ok){
+      course.lecturers = course.lecturers.filter(l => l.id !== lectId);
+      pendingFx = { type:'course', id: course.id, status:'danger' };
+      renderAll();
+    }
+  });
+}
+
+function toggleAssign(dept, course, lectId){
+  if(!canEditDept(dept.id)) return;
+  const lect = course.lecturers.find(l => l.id === lectId);
+  if(!lect || lect.residency === 'outside') return;
+  return guarded('assign-'+lectId, async ()=>{
+    const next = !lect.assigned;
+    lect.assigned = next;
+    pendingFx = { type:'course', id: course.id, status: next ? 'onsite' : 'remote' };
+    renderAll();
+    await dbWrite(()=> sb.from('course_lecturers').update({ assigned: next }).eq('id', lectId).select('id'),
+                  { success: next ? `تم تكليف «${lect.name}» حضوريًا` : `أُلغي تكليف «${lect.name}»` });
+  });
+}
+
+async function nominateSelf(course){
+  if(!canNominate()) return;
+  if(!me.residency){
+    showToastMsg('حدّد مكان إقامتك أولًا من «حسابي»', 'warn');
+    openSheet('profile');
+    return;
+  }
+  if(me.residency === 'outside'){
+    const ok = await uiConfirm({
+      title: 'مكان إقامتك خارج القطاع',
+      message: 'سيظهر ترشيحك كمستبعد من التدريس الحضوري وفق قواعد اللوحة. هل تريد المتابعة؟',
+      okText: 'ترشيح رغم ذلك', tone: 'warn',
+    });
+    if(!ok) return;
+  }
+  return guarded('nom-'+course.id, async ()=>{
+    const res = await dbWrite(()=> sb.from('course_lecturers')
+      .insert({ course_id: course.id, profile_id: me.id, name: me.full_name, residency: me.residency }).select('*'),
+      { success: 'تم تسجيل ترشيحك — بانتظار قرار رئيس القسم' });
+    if(res.ok && res.data[0]){
+      course.lecturers.push(mapLecturer(res.data[0]));
+      pendingFx = { type:'course', id: course.id, status:'hybrid' };
+      renderAll();
+    }
+  });
+}
+
+function addCourse(dept, data){
+  if(!canEditDept(dept.id)) return;
+  return guarded('addcourse-'+dept.id, async ()=>{
+    const res = await dbWrite(()=> sb.from('courses').insert({
+      dept_id: dept.id, name: data.name, code: data.code || '—', credit: data.credit || '', req_type: data.reqType || 'غير محدد',
+    }).select('*'), { success:'تمت إضافة المقرر' });
+    if(res.ok && res.data[0]){
+      dept.courses.push(mapCourse(res.data[0], []));
+      openBlocks.add(dept.id);
+      pendingFx = { type:'course', id: res.data[0].id, status:'hybrid', scroll:true };
+      renderAll();
+    }
+  });
+}
+
+async function toggleStage1(dept, lock){
+  if(!canEditDept(dept.id)) return;
+  if(lock){
+    const undecided = dept.courses.filter(c => !c.decided).length;
+    if(undecided > 0){
+      const ok = await uiConfirm({
+        title: 'مقررات لم يُحسم أمرها',
+        message: `لا يزال هناك ${undecided} مقرر(ات) لم يُحسم أمرها في هذا القسم. هل تريد اعتماد قائمة المقررات والمتابعة إلى مرحلة اختيار المحاضرين رغم ذلك؟`,
+        okText: 'اعتماد والمتابعة', tone: 'warn',
+      });
+      if(!ok) return;
+    }
+  } else {
+    const ok = await uiConfirm({
+      title: 'إعادة فتح المرحلة الأولى',
+      message: 'هل تريد إعادة فتح قائمة المقررات لهذا القسم للتعديل؟',
+      okText: 'إعادة الفتح', tone: 'warn',
+    });
+    if(!ok) return;
+  }
+  return guarded('stage-'+dept.id, async ()=>{
+    const res = await dbWrite(()=> sb.from('departments').update({ stage1_locked: lock }).eq('id', dept.id).select('stage1_locked_by_name'),
+      { success: lock ? 'اعتُمدت قائمة المقررات — يمكن الآن اختيار المحاضرين' : 'أُعيد فتح قائمة المقررات' });
+    if(res.ok){
+      dept.stage1Locked = lock;
+      dept.stage1LockedBy = lock && res.data[0] ? res.data[0].stage1_locked_by_name : '';
+      if(lock) pendingFx = { type:'burst' };
+      renderAll();
+    }
+  });
+}
+
+async function finalApprove(){
+  if(!me || me.role !== 'vp' || state.finalApproval) return;
+  const gs = globalStats();
+  const extras = [];
+  if(gs.total - gs.decided > 0) extras.push(`${gs.total - gs.decided} مقرر(ات) لم يُحسم أمرها`);
+  if(gs.needsCoverage) extras.push(`${gs.needsCoverage} مقرر(ات) حضورية/هجينة بلا محاضر مقيم داخل غزة مُعيَّن`);
+  if(gs.deptsTotal - gs.deptsLocked > 0) extras.push(`${gs.deptsTotal - gs.deptsLocked} قسم(أقسام) لم تعتمد قائمتها`);
+  const ok = await uiConfirm({
+    title: 'الاعتماد النهائي لخطة الفصل الأول',
+    message: 'سيتم الاعتماد النهائي لخطة التعليم الحضوري للفصل الدراسي الأول، وستُقفل اللوحة أمام أي تعديل لجميع المستخدمين.'
+      + (extras.length ? ' تنبيه: ' + extras.join('، ') + '.' : '') + ' هل تريد المتابعة؟',
+    okText: 'اعتماد نهائي', tone: extras.length ? 'warn' : 'primary',
+  });
+  if(!ok) return;
+  return guarded('final', async ()=>{
+    const res = await dbWrite(()=> sb.from('app_settings').update({ final_approved:true }).eq('id', 1).select('final_approved_by_name,final_approved_at'),
+                              { success:'تم الاعتماد النهائي للخطة' });
+    if(res.ok){
+      const r = res.data[0] || {};
+      state.finalApproval = { by: r.final_approved_by_name || myLabel(), ts: fmtTs(r.final_approved_at || new Date()) };
+      pendingFx = { type:'confetti' };
+      renderAll();
+    }
+  });
+}
+async function reopenFinal(){
+  if(!me || me.role !== 'vp' || !state.finalApproval) return;
+  const ok = await uiConfirm({
+    title: 'إعادة فتح اللوحة',
+    message: 'هل تريد إعادة فتح اللوحة للتعديل بعد الاعتماد النهائي؟',
+    okText: 'إعادة الفتح', tone: 'warn',
+  });
+  if(!ok) return;
+  return guarded('final', async ()=>{
+    const res = await dbWrite(()=> sb.from('app_settings').update({ final_approved:false }).eq('id', 1).select('id'),
+                              { success:'أُعيد فتح اللوحة للتعديل' });
+    if(res.ok){ state.finalApproval = null; renderAll(); }
+  });
+}
+
+/* Accounts (VP) */
+async function approveUser(uid, role, dept){
+  const p = state.profiles.find(x => x.id === uid);
+  if(!p) return;
+  if(!ROLE_LABELS[role]){ showToastMsg('اختر الصفة', 'warn'); return; }
+  if(role === 'head' && !dept){ showToastMsg('حدّد القسم لرئيس القسم', 'warn'); return; }
+  if(role === 'head'){
+    const other = state.profiles.find(x => x.id !== uid && x.status === 'approved' && x.role === 'head' && x.dept_id === dept);
+    if(other){
+      const ok = await uiConfirm({
+        title: 'يوجد رئيس قسم معتمد',
+        message: `«${other.full_name}» معتمد مسبقًا رئيسًا لقسم «${deptName(dept)}». هل تريد إضافة «${p.full_name}» رئيسًا للقسم نفسه أيضًا؟`,
+        okText: 'اعتماد', tone: 'warn',
+      });
+      if(!ok) return;
+    }
+  }
+  if(role === 'vp' && p.role !== 'vp'){
+    const ok = await uiConfirm({
+      title: 'منح صلاحية نائب العميد',
+      message: `سيحصل «${p.full_name}» على صلاحية كاملة: تعديل كل الأقسام واعتماد الحسابات والاعتماد النهائي.`,
+      okText: 'منح الصلاحية', tone: 'warn',
+    });
+    if(!ok) return;
+  }
+  return guarded('user-'+uid, async ()=>{
+    const res = await dbWrite(()=> sb.from('profiles')
+      .update({ status:'approved', role, dept_id: dept || null, review_note:'' }).eq('id', uid).select('*'),
+      { success: p.status === 'approved' ? `تم تحديث صلاحية «${p.full_name}»` : `تم اعتماد حساب «${p.full_name}»` });
+    if(res.ok && res.data[0]){
+      Object.assign(p, res.data[0]);
+      if(!REDUCED_MOTION) pendingFx = { type:'burst' };
+      renderAll();
+      renderSheet();
+    }
+  });
+}
+async function rejectUser(uid){
+  const p = state.profiles.find(x => x.id === uid);
+  if(!p) return;
+  const r = await uiConfirm({
+    title: `رفض طلب «${p.full_name}»`,
+    message: 'اكتب سبب الرفض (اختياري) — سيظهر لصاحب الطلب عند دخوله.',
+    okText: 'رفض الطلب', tone: 'danger',
+    input: { placeholder: 'مثال: البريد لا يخص أحد أعضاء الهيئة التدريسية' },
+  });
+  if(!r) return;
+  return guarded('user-'+uid, async ()=>{
+    const res = await dbWrite(()=> sb.from('profiles').update({ status:'rejected', review_note: r.value }).eq('id', uid).select('*'),
+                              { success:'تم رفض الطلب' });
+    if(res.ok && res.data[0]){ Object.assign(p, res.data[0]); renderAll(); renderSheet(); }
+  });
+}
+async function suspendUser(uid){
+  const p = state.profiles.find(x => x.id === uid);
+  if(!p) return;
+  const ok = await uiConfirm({
+    title: `تعليق حساب «${p.full_name}»`,
+    message: 'لن يتمكن من الدخول إلى اللوحة، وسيُلغى تكليفه الحضوري في أي مقرر. يمكنك إعادة تفعيله لاحقًا.',
+    okText: 'تعليق الحساب', tone: 'danger',
+  });
+  if(!ok) return;
+  return guarded('user-'+uid, async ()=>{
+    const res = await dbWrite(()=> sb.from('profiles').update({ status:'suspended' }).eq('id', uid).select('*'),
+                              { success:'تم تعليق الحساب' });
+    if(res.ok && res.data[0]){ Object.assign(p, res.data[0]); renderAll(); renderSheet(); }
+  });
+}
+async function saveMyProfile(name, residency){
+  name = name.trim().replace(/\s+/g,' ');
+  if(name.length < 2){ showToastMsg('اكتب اسمك الكامل', 'warn'); return false; }
+  if(!RES_LABELS[residency]){ showToastMsg('حدّد مكان إقامتك', 'warn'); return false; }
+  if(residency === 'outside' && me.residency !== 'outside'){
+    const assignedCount = state.departments.reduce((n,d)=> n + d.courses.reduce((m,c)=> m + c.lecturers.filter(l=>l.profileId===me.id && l.assigned).length, 0), 0);
+    const ok = await uiConfirm({
+      title: 'تغيير مكان الإقامة إلى خارج القطاع',
+      message: 'ستُدرج ترشيحاتك كمستبعدة من التدريس الحضوري' + (assignedCount ? ` وسيُلغى تكليفك في ${assignedCount} مقرر(ات)` : '') + '. هل تريد المتابعة؟',
+      okText: 'حفظ', tone: 'warn',
+    });
+    if(!ok) return false;
+  }
+  const res = await dbWrite(()=> sb.from('profiles').update({ full_name:name, residency }).eq('id', me.id).select('*'),
+                            { success:'تم حفظ بياناتك' });
+  if(res.ok && res.data[0]){
+    me = res.data[0];
+    const idx = state.profiles.findIndex(p => p.id === me.id);
+    if(idx >= 0) state.profiles[idx] = me;
+    renderAll();
+    return true;
+  }
+  return false;
+}
+
+function exportCSV(){
+  const rows = [['القسم','خطة البرنامج','كود المقرر','اسم المقرر','الساعات','نوع المتطلب','الحالة','المبرر','محاضرون مكلّفون','مرشحون غير مكلّفين','مستبعدون (خارج غزة)','آخر تحديث']];
+  state.departments.forEach(d => d.courses.forEach(c => rows.push([
+    d.name, d.year, c.code, c.name, c.credit, c.reqType,
+    c.decided ? STATUS_LABELS[c.status].label : 'لم يُحسم',
+    c.justification,
+    c.lecturers.filter(l=>l.assigned).map(l=>l.name).join('، '),
+    c.lecturers.filter(l=>!l.assigned && l.residency==='gaza').map(l=>l.name).join('، '),
+    c.lecturers.filter(l=>l.residency==='outside').map(l=>l.name).join('، '),
+    c.updatedAt ? `${c.updatedBy} — ${c.updatedAt}` : '',
+  ])));
+  const csv = '\uFEFF' + rows.map(r => r.map(v => `"${String(v == null ? '' : v).replace(/"/g,'""')}"`).join(',')).join('\r\n');
+  try{
+    const url = URL.createObjectURL(new Blob([csv], { type:'text/csv;charset=utf-8' }));
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `ptc-s1-onsite-${fmtTs(new Date()).slice(0,10)}.csv`;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url), 1500);
+    showToastMsg('تم تصدير الملخص كملف CSV', 'success');
+  }catch(e){
+    showToastMsg('تعذّر التصدير في هذا المتصفح — استخدم «طباعة الملخص»', 'error');
+  }
+}
+
+/* ---------------------------- Stats ---------------------------- */
+
+function deptStats(dept){
+  const total = dept.courses.length;
+  const decided = dept.courses.filter(c => c.decided).length;
+  const count = s => dept.courses.filter(c => c.status === s && c.decided).length;
+  return { total, decided, onsite: count('onsite'), hybrid: count('hybrid'), review: count('review'), remote: count('remote'),
+           pct: total ? Math.round(decided/total*100) : 0 };
+}
+function globalStats(){
+  let total=0, decided=0, onsite=0, hybrid=0, review=0, remote=0;
+  let excludedLect=0, assignedLect=0, needsCoverage=0, deptsLocked=0;
+  state.departments.forEach(dept=>{
+    const s = deptStats(dept);
+    total+=s.total; decided+=s.decided; onsite+=s.onsite; hybrid+=s.hybrid; review+=s.review; remote+=s.remote;
+    if(dept.stage1Locked) deptsLocked++;
+    dept.courses.forEach(c=>{
+      c.lecturers.forEach(l=>{
+        if(l.residency==='outside') excludedLect++;
+        if(l.assigned) assignedLect++;
+      });
+      if(c.decided && (c.status==='onsite'||c.status==='hybrid')){
+        if(!c.lecturers.some(l=>l.assigned && l.residency==='gaza')) needsCoverage++;
+      }
+    });
+  });
+  return { total, decided, onsite, hybrid, review, remote,
+    pct: total ? Math.round(decided/total*100) : 0,
+    excludedLect, assignedLect, needsCoverage,
+    deptsLocked, deptsTotal: state.departments.length };
+}
+
+/* ---------------------------- Rendering ---------------------------- */
+
+function renderAll(){
+  if(!state || !me) return;
+  renderHeaderControls();
+  renderBanners();
+  renderStats();
+  renderNav();
+  renderControlsBar();
+  renderMain();
+  renderLogFilter();
+  if(document.getElementById('auditDrawer').classList.contains('open')) renderDrawerBody();
+  animateBars();
+  animateCounters();
+  applyPendingFx();
+}
+
+function renderHeaderControls(){
+  const el = document.getElementById('headerControls');
+  const pend = pendingRegistrations();
+  const roleLine = ROLE_LABELS[me.role] + (me.role === 'head' && me.dept_id ? ' — ' + deptName(me.dept_id) : '');
+  el.innerHTML = `
+    <button class="user-chip" id="profileBtn" title="حسابي" style="cursor:pointer">
+      <span style="text-align:right">
+        <span class="u-name" style="display:block">${esc(me.full_name)}</span>
+        <span class="u-role" style="display:block">${esc(roleLine)}</span>
+      </span>
+      <span class="avatar" aria-hidden="true">${esc(initials(me.full_name))}</span>
+    </button>
+    ${me.role === 'vp' ? `<button class="btn btn-ghost-dark btn-sm" id="usersBtn">👥 الحسابات ${pend ? `<span class="count-badge pulse">${pend}</span>` : ''}</button>` : ''}
+    <button class="btn btn-ghost-dark btn-sm" id="refreshBtn">🔄 تحديث</button>
+    <button class="btn btn-ghost-dark btn-sm" id="openLogBtn">📋 سجل التتبع</button>
+    <button class="btn btn-ghost-dark btn-sm" id="exportBtn">⬇️ CSV</button>
+    <button class="btn btn-ghost-dark btn-sm" id="printBtn">🖨️ طباعة</button>
+    <button class="btn btn-ghost-dark btn-sm" id="signOutBtn">خروج</button>
+  `;
+  document.getElementById('profileBtn').addEventListener('click', ()=> openSheet('profile'));
+  const ub = document.getElementById('usersBtn');
+  if(ub) ub.addEventListener('click', ()=> openSheet('users'));
+  document.getElementById('refreshBtn').addEventListener('click', async ()=>{
+    await reloadData();
+    if(!lastReloadFailed) showToastMsg('تم تحديث البيانات', 'info');
+  });
+  document.getElementById('openLogBtn').addEventListener('click', openDrawer);
+  document.getElementById('exportBtn').addEventListener('click', exportCSV);
+  document.getElementById('printBtn').addEventListener('click', printSummary);
+  document.getElementById('signOutBtn').addEventListener('click', signOut);
+
+  const note = document.getElementById('headerNote');
+  if(state.finalApproval){
+    note.textContent = 'تنبيه: تم الاعتماد النهائي لهذه الخطة — اللوحة للعرض فقط حاليًا.';
+  } else if(me.role === 'vp'){
+    note.textContent = 'أنت المسؤول عن اللوحة: تعتمد حسابات الموظفين، وتعدّل جميع الأقسام، وتصدر الاعتماد النهائي.';
+  } else if(me.role === 'head'){
+    note.textContent = `رئيس قسم «${deptName(me.dept_id)}»: تعدّل مقررات قسمك وتختار محاضريه، وتطّلع على بقية الأقسام.`;
+  } else if(me.role === 'lecturer'){
+    note.textContent = 'محاضر: تطّلع على الخطة وترشّح نفسك للمقررات الحضورية بعد اعتماد قوائمها، وقرار التكليف لرئيس القسم.';
+  } else {
+    note.textContent = 'صلاحية مشاهدة فقط.';
+  }
+}
+
+let printSnapshot = null;
+function printSummary(){
+  printSnapshot = { view: { ...view }, filters: { ...filters }, open: new Set(openBlocks) };
+  view = { type:'all' };
+  filters = { q:'', status:'all' };
+  expandedAll = true;
+  renderAll();
+  setTimeout(()=>{
+    document.querySelectorAll('details.dept-block').forEach(d=>d.open=true);
+    window.print();
+  }, 80);
+}
+window.addEventListener('afterprint', ()=>{
+  if(!printSnapshot) return;
+  view = printSnapshot.view;
+  filters = printSnapshot.filters;
+  openBlocks.clear();
+  printSnapshot.open.forEach(id=>openBlocks.add(id));
+  printSnapshot = null;
+  expandedAll = false;
+  renderAll();
+});
+
+function renderBanners(){
+  const lockedHost = document.getElementById('lockedBannerHost');
+  if(state.finalApproval){
+    lockedHost.innerHTML = `
+      <div class="locked-banner">
+        <div>🔒 تم الاعتماد النهائي لخطة التعليم الحضوري المدمج للفصل الدراسي الأول بتاريخ <strong>${esc(state.finalApproval.ts)}</strong> من قبل <strong>${esc(state.finalApproval.by)}</strong>.</div>
+        ${me.role==='vp' ? `<button class="btn btn-sm" id="reopenFinalBtn" style="background:#fff;">إعادة فتح للتعديل</button>` : ''}
+      </div>`;
+    const b = document.getElementById('reopenFinalBtn');
+    if(b) b.addEventListener('click', reopenFinal);
+  } else {
+    lockedHost.innerHTML = '';
+  }
+
+  const host = document.getElementById('vpBannerHost');
+  let html = '';
+  if(['lecturer','head'].includes(me.role) && !me.residency && !state.finalApproval){
+    html += `<div class="banner banner-warn">
+      <div>📍 لم تحدد مكان إقامتك بعد — مطلوب للترشّح أو التكليف بالتدريس الحضوري.</div>
+      <button class="btn btn-sm" data-open-profile>تحديد مكان الإقامة</button>
+    </div>`;
+  }
+  if(!state.finalApproval && me.role==='vp'){
+    const gs = globalStats();
+    const pend = pendingRegistrations();
+    html += `<div class="banner banner-vp">
+      <div>جاهزية القرار: <strong>${gs.decided} من ${gs.total}</strong> مقررًا محسوم (${gs.pct}%) · <strong>${gs.deptsLocked} من ${gs.deptsTotal}</strong> أقسام اعتمدت قائمة مقرراتها${gs.needsCoverage ? ` · <strong>${gs.needsCoverage}</strong> مقرر حضوري بلا محاضر مُعيَّن` : ''}.</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        ${pend ? `<button class="btn btn-sm" data-open-users>👥 ${pend} طلب تسجيل بانتظارك</button>` : ''}
+        <button class="btn btn-primary btn-sm" id="finalApproveBtn">✅ الاعتماد النهائي لخطة الفصل الأول</button>
+      </div>
+    </div>`;
+  }
+  host.innerHTML = html;
+  const fb = document.getElementById('finalApproveBtn');
+  if(fb) fb.addEventListener('click', finalApprove);
+  host.querySelectorAll('[data-open-profile]').forEach(b => b.addEventListener('click', ()=> openSheet('profile')));
+  host.querySelectorAll('[data-open-users]').forEach(b => b.addEventListener('click', ()=> openSheet('users')));
+}
+
+function renderStats(){
+  const gs = globalStats();
+  document.getElementById('statsStrip').innerHTML = `
+    <div class="stat-card"><div class="num">${countHTML('total', gs.total)}</div><div class="lbl">إجمالي مقررات الفصل الأول</div></div>
+    <div class="stat-card accent"><div class="num">${countHTML('pct', gs.pct, '%')}</div><div class="lbl">نسبة إنجاز القرار (${gs.decided}/${gs.total})</div></div>
+    <div class="stat-card accent"><div class="num">${countHTML('onsite', gs.onsite)}</div><div class="lbl">مقررات حضورية بالكامل</div></div>
+    <div class="stat-card hybrid"><div class="num">${countHTML('hybrid', gs.hybrid)}</div><div class="lbl">مقررات هجينة (مدمجة)</div></div>
+    <div class="stat-card review"><div class="num">${countHTML('review', gs.review)}</div><div class="lbl">قيد المراجعة</div></div>
+    <div class="stat-card danger"><div class="num">${countHTML('excluded', gs.excludedLect)}</div><div class="lbl">محاضرون مستبعدون (خارج غزة)</div></div>
+  `;
+}
+
+function renderNav(){
+  const el = document.getElementById('navPanel');
+  const scrollTop = el.scrollTop;
+  const gs = globalStats();
+  let html = `<div class="nav-title">الأقسام والبرامج (${state.departments.length})</div>`;
+  html += `<div class="nav-item all-item ${view.type==='all'?'active':''}" data-nav="all" role="button" tabindex="0">
+      <div class="nav-row1"><span class="nav-name">📚 عرض جميع الأقسام</span><span class="nav-count">${gs.decided}/${gs.total}</span></div>
+      <div class="nav-bar">${barSpan('nav-all', gs.pct)}</div>
+    </div>`;
+  state.departments.forEach(d=>{
+    const s = deptStats(d);
+    const active = view.type==='dept' && view.deptId===d.id;
+    const mine = me.dept_id === d.id && me.role === 'head';
+    html += `<div class="nav-item ${active?'active':''}" data-nav="dept" data-id="${esc(d.id)}" role="button" tabindex="0">
+      <div class="nav-row1"><span class="nav-name">${esc(d.name)}</span><span class="nav-count">${s.decided}/${s.total}</span></div>
+      <div class="nav-bar">${barSpan('nav-'+d.id, s.pct)}</div>
+      ${mine ? '<span class="nav-mine">★ قسمك — صلاحية التعديل</span>' : ''}
+      ${d.stage1Locked ? '<span class="nav-lock-flag">✅ اعتُمدت قائمة المقررات</span>' : ''}
+    </div>`;
+  });
+  el.innerHTML = html;
+  el.scrollTop = scrollTop;
+  el.querySelectorAll('.nav-item').forEach(item=>{
+    const go = ()=>{
+      const next = item.dataset.nav==='all' ? { type:'all' } : { type:'dept', deptId: item.dataset.id };
+      const changed = next.type !== view.type || next.deptId !== view.deptId;
+      view = next;
+      filters = { q:'', status:'all' };
+      if(changed) pendingFx = { type:'view', scrollTop:true };
+      renderAll();
+    };
+    item.addEventListener('click', go);
+    item.addEventListener('keydown', e=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); go(); } });
+  });
+}
+
+let searchTimer = null;
+function renderControlsBar(){
+  const el = document.getElementById('controlsBar');
+  el.innerHTML = `
+    <input class="search-input" id="searchInput" type="search" placeholder="ابحث باسم المقرر أو الكود أو المحاضر…" value="${esc(filters.q)}" aria-label="بحث في المقررات">
+    <span class="kbd" title="اضغط / للانتقال إلى البحث">/</span>
+    <select class="filter-select" id="statusFilter" aria-label="تصفية حسب الحالة">
+      <option value="all" ${filters.status==='all'?'selected':''}>كل الحالات</option>
+      <option value="remote" ${filters.status==='remote'?'selected':''}>عن بُعد</option>
+      <option value="review" ${filters.status==='review'?'selected':''}>قيد المراجعة</option>
+      <option value="onsite" ${filters.status==='onsite'?'selected':''}>حضوري بالكامل</option>
+      <option value="hybrid" ${filters.status==='hybrid'?'selected':''}>هجين</option>
+      <option value="undecided" ${filters.status==='undecided'?'selected':''}>لم يُبدأ به بعد</option>
+      <option value="uncovered" ${filters.status==='uncovered'?'selected':''}>حضوري بلا محاضر مُعيَّن</option>
+      ${canNominate() ? `<option value="open" ${filters.status==='open'?'selected':''}>مفتوح للترشّح</option>` : ''}
+    </select>
+  `;
+  document.getElementById('searchInput').addEventListener('input', e=>{
+    filters.q = e.target.value;
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(()=>{ renderMain(); animateBars(); }, 140);
+  });
+  document.getElementById('statusFilter').addEventListener('change', e=>{
+    filters.status = e.target.value;
+    renderMain(); animateBars();
+    const main = document.getElementById('mainContent');
+    main.classList.remove('fx-enter');
+    void main.offsetWidth;
+    if(!REDUCED_MOTION) main.classList.add('fx-enter');
+  });
+}
+
+function courseOpenForLecturers(dept, c){
+  return dept.stage1Locked && c.decided && (c.status === 'onsite' || c.status === 'hybrid');
+}
+function courseMatchesFilter(c, dept){
+  const f = filters.status;
+  if(f==='undecided' && c.decided) return false;
+  if(STATUS_LABELS[f] && (c.status!==f || !c.decided)) return false;
+  if(f==='uncovered' && !(c.decided && (c.status==='onsite'||c.status==='hybrid') && !c.lecturers.some(l=>l.assigned && l.residency==='gaza'))) return false;
+  if(f==='open' && !(dept && courseOpenForLecturers(dept, c) && !c.lecturers.some(l=>l.profileId===me.id))) return false;
+  if(filters.q.trim()){
+    const q = filters.q.trim().toLowerCase();
+    const hay = [c.name, c.code].concat(c.lecturers.map(l=>l.name)).join(' ').toLowerCase();
+    if(!hay.includes(q)) return false;
+  }
+  return true;
+}
+function filtersActive(){ return !!(filters.q.trim() || filters.status!=='all'); }
+
+function renderMain(){
+  const host = document.getElementById('mainContent');
+  if(view.type==='dept'){
+    const dept = findDept(view.deptId);
+    if(!dept){ host.innerHTML = `<div class="panel empty-state">القسم غير موجود.</div>`; return; }
+    host.innerHTML = deptPanelHTML(dept);
+    wireDeptPanel(dept, host);
+  } else {
+    let html = '';
+    state.departments.forEach(dept=>{
+      const visible = dept.courses.filter(c => courseMatchesFilter(c, dept));
+      if(filtersActive() && visible.length===0) return;
+      html += deptBlockHTML(dept);
+    });
+    if(!html) html = `<div class="panel empty-state">لا توجد مقررات مطابقة لمعايير البحث الحالية.</div>`;
+    host.innerHTML = html;
+    state.departments.forEach(dept=>{
+      const wrap = host.querySelector(`[data-dept-block="${cssEsc(dept.id)}"]`);
+      if(wrap){ wireDeptPanel(dept, wrap); wireDetails(wrap, dept.id); }
+    });
+  }
+}
+
+function wireDetails(d, id){
+  const summary = d.querySelector('summary');
+  const body = d.querySelector('.dept-block-body');
+  summary.addEventListener('click', e=>{
+    e.preventDefault();
+    if(d.dataset.animating) return;
+    const willOpen = !d.open;
+    if(willOpen) openBlocks.add(id); else openBlocks.delete(id);
+    if(REDUCED_MOTION || !body.animate){ d.open = willOpen; return; }
+    d.dataset.animating = '1';
+    if(willOpen){
+      d.open = true;
+      const h = body.scrollHeight;
+      const a = body.animate([{ height:'0px', opacity:0 }, { height:h+'px', opacity:1 }], { duration:360, easing:'cubic-bezier(.2,.8,.2,1)' });
+      a.onfinish = a.oncancel = ()=>{ delete d.dataset.animating; };
+    } else {
+      const h = body.scrollHeight;
+      const a = body.animate([{ height:h+'px', opacity:1 }, { height:'0px', opacity:0 }], { duration:240, easing:'cubic-bezier(.4,0,.8,.4)', fill:'forwards' });
+      a.onfinish = ()=>{ d.open = false; a.cancel(); delete d.dataset.animating; };
+    }
+  });
+}
+
+function deptBlockHTML(dept){
+  const s = deptStats(dept);
+  const isOpen = expandedAll || openBlocks.has(dept.id) || filtersActive();
+  return `
+  <details class="dept-block" data-dept-block="${esc(dept.id)}" ${isOpen?'open':''}>
+    <summary>
+      <div class="summary-row">
+        <div class="summary-left">
+          <span class="chev" aria-hidden="true">◀</span>
+          <div>
+            <strong>${esc(dept.name)}</strong>
+            <div class="dept-year">خطة ${esc(dept.year)}</div>
+          </div>
+        </div>
+        <div class="summary-mini">
+          <span class="mini-stat">${s.decided}/${s.total} محسوم</span>
+          <span class="mini-stat">حضوري ${s.onsite} · هجين ${s.hybrid} · مراجعة ${s.review}</span>
+          ${dept.stage1Locked ? `<span class="stage-flag locked">✅ اعتُمدت المقررات</span>` : `<span class="stage-flag open">⏳ لم تُعتمد بعد</span>`}
+        </div>
+      </div>
+    </summary>
+    <div class="dept-block-body">
+      ${deptPanelInnerHTML(dept)}
+    </div>
+  </details>`;
+}
+
+function deptPanelHTML(dept){
+  return `<div class="panel">
+    ${deptHeaderHTML(dept)}
+    ${deptPanelInnerHTML(dept)}
+  </div>`;
+}
+
+function deptHeaderHTML(dept){
+  const s = deptStats(dept);
+  const editable = canEditDept(dept.id);
+  return `
+  <div class="dept-head">
+    <div>
+      <h2>${esc(dept.name)}</h2>
+      <div class="dept-year">خطة البرنامج: ${esc(dept.year)} · الفصل الدراسي الأول</div>
+      <div class="dept-progress-line">
+        <div class="track">${barSpan('head-'+dept.id, s.pct)}</div>
+        <span class="txt">${s.decided} من ${s.total} مقررًا محسوم (${s.pct}%)</span>
+      </div>
+    </div>
+    <div class="dept-actions">
+      ${dept.stage1Locked
+        ? `<span class="stage-flag locked">✅ اعتُمدت قائمة المقررات${dept.stage1LockedBy ? ' — ' + esc(dept.stage1LockedBy) : ''}</span>
+           ${editable ? `<button class="btn btn-sm" data-action="unlock-stage1">إعادة فتح المرحلة الأولى</button>` : ''}`
+        : `<span class="stage-flag open">⏳ المرحلة الأولى: اختيار المقررات</span>
+           ${editable ? `<button class="btn btn-primary btn-sm" data-action="lock-stage1">اعتماد قائمة المقررات ➜ اختيار المحاضرين</button>` : ''}`
+      }
+    </div>
+  </div>`;
+}
+
+function deptPanelInnerHTML(dept){
+  const editable = canEditDept(dept.id);
+  const courses = dept.courses.filter(c => courseMatchesFilter(c, dept));
+  const cardsHTML = courses.length
+    ? courses.map(c => courseCardHTML(dept, c, editable)).join('')
+    : `<div class="empty-state">لا توجد مقررات مطابقة لمعايير البحث في هذا القسم.</div>`;
+  return `
+    <div class="course-list">${cardsHTML}</div>
+    <div class="add-course-toggle-wrap">
+      ${editable ? `<button class="btn btn-sm" data-action="toggle-add-course" aria-expanded="false">+ إضافة مقرر غير مدرج بالخطة</button>
+      <div class="add-course-form" data-add-course-form style="display:none;margin-top:10px;">
+        <div class="f-group"><label>اسم المقرر *</label><input type="text" name="cname" maxlength="200" placeholder="مثال: مقدمة في أمن المعلومات"></div>
+        <div class="f-group"><label>كود المقرر</label><input type="text" name="ccode" maxlength="30" placeholder="اختياري" style="width:110px;" dir="ltr"></div>
+        <div class="f-group"><label>الساعات المعتمدة</label><input type="number" min="0" max="12" step="1" name="ccredit" placeholder="3" style="width:70px;"></div>
+        <div class="f-group"><label>نوع المتطلب</label>
+          <select name="creqtype"><option value="كلية">متطلب كلية</option><option value="برنامج">متطلب برنامج</option><option value="تخصص">متطلب تخصص</option><option value="غير محدد">غير محدد</option></select>
+        </div>
+        <button class="btn btn-primary btn-sm" data-action="submit-add-course">إضافة</button>
+        <button class="btn btn-sm" data-action="cancel-add-course">إلغاء</button>
+      </div>` : ''}
+    </div>
+  `;
+}
+
+function courseCardHTML(dept, c, editable){
+  const showJustify = c.status==='onsite' || c.status==='hybrid';
+  const showLecturers = c.decided && showJustify;
+  const needsCoverage = showLecturers && !c.lecturers.some(l=>l.assigned && l.residency==='gaza');
+  const iAmListed = c.lecturers.some(l => l.profileId === me.id);
+
+  let lecturerSection = '';
+  if(!dept.stage1Locked){
+    lecturerSection = showJustify ? `<div class="lecturer-box"><div class="lecturer-hint">🔒 ستُتاح إضافة المحاضرين والترشّح بعد اعتماد قائمة مقررات القسم (المرحلة الأولى).</div></div>` : '';
+  } else if(showLecturers){
+    const chips = c.lecturers.map(l=>{
+      const eligible = l.residency==='gaza';
+      const own = l.profileId === me.id;
+      const canRemove = editable || (own && !l.assigned && !state.finalApproval);
+      return `<span class="lect-chip ${eligible?'eligible':'excluded'}">
+        <span class="lect-name">${esc(l.name)}${own ? ' (أنت)' : ''}</span>
+        ${l.profileId ? `<span class="lect-tag" title="حساب مسجّل في النظام">${l.selfNominated ? 'ترشيح ذاتي' : '✓ مسجّل'}</span>` : ''}
+        <span class="lect-badge">${eligible?'داخل غزة':'مستبعد — خارج القطاع'}</span>
+        <button class="lect-assign-toggle ${l.assigned?'assigned':''}" ${eligible && editable?'':'disabled'} data-action="toggle-assign" data-lect="${esc(l.id)}">${l.assigned?'✓ مكلَّف حضوريًا':(editable?'تعيين للحضور':'بانتظار القرار')}</button>
+        ${canRemove?`<button class="lect-remove" data-action="remove-lect" data-lect="${esc(l.id)}" title="${own && !editable ? 'سحب ترشيحي' : 'إزالة'}" aria-label="إزالة ${esc(l.name)}">✕</button>`:''}
+      </span>`;
+    }).join('');
+
+    let selfNom = '';
+    if(canNominate() && !iAmListed){
+      selfNom = `<div class="self-nom">
+        <button class="btn btn-sm btn-hybrid" data-action="nominate-self">🙋 ترشيح نفسي للتدريس الحضوري</button>
+        ${!me.residency ? '<span class="hint">يتطلب تحديد مكان إقامتك أولًا</span>' : ''}
+      </div>`;
+    }
+
+    let addForm = '';
+    if(editable){
+      const regs = registeredLecturers().filter(p => !c.lecturers.some(l => l.profileId === p.id));
+      const opts = regs.map(p => `<option value="${esc(p.id)}" ${p.residency ? '' : 'disabled'}>${esc(p.full_name)} — ${p.residency ? RES_LABELS[p.residency] : 'لم يحدد الإقامة'}</option>`).join('');
+      addForm = `
+        <div class="add-lect-form" data-add-lect-form>
+          <select name="lpick" aria-label="اختيار المحاضر">
+            ${regs.length ? `<option value="">اختر محاضرًا مسجّلًا…</option>${opts}` : ''}
+            <option value="__manual" ${regs.length ? '' : 'selected'}>➕ محاضر غير مسجّل في النظام</option>
+          </select>
+          <span data-manual>
+            <input type="text" name="lname" maxlength="120" placeholder="اسم المحاضر" aria-label="اسم المحاضر">
+            <select name="lresidency" aria-label="مكان الإقامة">
+              <option value="gaza">يقيم داخل قطاع غزة</option>
+              <option value="outside">يقيم خارج قطاع غزة</option>
+            </select>
+          </span>
+          <button class="btn btn-sm" data-action="add-lect">إضافة محاضر</button>
+          <span class="residency-hint" data-residency-hint></span>
+        </div>`;
+    }
+
+    lecturerSection = `
+      <div class="lecturer-box">
+        <div class="lecturer-box-title">👥 المحاضرون المرشّحون للتدريس الحضوري</div>
+        ${needsCoverage ? `<div class="coverage-warn">⚠ لا يوجد بعد محاضر مقيم داخل غزة مُعيَّن لتغطية هذا المقرر حضوريًا.</div>`:''}
+        <div class="lecturer-chips">${chips || '<span class="lecturer-hint">لم يُدرج أي محاضر بعد.</span>'}</div>
+        ${selfNom}
+        ${addForm}
+      </div>`;
+  }
+
+  return `
+  <div class="course-card" data-course="${esc(c.id)}">
+    <div class="course-top">
+      <span class="chip chip-code">${esc(c.code)}</span>
+      ${reqTypeChipHTML(c.reqType)}
+      <span class="chip">${esc(c.credit)} س.م.</span>
+      ${c.source==='manual' ? `<span class="chip chip-manual">مقرر مُضاف يدويًا</span>`:''}
+      ${!c.decided ? `<span class="undecided-flag">لم يُبدأ به بعد</span>`:''}
+    </div>
+    <div class="course-name">${esc(c.name)}</div>
+    <div class="status-group" role="group" aria-label="حالة المقرر">
+      ${STATUS_ORDER.map(s=>`<button class="status-btn ${c.status===s && c.decided?'active':''}" data-s="${s}" ${editable?'':'disabled'} data-action="set-status" data-status="${s}" aria-pressed="${c.status===s && c.decided}"><span class="dot"></span>${STATUS_LABELS[s].label}</button>`).join('')}
+    </div>
+    ${showJustify ? `
+    <div class="justify-wrap">
+      <label>المبرر (متطلبات مختبر / تجهيزات / أخرى)</label>
+      <textarea ${editable?'':'disabled'} maxlength="2000" data-action="justify-input" placeholder="${editable ? 'اذكر سبب الحاجة للحضور الفعلي...' : 'لم يُكتب مبرر'}">${esc(c.justification)}</textarea>
+    </div>`:''}
+    <div class="meta-line">${c.decided ? `آخر تحديث: ${esc(c.updatedBy)} — ${esc(c.updatedAt)}` : 'لم يُتخذ قرار بشأن هذا المقرر بعد.'}</div>
+    ${lecturerSection}
+  </div>`;
+}
+
+function wireDeptPanel(dept, root){
+  const courseOf = el => findCourse(dept, el.closest('.course-card').dataset.course);
+
+  root.querySelectorAll('[data-action="set-status"]').forEach(btn=>{
+    btn.addEventListener('click', ()=> setCourseStatus(dept, courseOf(btn), btn.dataset.status));
+  });
+  root.querySelectorAll('[data-action="justify-input"]').forEach(ta=>{
+    ta.addEventListener('blur', ()=> setJustification(dept, courseOf(ta), ta.value));
+  });
+  root.querySelectorAll('[data-action="nominate-self"]').forEach(btn=>{
+    btn.addEventListener('click', ()=> nominateSelf(courseOf(btn)));
+  });
+  root.querySelectorAll('[data-add-lect-form]').forEach(form=>{
+    const pick = form.querySelector('select[name=lpick]');
+    const manual = form.querySelector('[data-manual]');
+    const sel = form.querySelector('select[name=lresidency]');
+    const hint = form.querySelector('[data-residency-hint]');
+    const nameInput = form.querySelector('input[name=lname]');
+    function update(){
+      const isManual = pick.value === '__manual';
+      manual.style.display = isManual ? '' : 'none';
+      let outside = false;
+      if(isManual) outside = sel.value === 'outside';
+      else if(pick.value){
+        const p = state.profiles.find(x => x.id === pick.value);
+        outside = !!p && p.residency === 'outside';
+      }
+      hint.textContent = outside ? 'سيُدرج هذا المحاضر تلقائيًا كمستبعد من التدريس الحضوري.' : '';
+      hint.classList.toggle('warn', outside);
+    }
+    pick.addEventListener('change', ()=>{ update(); if(pick.value === '__manual') nameInput.focus(); });
+    sel.addEventListener('change', update);
+    update();
+    const submit = ()=>{
+      if(pick.value === '__manual') addLecturer(dept, courseOf(form), { name: nameInput.value, residency: sel.value });
+      else if(pick.value) addLecturer(dept, courseOf(form), { profileId: pick.value });
+      else { showToastMsg('اختر محاضرًا من القائمة', 'warn'); pick.focus(); }
+    };
+    form.querySelector('[data-action="add-lect"]').addEventListener('click', submit);
+    nameInput.addEventListener('keydown', e=>{ if(e.key==='Enter'){ e.preventDefault(); submit(); } });
+  });
+  root.querySelectorAll('[data-action="toggle-assign"]').forEach(btn=>{
+    btn.addEventListener('click', ()=> toggleAssign(dept, courseOf(btn), btn.dataset.lect));
+  });
+  root.querySelectorAll('[data-action="remove-lect"]').forEach(btn=>{
+    btn.addEventListener('click', ()=> removeLecturer(dept, courseOf(btn), btn.dataset.lect));
+  });
+
+  const lockBtn = root.querySelector('[data-action="lock-stage1"]');
+  if(lockBtn) lockBtn.addEventListener('click', ()=>toggleStage1(dept, true));
+  const unlockBtn = root.querySelector('[data-action="unlock-stage1"]');
+  if(unlockBtn) unlockBtn.addEventListener('click', ()=>toggleStage1(dept, false));
+
+  const toggleBtn = root.querySelector('[data-action="toggle-add-course"]');
+  const addForm = root.querySelector('[data-add-course-form]');
+  function setFormOpen(open){
+    if(!addForm) return;
+    toggleBtn.setAttribute('aria-expanded', String(open));
+    if(open){
+      addForm.style.display = 'flex';
+      if(!REDUCED_MOTION && addForm.animate) addForm.animate([{ opacity:0, transform:'translateY(-6px)' }, { opacity:1, transform:'none' }], { duration:260, easing:'cubic-bezier(.2,.8,.2,1)' });
+      addForm.querySelector('input[name=cname]').focus();
+    } else {
+      addForm.style.display = 'none';
+    }
+  }
+  if(toggleBtn) toggleBtn.addEventListener('click', ()=> setFormOpen(addForm.style.display==='none'));
+  const cancelBtn = root.querySelector('[data-action="cancel-add-course"]');
+  if(cancelBtn) cancelBtn.addEventListener('click', ()=> setFormOpen(false));
+  const submitBtn = root.querySelector('[data-action="submit-add-course"]');
+  if(submitBtn) submitBtn.addEventListener('click', ()=>{
+    const nameEl = addForm.querySelector('input[name=cname]');
+    const name = nameEl.value.trim();
+    const credit = addForm.querySelector('input[name=ccredit]').value.trim();
+    if(!name){
+      showToastMsg('الرجاء إدخال اسم المقرر', 'warn');
+      nameEl.focus();
+      if(!REDUCED_MOTION && nameEl.animate) nameEl.animate([{transform:'translateX(0)'},{transform:'translateX(-6px)'},{transform:'translateX(6px)'},{transform:'translateX(0)'}], { duration:300 });
+      return;
+    }
+    if(credit && !/^\d{1,2}$/.test(credit)){ showToastMsg('الساعات المعتمدة رقم صحيح من 0 إلى 12', 'warn'); return; }
+    if(dept.courses.some(c => c.name.trim() === name)){ showToastMsg('يوجد مقرر بهذا الاسم في القسم', 'warn'); return; }
+    addCourse(dept, {
+      name,
+      code: addForm.querySelector('input[name=ccode]').value.trim(),
+      credit,
+      reqType: addForm.querySelector('select[name=creqtype]').value,
+    });
+  });
+}
+
+/* ---------------------------- Accounts sheet (VP) ---------------------------- */
+
+let usersTab = 'pending';
+let usersQ = '';
+function deptOptions(selected, allowEmpty){
+  return (allowEmpty ? `<option value="">بدون قسم</option>` : '') +
+    state.departments.map(d => `<option value="${esc(d.id)}" ${d.id===selected?'selected':''}>${esc(d.name)}</option>`).join('');
+}
+function roleOptions(selected){
+  return ['lecturer','head','viewer','vp'].map(r => `<option value="${r}" ${r===selected?'selected':''}>${ROLE_LABELS[r]}</option>`).join('');
+}
+function userCardHTML(p){
+  const isMe = p.id === me.id;
+  const roleSel = p.role || p.requested_role;
+  const meta = [];
+  if(p.status === 'pending') meta.push(`<span class="chip chip-role">طلب: ${esc(ROLE_LABELS[p.requested_role])}</span>`);
+  else if(p.role) meta.push(`<span class="chip chip-role">${esc(ROLE_LABELS[p.role])}</span>`);
+  if(p.dept_id) meta.push(`<span class="chip">${esc(deptName(p.dept_id))}</span>`);
+  meta.push(p.residency ? `<span class="chip ${p.residency==='gaza'?'chip-ok':'chip-bad'}">${RES_LABELS[p.residency]}</span>` : `<span class="chip chip-warn">لم يحدد الإقامة</span>`);
+  if(p.status === 'pending') meta.push(p.email_verified ? `<span class="chip chip-ok">✓ أكّد بريده</span>` : `<span class="chip chip-warn">⏳ لم يُكمل تأكيد البريد</span>`);
+  if(p.status === 'suspended') meta.push(`<span class="chip chip-bad">معلّق</span>`);
+  if(p.status === 'rejected') meta.push(`<span class="chip chip-bad">مرفوض</span>`);
+  meta.push(`<span class="chip">${esc(fmtTs(p.created_at).slice(0,10))}</span>`);
+
+  let actions = '';
+  if(isMe){
+    actions = `<span class="chip chip-ok">حسابك</span>`;
+  } else {
+    const selects = `<select data-f="role" aria-label="الصفة">${roleOptions(roleSel)}</select>
+      <select data-f="dept" aria-label="القسم">${deptOptions(p.dept_id, true)}</select>`;
+    if(p.status === 'pending'){
+      actions = `${selects}
+        <button class="btn btn-primary btn-sm" data-u="approve" ${p.email_verified ? '' : 'disabled title="بانتظار تأكيد البريد"'}>اعتماد</button>
+        <button class="btn btn-danger btn-sm" data-u="reject">رفض</button>`;
+    } else if(p.status === 'approved'){
+      actions = `${selects}
+        <button class="btn btn-sm" data-u="approve">حفظ</button>
+        <button class="btn btn-danger btn-sm" data-u="suspend">تعليق</button>`;
+    } else {
+      actions = `${selects}<button class="btn btn-primary btn-sm" data-u="approve">اعتماد الحساب</button>`;
+    }
+  }
+  return `<div class="user-card ${isMe?'me':''}" data-uid="${esc(p.id)}">
+    <div class="user-main">
+      <strong>${esc(p.full_name)}</strong>
+      <span class="user-email">${esc(p.email)}</span>
+      <div class="user-meta">${meta.join('')}</div>
+      ${p.review_note && p.status !== 'approved' ? `<div class="user-note">السبب: ${esc(p.review_note)}</div>` : ''}
+    </div>
+    <div class="user-actions">${actions}</div>
+  </div>`;
+}
+function renderUsersSheet(){
+  document.getElementById('sheetTitle').textContent = 'إدارة حسابات الموظفين';
+  const body = document.getElementById('sheetBody');
+  const all = state.profiles;
+  const groups = {
+    pending:  all.filter(p => p.status === 'pending'),
+    approved: all.filter(p => p.status === 'approved'),
+    closed:   all.filter(p => p.status === 'rejected' || p.status === 'suspended'),
+  };
+  const q = usersQ.trim().toLowerCase();
+  let list = groups[usersTab].filter(p => !q || (p.full_name + ' ' + p.email).toLowerCase().includes(q));
+  let html;
+  if(usersTab === 'pending'){
+    const verified = list.filter(p => p.email_verified);
+    const unverified = list.filter(p => !p.email_verified);
+    html = verified.length ? verified.map(userCardHTML).join('') : `<div class="empty-state">لا توجد طلبات تسجيل بانتظار المراجعة.</div>`;
+    if(unverified.length){
+      html += `<div class="section-label">لم يُكملوا تأكيد البريد (${unverified.length}) — يمكن اعتمادهم بعد إدخال رمز التحقق</div>` + unverified.map(userCardHTML).join('');
+    }
+  } else if(usersTab === 'approved'){
+    const order = { vp:0, head:1, lecturer:2, viewer:3 };
+    list.sort((a,b)=> (order[a.role]-order[b.role]) || a.full_name.localeCompare(b.full_name,'ar'));
+    html = list.length ? list.map(userCardHTML).join('') : `<div class="empty-state">لا توجد نتائج.</div>`;
+  } else {
+    html = list.length ? list.map(userCardHTML).join('') : `<div class="empty-state">لا توجد حسابات مرفوضة أو معلّقة.</div>`;
+  }
+  const pendCount = groups.pending.filter(p => p.email_verified).length;
+  body.innerHTML = `
+    <div class="sheet-tools">
+      <div class="seg" role="tablist">
+        <button data-tab="pending" class="${usersTab==='pending'?'on':''}">بانتظار المراجعة ${pendCount ? `<span class="count-badge">${pendCount}</span>` : ''}</button>
+        <button data-tab="approved" class="${usersTab==='approved'?'on':''}">المعتمدون (${groups.approved.length})</button>
+        <button data-tab="closed" class="${usersTab==='closed'?'on':''}">مرفوض / معلّق (${groups.closed.length})</button>
+      </div>
+      <input class="search-input" id="usersSearch" type="search" placeholder="بحث بالاسم أو البريد…" value="${esc(usersQ)}">
+    </div>
+    <div id="usersList" class="${REDUCED_MOTION ? '' : 'fx-enter'}">${html}</div>`;
+  body.querySelectorAll('[data-tab]').forEach(b => b.addEventListener('click', ()=>{ usersTab = b.dataset.tab; renderUsersSheet(); }));
+  const search = document.getElementById('usersSearch');
+  search.addEventListener('input', e=>{
+    usersQ = e.target.value;
+    clearTimeout(renderUsersSheet._t);
+    renderUsersSheet._t = setTimeout(()=>{
+      renderUsersSheet();
+      const s = document.getElementById('usersSearch');
+      s.focus(); s.setSelectionRange(s.value.length, s.value.length);
+    }, 180);
+  });
+  body.querySelectorAll('.user-card').forEach(card=>{
+    const uid = card.dataset.uid;
+    const roleSel = card.querySelector('[data-f=role]');
+    const deptSel = card.querySelector('[data-f=dept]');
+    card.querySelectorAll('[data-u]').forEach(btn => btn.addEventListener('click', ()=>{
+      if(btn.dataset.u === 'approve') approveUser(uid, roleSel.value, deptSel.value);
+      else if(btn.dataset.u === 'reject') rejectUser(uid);
+      else if(btn.dataset.u === 'suspend') suspendUser(uid);
+    }));
+  });
+}
+
+function renderProfileSheet(){
+  document.getElementById('sheetTitle').textContent = 'حسابي';
+  const body = document.getElementById('sheetBody');
+  const needRes = ['lecturer','head'].includes(me.role);
+  body.innerHTML = `
+    <div class="field"><label for="pfName">الاسم الكامل</label>
+      <input class="input" id="pfName" maxlength="120" value="${esc(me.full_name)}" autocomplete="name"></div>
+    <div class="field"><label>البريد الجامعي</label>
+      <input class="input ltr" value="${esc(me.email)}" readonly></div>
+    <div class="field-row">
+      <div class="field"><label>الصفة</label><input class="input" value="${esc(ROLE_LABELS[me.role])}" readonly></div>
+      <div class="field"><label>القسم</label><input class="input" value="${esc(deptName(me.dept_id) || '—')}" readonly></div>
+    </div>
+    <div class="field"><label for="pfRes">مكان الإقامة الحالي ${needRes ? '*' : ''}</label>
+      <select class="input" id="pfRes">
+        <option value="" ${me.residency ? '' : 'selected'} disabled>اختر…</option>
+        <option value="gaza" ${me.residency==='gaza'?'selected':''}>داخل قطاع غزة</option>
+        <option value="outside" ${me.residency==='outside'?'selected':''}>خارج قطاع غزة</option>
+      </select>
+      <span class="hint">يُستخدم لتحديد الأهلية للتدريس الحضوري. الصفة والقسم يعدّلهما نائب العميد فقط.</span>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:6px">
+      <button class="btn btn-primary" id="pfSave">حفظ</button>
+      <button class="btn" id="pfCancel">إغلاق</button>
+    </div>`;
+  document.getElementById('pfCancel').addEventListener('click', closeSheet);
+  document.getElementById('pfSave').addEventListener('click', async e=>{
+    const btn = e.currentTarget;
+    btn.classList.add('loading');
+    const ok = await saveMyProfile(document.getElementById('pfName').value, document.getElementById('pfRes').value);
+    btn.classList.remove('loading');
+    if(ok) closeSheet();
+  });
+}
+
+/* ---------------------------- Audit drawer ---------------------------- */
+
+function renderLogFilter(){
+  const sel = document.getElementById('logDeptFilter');
+  const current = sel.value || 'all';
+  sel.innerHTML = `<option value="all">كل الأقسام</option><option value="__general">إجراءات عامة وحسابات</option>` +
+    state.departments.map(d=>`<option value="${esc(d.name)}">${esc(d.name)}</option>`).join('');
+  sel.value = current;
+  if(!sel.value) sel.value = 'all';
+}
+function renderDrawerBody(){
+  const filterVal = document.getElementById('logDeptFilter').value || 'all';
+  const body = document.getElementById('drawerBody');
+  const entries = state.auditLog.filter(e => filterVal==='all' || (filterVal==='__general' ? !e.deptName : e.deptName===filterVal));
+  if(!entries.length){ body.innerHTML = `<div class="empty-state">لا توجد سجلات بعد.</div>`; return; }
+  body.innerHTML = entries.map(e => `
+    <div class="log-entry">
+      <div class="log-ts">${esc(e.ts)}</div>
+      <div><span class="log-actor">${esc(e.actor)}</span> ${e.deptName?`· <span class="log-dept">${esc(e.deptName)}</span>`:''}</div>
+      <div>${esc(e.text)}</div>
+    </div>`).join('') + `<div class="log-foot">يعرض آخر ${state.auditLog.length} عملية · السجل يُكتب من الخادم ولا يمكن تعديله</div>`;
+}
+function playDrawerEntrance(){
+  const body = document.getElementById('drawerBody');
+  body.classList.remove('animate-in');
+  void body.offsetWidth;
+  body.classList.add('animate-in');
+  clearTimeout(playDrawerEntrance._t);
+  playDrawerEntrance._t = setTimeout(()=>body.classList.remove('animate-in'), 900);
+}
+function openDrawer(){
+  document.getElementById('drawerOverlay').classList.add('open');
+  const dr = document.getElementById('auditDrawer');
+  dr.classList.add('open');
+  dr.setAttribute('aria-hidden', 'false');
+  renderDrawerBody();
+  playDrawerEntrance();
+  setTimeout(()=>document.getElementById('closeDrawerBtn').focus(), 120);
+}
+function closeDrawer(){
+  document.getElementById('drawerOverlay').classList.remove('open');
+  const dr = document.getElementById('auditDrawer');
+  dr.classList.remove('open');
+  dr.setAttribute('aria-hidden', 'true');
+}
+
+/* ---------------------------- Sign-in flow ---------------------------- */
+
+const auth = { mode:'login', step:'email', email:'', meta:null, cooldowns:{}, msg:null, form:{} };
+const cooldownLeft = email => Math.max(0, Math.ceil(((auth.cooldowns[email] || 0) - Date.now())/1000));
+let cooldownTimer = null;
+
+function showScreen(name){
+  document.body.dataset.screen = name;
+  window.scrollTo(0, 0);
+}
+
+async function loadPublicDepartments(){
+  if(publicDepartments.length) return;
+  try{
+    const { data, error } = await sb.from('departments').select('id,name').order('sort_order');
+    if(!error && data) publicDepartments = data;
+  }catch(e){ /* registration still works without department list */ }
+}
+
+function authMsgHTML(){
+  return auth.msg ? `<div class="form-msg ${auth.msg.type}" role="alert">${esc(auth.msg.text)}</div>` : '';
+}
+
+function renderAuth(){
+  const body = document.getElementById('authBody');
+  const f = auth.form;
+  const domains = CONFIG.ALLOWED_DOMAINS.map(d => '@' + d).join(' أو ');
+  if(auth.step === 'code'){
+    const left = cooldownLeft(auth.email);
+    body.innerHTML = `<div class="gate-step">
+      <h2>أدخل رمز التحقق</h2>
+      <p class="gate-sub">أرسلنا رمزًا من ${CONFIG.OTP_LENGTH} أرقام إلى <span class="email-ltr">${esc(auth.email)}</span>. تحقّق أيضًا من مجلد الرسائل غير المرغوب فيها.</p>
+      ${authMsgHTML()}
+      <div class="field">
+        <label for="otpInput">رمز التحقق</label>
+        <input class="input otp-input" id="otpInput" inputmode="numeric" autocomplete="one-time-code" maxlength="10" dir="ltr" placeholder="${'•'.repeat(CONFIG.OTP_LENGTH)}">
+      </div>
+      <button class="btn btn-primary btn-block" id="verifyBtn">${auth.mode === 'register' ? 'تأكيد وإرسال الطلب' : 'دخول'}</button>
+      <div class="gate-links">
+        <button class="link-btn" id="resendBtn" ${left ? 'disabled' : ''}>${left ? `إعادة الإرسال بعد ${left} ث` : 'إعادة إرسال الرمز'}</button>
+        <button class="link-btn" id="changeEmailBtn">تغيير البريد</button>
+      </div>
+    </div>`;
+    const otp = document.getElementById('otpInput');
+    otp.addEventListener('input', ()=>{
+      otp.value = otp.value.replace(/[^\d]/g, '');
+      if(otp.value.length === CONFIG.OTP_LENGTH) verifyCode();
+    });
+    otp.addEventListener('keydown', e=>{ if(e.key === 'Enter') verifyCode(); });
+    document.getElementById('verifyBtn').addEventListener('click', verifyCode);
+    document.getElementById('resendBtn').addEventListener('click', ()=> sendCode(true));
+    document.getElementById('changeEmailBtn').addEventListener('click', ()=>{ auth.step = 'email'; auth.msg = null; renderAuth(); });
+    setTimeout(()=> otp.focus(), 60);
+    clearInterval(cooldownTimer);
+    if(left) cooldownTimer = setInterval(()=>{
+      const b = document.getElementById('resendBtn');
+      const l = cooldownLeft(auth.email);
+      if(!b){ clearInterval(cooldownTimer); return; }
+      b.disabled = l > 0;
+      b.textContent = l ? `إعادة الإرسال بعد ${l} ث` : 'إعادة إرسال الرمز';
+      if(!l) clearInterval(cooldownTimer);
+    }, 1000);
+    return;
+  }
+
+  const isReg = auth.mode === 'register';
+  const depts = publicDepartments.map(d => `<option value="${esc(d.id)}" ${f.dept===d.id?'selected':''}>${esc(d.name)}</option>`).join('');
+  body.innerHTML = `<div class="gate-step">
+    <div class="seg" role="tablist">
+      <button data-mode="login" class="${!isReg?'on':''}" role="tab" aria-selected="${!isReg}">تسجيل الدخول</button>
+      <button data-mode="register" class="${isReg?'on':''}" role="tab" aria-selected="${isReg}">طلب حساب جديد</button>
+    </div>
+    <h2>${isReg ? 'طلب حساب لعضو هيئة تدريس أو موظف' : 'الدخول ببريد الكلية'}</h2>
+    <p class="gate-sub">${isReg ? 'يُراجع نائب العميد طلبك ويعتمد صلاحياتك قبل الدخول إلى اللوحة.' : 'بدون كلمة مرور — نرسل لك رمز دخول لمرة واحدة.'}</p>
+    ${authMsgHTML()}
+    ${isReg ? `<div class="field"><label for="fName">الاسم الكامل *</label>
+      <input class="input" id="fName" maxlength="120" autocomplete="name" placeholder="مثال: د. أحمد محمد" value="${esc(f.name || '')}"></div>` : ''}
+    <div class="field"><label for="fEmail">البريد الجامعي *</label>
+      <input class="input ltr" id="fEmail" type="email" autocomplete="email" inputmode="email" placeholder="name${esc('@' + CONFIG.ALLOWED_DOMAINS[0])}" value="${esc(f.email || '')}">
+      <span class="hint">يُقبل فقط بريد ينتهي بـ <span class="email-ltr">${esc(domains)}</span></span></div>
+    ${isReg ? `
+      <div class="field-row">
+        <div class="field"><label for="fRole">الصفة المطلوبة *</label>
+          <select class="input" id="fRole">
+            <option value="lecturer" ${(f.role||'lecturer')==='lecturer'?'selected':''}>محاضر / دكتور</option>
+            <option value="head" ${f.role==='head'?'selected':''}>رئيس قسم</option>
+            <option value="viewer" ${f.role==='viewer'?'selected':''}>موظف (مشاهدة فقط)</option>
+          </select></div>
+        <div class="field"><label for="fRes">مكان الإقامة الحالي <span id="resReq">*</span></label>
+          <select class="input" id="fRes">
+            <option value="" ${!f.res?'selected':''}>اختر…</option>
+            <option value="gaza" ${f.res==='gaza'?'selected':''}>داخل قطاع غزة</option>
+            <option value="outside" ${f.res==='outside'?'selected':''}>خارج قطاع غزة</option>
+          </select></div>
+      </div>
+      <div class="field"><label for="fDept">القسم <span id="deptReq"></span></label>
+        <select class="input" id="fDept">
+          <option value="">${publicDepartments.length ? 'اختر القسم…' : 'تعذّر تحميل الأقسام — سيحدده نائب العميد'}</option>
+          ${depts}
+        </select></div>` : ''}
+    <button class="btn btn-primary btn-block" id="sendBtn">${isReg ? 'إرسال رمز التحقق' : 'إرسال رمز الدخول'}</button>
+    <div class="gate-foot">
+      ${isReg
+        ? 'بعد إدخال الرمز يصل طلبك إلى نائب العميد للشؤون الأكاديمية. ستتمكن من الدخول فور اعتماده.'
+        : 'ليس لديك حساب؟ اختر «طلب حساب جديد». الحسابات تُعتمد من نائب العميد للشؤون الأكاديمية.'}
+    </div>
+  </div>`;
+
+  body.querySelectorAll('[data-mode]').forEach(b => b.addEventListener('click', ()=>{
+    captureAuthForm();
+    auth.mode = b.dataset.mode; auth.msg = null; renderAuth();
+  }));
+  const roleSel = document.getElementById('fRole');
+  const syncReq = ()=>{
+    if(!roleSel) return;
+    document.getElementById('deptReq').textContent = roleSel.value === 'head' ? '*' : '(اختياري)';
+    document.getElementById('resReq').textContent = roleSel.value === 'viewer' ? '(اختياري)' : '*';
+  };
+  if(roleSel){ roleSel.addEventListener('change', syncReq); syncReq(); }
+  body.querySelectorAll('input').forEach(i => i.addEventListener('keydown', e=>{ if(e.key === 'Enter') sendCode(); }));
+  document.getElementById('sendBtn').addEventListener('click', ()=> sendCode());
+  setTimeout(()=>{ const first = document.getElementById(isReg ? 'fName' : 'fEmail'); if(first && !first.value) first.focus(); }, 60);
+}
+
+function captureAuthForm(){
+  const v = id => { const el = document.getElementById(id); return el ? el.value : undefined; };
+  const f = auth.form;
+  if(v('fEmail') !== undefined) f.email = v('fEmail').trim();
+  if(v('fName') !== undefined) f.name = v('fName');
+  if(v('fRole') !== undefined) f.role = v('fRole');
+  if(v('fRes') !== undefined) f.res = v('fRes');
+  if(v('fDept') !== undefined) f.dept = v('fDept');
+}
+
+function setAuthMsg(type, text){ auth.msg = { type, text }; }
+function markInvalid(id){
+  const el = document.getElementById(id);
+  if(!el) return;
+  el.classList.add('invalid');
+  el.focus();
+  if(!REDUCED_MOTION && el.animate) el.animate([{transform:'translateX(0)'},{transform:'translateX(-6px)'},{transform:'translateX(6px)'},{transform:'translateX(0)'}], { duration:300 });
+  el.addEventListener('input', ()=> el.classList.remove('invalid'), { once:true });
+  el.addEventListener('change', ()=> el.classList.remove('invalid'), { once:true });
+}
+function inlineError(text, fieldId){
+  setAuthMsg('err', text);
+  const body = document.getElementById('authBody');
+  const old = body.querySelector('.form-msg');
+  const html = `<div class="form-msg err" role="alert">${esc(text)}</div>`;
+  if(old) old.outerHTML = html;
+  else body.querySelector('.gate-sub').insertAdjacentHTML('afterend', html);
+  if(fieldId) markInvalid(fieldId);
+}
+
+async function sendCode(isResend){
+  if(!isResend){
+    captureAuthForm();
+    const f = auth.form;
+    const email = (f.email || '').toLowerCase();
+    if(auth.mode === 'register'){
+      const name = (f.name || '').trim().replace(/\s+/g,' ');
+      if(name.length < 5 || name.split(' ').length < 2) return inlineError('اكتب اسمك الكامل (الاسم واسم العائلة على الأقل)', 'fName');
+      if(!emailAllowed(email)) return inlineError('استخدم بريدك الجامعي الرسمي فقط', 'fEmail');
+      if(f.role !== 'viewer' && !f.res) return inlineError('حدّد مكان إقامتك الحالي', 'fRes');
+      if(f.role === 'head' && !f.dept && publicDepartments.length) return inlineError('اختر القسم الذي ترأسه', 'fDept');
+      auth.meta = { full_name: name, requested_role: f.role, dept_id: f.dept || '', residency: f.res || '' };
+    } else {
+      if(!emailAllowed(email)) return inlineError('استخدم بريدك الجامعي الرسمي فقط', 'fEmail');
+      auth.meta = null;
+    }
+    auth.email = email;
+  }
+  const wait0 = cooldownLeft(auth.email);
+  if(wait0){
+    if(!isResend && auth.step === 'email'){
+      // a code was already sent to this address moments ago — go straight to entering it
+      auth.step = 'code';
+      setAuthMsg('info', 'أُرسل رمز إلى هذا البريد قبل لحظات — أدخله هنا.');
+      renderAuth();
+    }
+    return;
+  }
+
+  const btn = document.getElementById(isResend ? 'resendBtn' : 'sendBtn');
+  if(btn){ btn.classList.add('loading'); btn.disabled = true; }
+  const { error } = await sb.auth.signInWithOtp({
+    email: auth.email,
+    options: auth.mode === 'register'
+      ? { shouldCreateUser: true, data: auth.meta }
+      : { shouldCreateUser: false },
+  }).catch(err => ({ error: err }));
+  if(btn){ btn.classList.remove('loading'); btn.disabled = false; }
+
+  if(error){
+    const m = String(error.message || '');
+    const wait = /(\d+)\s*seconds?/i.exec(m);
+    if(wait){
+      auth.cooldowns[auth.email] = Date.now() + (+wait[1]) * 1000;
+      return inlineError(`لأسباب أمنية انتظر ${wait[1]} ثانية قبل طلب رمز جديد`);
+    }
+    if(/signups? not allowed|otp_disabled|user not found/i.test(m + ' ' + (error.code || ''))){
+      auth.mode = 'register';
+      auth.form.email = auth.email;
+      setAuthMsg('info', 'لا يوجد حساب بهذا البريد بعد — أكمل بيانات طلب الحساب.');
+      return renderAuth();
+    }
+    if(/Database error/i.test(m)) return inlineError('تعذّر إنشاء الطلب — تأكّد أن البريد من نطاق الكلية الرسمي', 'fEmail');
+    if(/not authorized/i.test(m)) return inlineError('خدمة إرسال البريد غير مهيّأة بعد — تواصل مع مسؤول النظام (إعداد SMTP)');
+    if(/rate limit/i.test(m) || error.status === 429) return inlineError('تم تجاوز حد إرسال الرسائل مؤقتًا — حاول بعد قليل');
+    if(/fetch|network/i.test(m)) return inlineError('تعذّر الاتصال بالخادم — تحقّق من الإنترنت');
+    return inlineError('تعذّر إرسال الرمز: ' + m);
+  }
+  auth.step = 'code';
+  auth.cooldowns[auth.email] = Date.now() + 60000;
+  setAuthMsg('ok', isResend ? 'أُعيد إرسال الرمز.' : 'تم إرسال الرمز بنجاح.');
+  renderAuth();
+}
+
+async function verifyCode(){
+  const input = document.getElementById('otpInput');
+  const token = (input.value || '').replace(/\D/g, '');
+  if(token.length < 6) return inlineError('أدخل الرمز كاملًا', 'otpInput');
+  if(busy.has('verify')) return;
+  busy.add('verify');
+  const btn = document.getElementById('verifyBtn');
+  btn.classList.add('loading'); btn.disabled = true; input.disabled = true;
+  const { data, error } = await sb.auth.verifyOtp({ email: auth.email, token, type: 'email' }).catch(err => ({ error: err }));
+  busy.delete('verify');
+  if(error){
+    btn.classList.remove('loading'); btn.disabled = false; input.disabled = false;
+    input.value = '';
+    const m = String(error.message || '');
+    return inlineError(/fetch|network/i.test(m) ? 'تعذّر الاتصال بالخادم' : 'الرمز غير صحيح أو انتهت صلاحيته — اطلب رمزًا جديدًا إن لزم', 'otpInput');
+  }
+  auth.step = 'email'; auth.msg = null; auth.form = {};
+  await handleSession(data.session);
+}
+
+async function signOut(){
+  const ok = await uiConfirm({ title:'تسجيل الخروج', message:'هل تريد الخروج من اللوحة على هذا الجهاز؟', okText:'خروج', tone:'warn' });
+  if(!ok) return;
+  await sb.auth.signOut().catch(()=>{});
+  resetToAuth();
+}
+function resetToAuth(){
+  teardownApp();
+  me = null; state = null;
+  auth.step = 'email'; auth.msg = null; auth.mode = 'login'; auth.form = {};
+  renderAuth();
+  showScreen('auth');
+}
+function teardownApp(){
+  appStarted = false;
+  clearTimeout(reloadTimer);
+  if(channel){ sb.removeChannel(channel); channel = null; }
+  if(statusChannel){ sb.removeChannel(statusChannel); statusChannel = null; }
+  closeSheet(); closeDrawer();
+}
+
+/* ---------------------------- Session routing ---------------------------- */
+
+let handling = false;
+async function handleSession(session){
+  if(handling) return;
+  handling = true;
+  try{
+    if(!session){ resetToAuth(); return; }
+    const { data, error } = await sb.from('profiles').select('*').eq('id', session.user.id).maybeSingle();
+    if(error){
+      renderStatus({ kind:'error', text: friendlyError(error) });
+      return;
+    }
+    await enterWithProfile(data);
+  } finally {
+    handling = false;
+  }
+}
+
+async function enterWithProfile(profile){
+  if(!profile){
+    teardownApp();
+    renderStatus({ kind:'missing' });
+    return;
+  }
+  if(profile.status !== 'approved'){
+    teardownApp();
+    me = profile;
+    renderStatus({ kind: profile.status, profile });
+    watchOwnStatus(profile.id);
+    return;
+  }
+  me = profile;
+  if(!appStarted) await startApp();
+}
+
+function watchOwnStatus(uid){
+  if(statusChannel) sb.removeChannel(statusChannel);
+  statusChannel = sb.channel('own-status')
+    .on('postgres_changes', { event:'UPDATE', schema:'public', table:'profiles', filter:`id=eq.${uid}` }, async payload=>{
+      if(payload && payload.new && payload.new.status === 'approved'){
+        showToastMsg('تم اعتماد حسابك — أهلًا بك', 'success');
+        const { data } = await sb.auth.getSession();
+        handleSession(data.session);
+      }
+    })
+    .subscribe();
+}
+
+function renderStatus({ kind, profile, text }){
+  const body = document.getElementById('statusBody');
+  const p = profile || me || {};
+  const kv = p.email ? `<dl class="kv">
+      <dt>الاسم</dt><dd>${esc(p.full_name)}</dd>
+      <dt>البريد</dt><dd class="email-ltr">${esc(p.email)}</dd>
+      <dt>الصفة المطلوبة</dt><dd>${esc(ROLE_LABELS[p.requested_role] || '—')}</dd>
+      ${p.dept_id ? `<dt>القسم</dt><dd>${esc(deptName(p.dept_id) || (publicDepartments.find(d=>d.id===p.dept_id)||{}).name || '')}</dd>` : ''}
+    </dl>` : '';
+  const content = {
+    pending: { icon:'⏳', cls:'wait', title:'طلبك قيد المراجعة', sub:'وصل طلبك إلى نائب العميد للشؤون الأكاديمية. ستُفتح اللوحة تلقائيًا على هذه الصفحة فور اعتماده.' },
+    rejected:{ icon:'✕', cls:'bad', title:'لم يُعتمد طلبك', sub: p.review_note ? 'السبب: ' + p.review_note : 'للاستفسار تواصل مع مكتب نائب العميد للشؤون الأكاديمية.' },
+    suspended:{ icon:'⏸', cls:'bad', title:'الحساب معلّق', sub:'تم تعليق وصولك إلى اللوحة. تواصل مع مكتب نائب العميد للشؤون الأكاديمية.' },
+    missing: { icon:'!', cls:'bad', title:'لم يُنشأ ملف حسابك', sub:'غالبًا لأن البريد ليس من نطاق الكلية، أو أن قاعدة البيانات لم تُهيّأ بعد. تواصل مع مسؤول النظام.' },
+    error:   { icon:'!', cls:'bad', title:'تعذّر التحقق من حسابك', sub: text || '' },
+  }[kind] || { icon:'!', cls:'bad', title:'حالة غير معروفة', sub:'' };
+  body.innerHTML = `<div class="gate-step">
+    <div class="status-icon ${content.cls}">${content.icon}</div>
+    <h2>${esc(content.title)}</h2>
+    <p class="gate-sub">${esc(content.sub)}</p>
+    ${kv}
+    <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
+      <button class="btn btn-primary" id="stRefresh">تحديث الحالة</button>
+      <button class="btn" id="stOut">تسجيل الخروج</button>
+    </div>
+  </div>`;
+  document.getElementById('stRefresh').addEventListener('click', async e=>{
+    e.currentTarget.classList.add('loading');
+    const { data } = await sb.auth.getSession();
+    await handleSession(data.session);
+    const b = document.getElementById('stRefresh');
+    if(b) b.classList.remove('loading');
+  });
+  document.getElementById('stOut').addEventListener('click', async ()=>{
+    await sb.auth.signOut().catch(()=>{});
+    resetToAuth();
+  });
+  showScreen('status');
+}
+
+async function startApp(){
+  appStarted = true;
+  showScreen('app');
+  document.body.classList.add('is-booting');
+  try{
+    state = await fetchAll();
+    const mine = state.profiles.find(p => p.id === me.id);
+    if(mine) me = mine;
+  }catch(err){
+    appStarted = false;
+    renderStatus({ kind:'error', text: friendlyError(err) });
+    return;
+  }
+  if(me.role === 'head' && me.dept_id && findDept(me.dept_id)) view = { type:'dept', deptId: me.dept_id };
+  renderAll();
+  subscribeRealtime();
+  setTimeout(()=> document.body.classList.remove('is-booting'), 1400);
+  if(me.role === 'vp' && pendingRegistrations()){
+    setTimeout(()=> showToastMsg(`لديك ${pendingRegistrations()} طلب تسجيل بانتظار المراجعة`, 'info'), 1100);
+  }
+}
+
+/* ---------------------------- Motion layer ---------------------------- */
+
+function applyPendingFx(){
+  if(!pendingFx) return;
+  const fx = pendingFx;
+  pendingFx = null;
+  if(REDUCED_MOTION && fx.type !== 'view') return;
+  const main = document.getElementById('mainContent');
+
+  if(fx.type === 'course'){
+    const card = main.querySelector(`[data-course="${cssEsc(fx.id)}"]`);
+    if(!card) return;
+    card.style.setProperty('--fx-color', STATUS_COLORS[fx.status] || STATUS_COLORS.onsite);
+    card.classList.add('fx-flash');
+    card.addEventListener('animationend', ()=>card.classList.remove('fx-flash'), { once:true });
+    const btn = fx.status && card.querySelector(`.status-btn[data-status="${fx.status}"]`);
+    if(btn) btn.classList.add('fx-pop');
+    if(fx.scroll) card.scrollIntoView({ behavior: REDUCED_MOTION ? 'auto' : 'smooth', block:'center' });
+  } else if(fx.type === 'view'){
+    if(!REDUCED_MOTION){
+      main.classList.remove('fx-enter');
+      void main.offsetWidth;
+      main.classList.add('fx-enter');
+    }
+    if(fx.scrollTop){
+      const header = document.querySelector('.app-header');
+      const top = document.querySelector('.main-wrap').getBoundingClientRect().top + window.scrollY - header.offsetHeight - 8;
+      if(window.scrollY > top) window.scrollTo({ top, behavior: REDUCED_MOTION ? 'auto' : 'smooth' });
+    }
+  } else if(fx.type === 'burst'){
+    const w = window.innerWidth, h = window.innerHeight;
+    for(let i=0;i<3;i++){
+      setTimeout(()=>spawnBurst(w*(.3 + Math.random()*.4), h*(.3 + Math.random()*.3), STATUS_COLORS.onsite, true), i*140);
+    }
+  } else if(fx.type === 'confetti'){
+    launchConfetti();
+  }
+}
+
+function spawnBurst(x, y, color, strong){
+  if(REDUCED_MOTION) return;
+  const layer = document.getElementById('fxLayer');
+  const ring = document.createElement('span');
+  ring.className = 'fx-ring' + (strong ? ' strong' : '');
+  ring.style.left = x + 'px';
+  ring.style.top = y + 'px';
+  ring.style.setProperty('--c', color);
+  ring.addEventListener('animationend', e=>{ if(e.target === ring) ring.remove(); });
+  layer.appendChild(ring);
+  if(!strong) return;
+  const n = 8, offset = Math.random() * 45;
+  for(let i=0;i<n;i++){
+    const s = document.createElement('span');
+    s.className = 'fx-spark';
+    s.style.left = x + 'px';
+    s.style.top = y + 'px';
+    s.style.setProperty('--c', color);
+    s.style.setProperty('--a', (offset + i * (360/n)) + 'deg');
+    s.style.setProperty('--d', (24 + Math.random()*18) + 'px');
+    s.addEventListener('animationend', ()=>s.remove());
+    layer.appendChild(s);
+  }
+}
+
+function launchConfetti(){
+  if(REDUCED_MOTION) return;
+  const layer = document.getElementById('fxLayer');
+  const colors = ['#2E6350','#2A6F77','#A9701F','#6FAE8F','#E0B566','#1F4A3B'];
+  const W = window.innerWidth;
+  for(let i=0;i<110;i++){
+    const p = document.createElement('span');
+    p.className = 'confetti';
+    p.style.left = (Math.random()*W) + 'px';
+    p.style.setProperty('--c', colors[i % colors.length]);
+    p.style.setProperty('--x', ((Math.random()-.5)*260) + 'px');
+    p.style.setProperty('--r', ((Math.random()-.5)*1080) + 'deg');
+    p.style.setProperty('--t', (1.8 + Math.random()*1.6) + 's');
+    p.style.setProperty('--delay', (Math.random()*.5) + 's');
+    if(Math.random() < .35){ p.style.width = '7px'; p.style.height = '7px'; p.style.borderRadius = '50%'; }
+    p.addEventListener('animationend', ()=>p.remove());
+    layer.appendChild(p);
+  }
+}
+
+function initClickFx(){
+  document.addEventListener('pointerdown', e=>{
+    if(e.button !== 0) return;
+    const t = e.target;
+    const interactive = t.closest('button, .nav-item, summary, a');
+    const field = t.closest('input, textarea, select');
+    let color = STATUS_COLORS.onsite;
+    const sb_ = t.closest('.status-btn');
+    if(sb_) color = STATUS_COLORS[sb_.dataset.status] || color;
+    else if(t.closest('.btn-danger, .btn-danger-solid, .lect-remove')) color = STATUS_COLORS.danger;
+    else if(t.closest('.lect-assign-toggle, .nav-item, .btn-hybrid')) color = STATUS_COLORS.hybrid;
+    else if(t.closest('.app-header, .gate-head')) color = '#6FAE8F';
+    const disabled = interactive && interactive.disabled;
+    const strong = !!interactive && !disabled;
+    spawnBurst(e.clientX, e.clientY, disabled ? '#948C7C' : color, strong && !field);
+    if(bg) bg.shock(e.clientX, e.clientY, strong ? 1 : .45);
+  }, { passive:true });
+}
+
+/* ------------------------ Animated background -------------------------
+   Campus ⇄ remote learning network: solid nodes are on-site learners,
+   ring nodes are remote learners, pulses travel along links like lessons. */
+function initBackground(){
+  const cv = document.getElementById('bgCanvas');
+  if(!cv || !cv.getContext) return null;
+  const ctx = cv.getContext('2d');
+  let W = 0, H = 0, raf = 0, running = false;
+  let nodes = [], glyphs = [], pulses = [], waves = [];
+  const mouse = { x:-9999, y:-9999 };
+  const LINK = 135, GRID = 34;
+  const GLYPHS = ['∑','π','√','∫','Δ','λ','∞','{ }','</>','أ','ب','ع','x²','Ω','⚙','✎'];
+  const C_CAMPUS = [46,99,80], C_REMOTE = [42,111,119], C_PULSE = [169,112,31];
+
+  function resize(){
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth; H = window.innerHeight;
+    cv.width = Math.round(W*dpr); cv.height = Math.round(H*dpr);
+    cv.style.width = W + 'px'; cv.style.height = H + 'px';
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    seed();
+  }
+  function seed(){
+    const count = Math.round(Math.min(72, Math.max(24, W*H/24000)));
+    nodes = Array.from({ length: count }, ()=>({
+      x: Math.random()*W, y: Math.random()*H,
+      vx: (Math.random()-.5)*.3, vy: (Math.random()-.5)*.3,
+      r: 1.8 + Math.random()*1.8, remote: Math.random() < .5, phase: Math.random()*Math.PI*2,
+    }));
+    glyphs = Array.from({ length: Math.round(count/3) }, ()=>({
+      x: Math.random()*W, y: Math.random()*H, vy: -(0.06 + Math.random()*.14),
+      ch: GLYPHS[Math.floor(Math.random()*GLYPHS.length)],
+      size: 13 + Math.random()*16, a: .05 + Math.random()*.06, rot: (Math.random()-.5)*.5,
+    }));
+    pulses = [];
+  }
+  const rgba = (c, a) => `rgba(${c[0]},${c[1]},${c[2]},${a})`;
+
+  function draw(t){
+    ctx.clearRect(0,0,W,H);
+    const off = (t*0.006) % GRID;
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'rgba(46,99,80,0.045)';
+    ctx.beginPath();
+    for(let x = -off; x < W; x += GRID){ ctx.moveTo(Math.round(x)+.5, 0); ctx.lineTo(Math.round(x)+.5, H); }
+    for(let y = -off; y < H; y += GRID){ ctx.moveTo(0, Math.round(y)+.5); ctx.lineTo(W, Math.round(y)+.5); }
+    ctx.stroke();
+
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    glyphs.forEach(g=>{
+      g.y += g.vy;
+      if(g.y < -30){ g.y = H + 30; g.x = Math.random()*W; }
+      ctx.save();
+      ctx.translate(g.x, g.y); ctx.rotate(g.rot);
+      ctx.fillStyle = `rgba(31,74,59,${g.a})`;
+      ctx.font = `600 ${g.size}px "IBM Plex Mono","IBM Plex Sans Arabic",monospace`;
+      ctx.fillText(g.ch, 0, 0);
+      ctx.restore();
+    });
+
+    nodes.forEach(n=>{
+      for(const w of waves){
+        const dx = n.x - w.x, dy = n.y - w.y, d = Math.hypot(dx, dy);
+        if(d > 0 && Math.abs(d - w.r) < 26){ n.vx += dx/d * .45 * w.power * w.life; n.vy += dy/d * .45 * w.power * w.life; }
+      }
+      const mdx = mouse.x - n.x, mdy = mouse.y - n.y, md = Math.hypot(mdx, mdy);
+      if(md < 170 && md > 0){ n.vx += mdx/md * .005; n.vy += mdy/md * .005; }
+      n.vx *= .985; n.vy *= .985;
+      const sp = Math.hypot(n.vx, n.vy);
+      if(sp < .1){ n.vx += (Math.random()-.5)*.05; n.vy += (Math.random()-.5)*.05; }
+      if(sp > 2){ n.vx *= 2/sp; n.vy *= 2/sp; }
+      n.x += n.vx; n.y += n.vy;
+      if(n.x < -20) n.x = W + 20; else if(n.x > W + 20) n.x = -20;
+      if(n.y < -20) n.y = H + 20; else if(n.y > H + 20) n.y = -20;
+    });
+
+    for(let i=0;i<nodes.length;i++){
+      const a = nodes[i];
+      for(let j=i+1;j<nodes.length;j++){
+        const b = nodes[j];
+        const dx = a.x-b.x, dy = a.y-b.y;
+        if(Math.abs(dx) > LINK || Math.abs(dy) > LINK) continue;
+        const d = Math.hypot(dx, dy);
+        if(d > LINK) continue;
+        const al = (1 - d/LINK) * .17;
+        ctx.strokeStyle = a.remote === b.remote ? rgba(a.remote ? C_REMOTE : C_CAMPUS, al) : rgba(C_PULSE, al*.8);
+        ctx.setLineDash(a.remote && b.remote ? [3,4] : []);
+        ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+        if(pulses.length < 16 && Math.random() < .0012) pulses.push({ a:i, b:j, p:0, s:.006 + Math.random()*.01 });
+      }
+      const mdx = a.x-mouse.x, mdy = a.y-mouse.y, md = Math.hypot(mdx, mdy);
+      if(md < 170){
+        ctx.setLineDash([]);
+        ctx.strokeStyle = rgba(C_CAMPUS, (1 - md/170) * .22);
+        ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke();
+      }
+    }
+    ctx.setLineDash([]);
+
+    pulses = pulses.filter(p=>{
+      const a = nodes[p.a], b = nodes[p.b];
+      if(!a || !b || Math.hypot(a.x-b.x, a.y-b.y) > LINK*1.25) return false;
+      p.p += p.s;
+      if(p.p >= 1) return false;
+      const x = a.x + (b.x-a.x)*p.p, y = a.y + (b.y-a.y)*p.p;
+      const g = ctx.createRadialGradient(x,y,0,x,y,7);
+      g.addColorStop(0, rgba(C_PULSE,.55)); g.addColorStop(1, rgba(C_PULSE,0));
+      ctx.fillStyle = g;
+      ctx.beginPath(); ctx.arc(x,y,7,0,Math.PI*2); ctx.fill();
+      ctx.fillStyle = rgba(C_PULSE,.8);
+      ctx.beginPath(); ctx.arc(x,y,1.6,0,Math.PI*2); ctx.fill();
+      return true;
+    });
+
+    nodes.forEach(n=>{
+      const breathe = 1 + Math.sin(t*.002 + n.phase)*.15;
+      if(n.remote){
+        ctx.strokeStyle = rgba(C_REMOTE,.38); ctx.lineWidth = 1.3;
+        ctx.beginPath(); ctx.arc(n.x, n.y, n.r*1.35*breathe, 0, Math.PI*2); ctx.stroke();
+        ctx.lineWidth = 1;
+      } else {
+        ctx.fillStyle = rgba(C_CAMPUS,.34);
+        ctx.beginPath(); ctx.arc(n.x, n.y, n.r*breathe, 0, Math.PI*2); ctx.fill();
+      }
+    });
+
+    waves = waves.filter(w=>{
+      w.r += w.speed; w.life -= .018;
+      if(w.life <= 0) return false;
+      ctx.strokeStyle = rgba(C_CAMPUS, w.life*.22*w.power);
+      ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.arc(w.x, w.y, w.r, 0, Math.PI*2); ctx.stroke();
+      ctx.lineWidth = 1;
+      return true;
+    });
+  }
+
+  function loop(t){ draw(t); if(running) raf = requestAnimationFrame(loop); }
+  function start(){ if(running || REDUCED_MOTION) return; running = true; raf = requestAnimationFrame(loop); }
+  function stop(){ running = false; cancelAnimationFrame(raf); }
+
+  resize();
+  if(REDUCED_MOTION) draw(0); else start();
+
+  let rt = null;
+  window.addEventListener('resize', ()=>{ clearTimeout(rt); rt = setTimeout(()=>{ resize(); if(REDUCED_MOTION) draw(0); }, 150); });
+  window.addEventListener('pointermove', e=>{ mouse.x = e.clientX; mouse.y = e.clientY; }, { passive:true });
+  document.addEventListener('pointerleave', ()=>{ mouse.x = mouse.y = -9999; });
+  document.addEventListener('visibilitychange', ()=>{ document.hidden ? stop() : start(); });
+
+  return {
+    shock(x, y, power){
+      if(REDUCED_MOTION) return;
+      waves.push({ x, y, r: 4, speed: 5.5, life: 1, power: power || 1 });
+      if(waves.length > 6) waves.shift();
+    },
+  };
+}
+
+/* ---------------------------- Keyboard & lifecycle ---------------------------- */
+
+function initKeyboard(){
+  document.addEventListener('keydown', e=>{
+    if(e.key === 'Escape'){
+      if(modalResolve){ modalResolve(false); return; }
+      if(sheetKind){ closeSheet(); return; }
+      if(document.getElementById('auditDrawer').classList.contains('open')) closeDrawer();
+      return;
+    }
+    const typing = /^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement && document.activeElement.tagName);
+    if(e.key === '/' && !typing && !modalResolve && !sheetKind && document.body.dataset.screen === 'app'){
+      e.preventDefault();
+      const s = document.getElementById('searchInput');
+      if(s){ s.focus(); s.select(); }
+    }
+  });
+}
+
+document.addEventListener('visibilitychange', ()=>{
+  if(!document.hidden && appStarted) scheduleReload(0);
+});
+
+async function boot(){
+  bg = initBackground();
+  initClickFx();
+  initKeyboard();
+  document.getElementById('closeDrawerBtn').addEventListener('click', closeDrawer);
+  document.getElementById('drawerOverlay').addEventListener('click', closeDrawer);
+  document.getElementById('logDeptFilter').addEventListener('change', ()=>{ renderDrawerBody(); playDrawerEntrance(); });
+  document.getElementById('sheetClose').addEventListener('click', closeSheet);
+  document.getElementById('sheetBackdrop').addEventListener('click', e=>{ if(e.target.id === 'sheetBackdrop') closeSheet(); });
+
+  if(!isConfigured()){ showScreen('setup'); return; }
+  if(!window.supabase || !window.supabase.createClient){
+    renderStatus({ kind:'error', text:'تعذّر تحميل مكتبة الاتصال — تحقّق من الإنترنت ثم أعد تحميل الصفحة.' });
+    return;
+  }
+  sb = window.supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_KEY, {
+    auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true },
+  });
+  await loadPublicDepartments();
+
+  sb.auth.onAuthStateChange((event, session)=>{
+    // defer: Supabase recommends not awaiting client calls inside this callback
+    setTimeout(()=>{
+      if(event === 'SIGNED_OUT') { if(document.body.dataset.screen !== 'auth') resetToAuth(); }
+      else if(event === 'SIGNED_IN' && !appStarted && document.body.dataset.screen !== 'status') handleSession(session);
+    }, 0);
+  });
+
+  const { data } = await sb.auth.getSession();
+  if(!data.session){ renderAuth(); showScreen('auth'); return; }
+  await handleSession(data.session);
+}
+boot();
+</script>
+</body>
+</html>
