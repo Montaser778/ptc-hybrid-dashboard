@@ -222,19 +222,20 @@ begin
   if v_res not in ('gaza','outside') then v_res := null; end if;
   if v_name is null or length(v_name) < 2 then v_name := split_part(v_email, '@', 1); end if;
   v_is_vp := v_email = lower(s.vp_email);
+  if v_req = 'head' and v_dept is null then v_req := 'lecturer'; end if;
 
   insert into public.profiles (id, email, full_name, requested_role, role, dept_id, residency, status, email_verified)
   values (new.id, v_email, left(v_name, 120), v_req,
-          case when v_is_vp then 'vp' end,
+          case when v_is_vp then 'vp' else v_req end,
           v_dept, v_res,
-          case when v_is_vp then 'approved' else 'pending' end,
+          'approved',
           new.email_confirmed_at is not null)
   on conflict (id) do nothing;
 
   insert into public.audit_log (actor_id, actor_label, dept_id, dept_name, text)
   values (new.id, v_name, v_dept, coalesce((select name from public.departments where id = v_dept), ''),
           case when v_is_vp then 'تفعيل حساب نائب العميد تلقائيًا'
-               else format('طلب تسجيل جديد بصفة: %s', app.role_label(v_req)) end);
+               else format('تسجيل حساب جديد وتفعيله تلقائيًا بصفة: %s', app.role_label(v_req)) end);
   return new;
 end $$;
 
