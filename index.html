@@ -1731,7 +1731,7 @@ function renderHeaderControls(){
   if(state.finalApproval){
     note.textContent = 'تنبيه: تم الاعتماد النهائي لهذه الخطة — اللوحة للعرض فقط حاليًا.';
   } else if(me.role === 'vp'){
-    note.textContent = 'أنت المسؤول عن اللوحة: تعتمد حسابات الموظفين، وتعدّل جميع الأقسام، وتصدر الاعتماد النهائي.';
+    note.textContent = 'أنت المسؤول عن اللوحة: تُدير حسابات الموظفين (الصفة والأقسام)، وتعدّل جميع الأقسام، وتصدر الاعتماد النهائي.';
   } else if(me.role === 'head'){
     const mine = (me.dept_ids || []).map(deptName).filter(Boolean);
     const deptsTxt = mine.length > 1 ? `أقسامك «${mine.join('، ')}»` : `قسم «${mine[0] || '—'}»`;
@@ -2237,7 +2237,7 @@ function wireDeptPanel(dept, root){
 
 /* ---------------------------- Accounts sheet (VP) ---------------------------- */
 
-let usersTab = 'pending';
+let usersTab = 'approved';
 let usersQ = '';
 function deptOptions(selected, allowEmpty){
   return (allowEmpty ? `<option value="">بدون قسم</option>` : '') +
@@ -2321,9 +2321,9 @@ function renderUsersSheet(){
   body.innerHTML = `
     <div class="sheet-tools">
       <div class="seg" role="tablist">
-        <button data-tab="pending" class="${usersTab==='pending'?'on':''}">بانتظار المراجعة ${pendCount ? `<span class="count-badge">${pendCount}</span>` : ''}</button>
-        <button data-tab="approved" class="${usersTab==='approved'?'on':''}">المعتمدون (${groups.approved.length})</button>
+        <button data-tab="approved" class="${usersTab==='approved'?'on':''}">الحسابات النشطة (${groups.approved.length})</button>
         <button data-tab="closed" class="${usersTab==='closed'?'on':''}">مرفوض / معلّق (${groups.closed.length})</button>
+        ${groups.pending.length ? `<button data-tab="pending" class="${usersTab==='pending'?'on':''}">قديمة بانتظار المراجعة ${pendCount ? `<span class="count-badge">${pendCount}</span>` : ''}</button>` : ''}
       </div>
       <input class="search-input" id="usersSearch" type="search" placeholder="بحث بالاسم أو البريد…" value="${esc(usersQ)}">
     </div>
@@ -2464,7 +2464,7 @@ function renderAuth(){
       <button data-mode="register" class="${isReg?'on':''}" role="tab" aria-selected="${isReg}">طلب حساب جديد</button>
     </div>
     <h2>${isReg ? 'طلب حساب لعضو هيئة تدريس أو موظف' : 'الدخول ببريد الكلية'}</h2>
-    <p class="gate-sub">${isReg ? 'يُراجع نائب العميد طلبك ويعتمد صلاحياتك قبل الدخول إلى اللوحة.' : 'أدخل بريدك وكلمة المرور للدخول.'}</p>
+    <p class="gate-sub">${isReg ? 'أنشئ حسابك ببريدك الجامعي — يُفعَّل فور إنشائه.' : 'أدخل بريدك وكلمة المرور للدخول.'}</p>
     ${authMsgHTML()}
     ${isReg ? `<div class="field"><label for="fName">الاسم الكامل *</label>
       <input class="input" id="fName" maxlength="120" autocomplete="name" placeholder="مثال: د. أحمد محمد" value="${esc(f.name || '')}"></div>` : ''}
@@ -2489,13 +2489,8 @@ function renderAuth(){
             <option value="outside" ${f.res==='outside'?'selected':''}>خارج قطاع غزة</option>
           </select></div>
       </div>
-      <p class="hint" id="headDeptHint" style="display:none">سيحدّد نائب العميد القسم (أو الأقسام) التي ترأسها عند اعتماد طلبك.</p>` : ''}
-    <button class="btn btn-primary btn-block" id="sendBtn">${isReg ? 'إنشاء الحساب وإرسال الطلب' : 'دخول'}</button>
-    <div class="gate-foot">
-      ${isReg
-        ? 'بعد إنشاء الحساب يصل طلبك إلى نائب العميد للشؤون الأكاديمية. ستتمكن من الدخول فور اعتماده.'
-        : 'ليس لديك حساب؟ اختر «طلب حساب جديد». الحسابات تُعتمد من نائب العميد للشؤون الأكاديمية.'}
-    </div>
+      <p class="hint" id="headDeptHint" style="display:none">سيحدّد نائب العميد القسم (أو الأقسام) التي ترأسها لاحقًا.</p>` : ''}
+    <button class="btn btn-primary btn-block" id="sendBtn">${isReg ? 'إنشاء الحساب' : 'دخول'}</button>
   </div>`;
 
   body.querySelectorAll('[data-mode]').forEach(b => b.addEventListener('click', ()=>{
