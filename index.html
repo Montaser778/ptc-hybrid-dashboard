@@ -2458,7 +2458,6 @@ function renderAuth(){
   const f = auth.form;
   const domains = CONFIG.ALLOWED_DOMAINS.map(d => '@' + d).join(' أو ');
   const isReg = auth.mode === 'register';
-  const depts = publicDepartments.map(d => `<option value="${esc(d.id)}" ${f.dept===d.id?'selected':''}>${esc(d.name)}</option>`).join('');
   body.innerHTML = `<div class="gate-step">
     <div class="seg" role="tablist">
       <button data-mode="login" class="${!isReg?'on':''}" role="tab" aria-selected="${!isReg}">تسجيل الدخول</button>
@@ -2490,11 +2489,7 @@ function renderAuth(){
             <option value="outside" ${f.res==='outside'?'selected':''}>خارج قطاع غزة</option>
           </select></div>
       </div>
-      <div class="field"><label for="fDept">القسم <span id="deptReq"></span></label>
-        <select class="input" id="fDept">
-          <option value="">${publicDepartments.length ? 'اختر القسم…' : 'تعذّر تحميل الأقسام — سيحدده نائب العميد'}</option>
-          ${depts}
-        </select></div>` : ''}
+      <p class="hint" id="headDeptHint" style="display:none">سيحدّد نائب العميد القسم (أو الأقسام) التي ترأسها عند اعتماد طلبك.</p>` : ''}
     <button class="btn btn-primary btn-block" id="sendBtn">${isReg ? 'إنشاء الحساب وإرسال الطلب' : 'دخول'}</button>
     <div class="gate-foot">
       ${isReg
@@ -2510,8 +2505,9 @@ function renderAuth(){
   const roleSel = document.getElementById('fRole');
   const syncReq = ()=>{
     if(!roleSel) return;
-    document.getElementById('deptReq').textContent = roleSel.value === 'head' ? '*' : '(اختياري)';
     document.getElementById('resReq').textContent = roleSel.value === 'viewer' ? '(اختياري)' : '*';
+    const hint = document.getElementById('headDeptHint');
+    if(hint) hint.style.display = roleSel.value === 'head' ? '' : 'none';
   };
   if(roleSel){ roleSel.addEventListener('change', syncReq); syncReq(); }
   body.querySelectorAll('input').forEach(i => i.addEventListener('keydown', e=>{ if(e.key === 'Enter') submitAuth(); }));
@@ -2527,7 +2523,6 @@ function captureAuthForm(){
   if(v('fName') !== undefined) f.name = v('fName');
   if(v('fRole') !== undefined) f.role = v('fRole');
   if(v('fRes') !== undefined) f.res = v('fRes');
-  if(v('fDept') !== undefined) f.dept = v('fDept');
 }
 
 function setAuthMsg(type, text){ auth.msg = { type, text }; }
@@ -2573,11 +2568,7 @@ async function submitAuth(){
       busy.delete('auth'); if(btn){ btn.classList.remove('loading'); btn.disabled = false; }
       return inlineError('حدّد مكان إقامتك الحالي', 'fRes');
     }
-    if(f.role === 'head' && !f.dept && publicDepartments.length){
-      busy.delete('auth'); if(btn){ btn.classList.remove('loading'); btn.disabled = false; }
-      return inlineError('اختر القسم الذي ترأسه', 'fDept');
-    }
-    const meta = { full_name: name, requested_role: f.role, dept_id: f.dept || '', residency: f.res || '' };
+    const meta = { full_name: name, requested_role: f.role, residency: f.res || '' };
     const { data, error } = await sb.auth.signUp({ email, password, options: { data: meta } }).catch(err => ({ error: err }));
     busy.delete('auth');
     if(btn){ btn.classList.remove('loading'); btn.disabled = false; }

@@ -41,8 +41,9 @@ create table if not exists public.profiles (
   reviewed_by    uuid references public.profiles(id) on delete set null,
   reviewed_at    timestamptz,
   created_at     timestamptz not null default now(),
-  constraint approved_needs_role check (status <> 'approved' or role is not null),
-  constraint head_needs_dept     check (role is distinct from 'head' or array_length(dept_ids, 1) > 0)
+  constraint approved_needs_role check (status <> 'approved' or role is not null)
+  -- ملاحظة: لا يوجد قيد يُلزم رئيس القسم بقسم عند التسجيل — رئيس القسم يُسجَّل
+  -- بلا قسم مبدئيًا، ونائب العميد يُسند له قسمًا واحدًا أو أكثر لاحقًا من شاشة الحسابات
 );
 
 -- ترحيل: رئيس القسم كان يرتبط بقسم واحد فقط (dept_id) — الآن يمكن أن يرتبط بأكثر من قسم/مساق (dept_ids)
@@ -56,11 +57,9 @@ do $$ begin
     update public.profiles
        set dept_ids = array[dept_id]
      where dept_id is not null and (dept_ids is null or dept_ids = '{}');
-    alter table public.profiles drop constraint if exists head_needs_dept;
-    alter table public.profiles add constraint head_needs_dept
-      check (role is distinct from 'head' or array_length(dept_ids, 1) > 0);
     alter table public.profiles drop column dept_id;
   end if;
+  alter table public.profiles drop constraint if exists head_needs_dept;
 end $$;
 create index if not exists profiles_dept_ids_idx on public.profiles using gin(dept_ids);
 
@@ -251,7 +250,6 @@ begin
   if v_res not in ('gaza','outside') then v_res := null; end if;
   if v_name is null or length(v_name) < 2 then v_name := split_part(v_email, '@', 1); end if;
   v_is_vp := v_email = lower(s.vp_email);
-  if v_req = 'head' and array_length(v_depts, 1) is null then v_req := 'lecturer'; end if;
   v_dept0 := v_depts[1];
 
   insert into public.profiles (id, email, full_name, requested_role, role, dept_ids, residency, status, email_verified)
