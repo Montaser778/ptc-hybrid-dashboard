@@ -2020,6 +2020,9 @@ function groupCoursesBySemester(courses){
     if(!(key in idx)){ idx[key] = groups.length; groups.push({ semester: c.semester, courses: [] }); }
     groups[idx[key]].courses.push(c);
   });
+  // الاختياري (فصل 0) أولًا، ثم الفصول 1-10 بالترتيب، ثم المقررات الإضافية خارج الخطة أخيرًا
+  const rank = s => s === 0 ? -1 : (s == null ? 999 : s);
+  groups.sort((a, b) => rank(a.semester) - rank(b.semester));
   return groups;
 }
 function semesterGroupsHTML(dept, courses, editable){
