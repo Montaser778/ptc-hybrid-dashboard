@@ -745,10 +745,10 @@ insert into public.departments (id, name, year, sort_order) values
   ('d17', 'هندسة أنظمة الحاسوب (خطة 2025-2026)', '2025-2026', 16)
 on conflict (id) do nothing;
 
--- ملاحظة: الإدراج أدناه آمن لإعادة التشغيل — يتجاهل أي مقرر (قسم+كود) موجود مسبقًا
-insert into public.courses (id, dept_id, code, name, credit, req_type, semester, source, sort_order)
-select v.id, v.dept_id, v.code, v.name, v.credit, v.req_type, v.semester, v.source, v.sort_order
-from (values
+-- ملاحظة: الكتلة أدناه آمنة لإعادة التشغيل — تُدرج أي مقرر (قسم+كود) غير موجود بعد،
+-- وتُحدّث رقم الفصل الدراسي لأي مقرر أُدرج سابقًا (مثلًا من نسخة سابقة من هذا الملف
+-- قبل إضافة عمود semester) دون المساس بأي قرار حضوري/محاضرين تم إدخاله يدويًا.
+with v(id, dept_id, code, name, credit, req_type, semester, source, sort_order) as (values
   ('c0001', 'd1', 'BUS93201', 'تسويق الخدمات', '3', 'تخصص', 0, 'catalog', 0),
   ('c0002', 'd1', 'BUS93008', 'مبادئ القانون', '3', 'تخصص', 0, 'catalog', 1),
   ('c0003', 'd1', 'BUS93207', 'خدمات العملاء *', '3', 'تخصص', 0, 'catalog', 2),
@@ -1528,8 +1528,20 @@ from (values
   ('c0777', 'd17', 'EEE43504', 'مساق اختياري تخصص 5', '3', 'تخصص', 8, 'catalog', 72),
   ('c0778', 'd17', 'EEE43576', 'أمن المعلومات والشبكات', '3', 'تخصص', 8, 'catalog', 73),
   ('c0779', 'd17', 'EEE43490', 'إنترنت الأشياء', '3', 'تخصص', 8, 'catalog', 74)
-) as v(id, dept_id, code, name, credit, req_type, semester, source, sort_order)
-where not exists (
-  select 1 from public.courses c where c.dept_id = v.dept_id and c.code = v.code
+),
+ins as (
+  insert into public.courses (id, dept_id, code, name, credit, req_type, semester, source, sort_order)
+  select v.id, v.dept_id, v.code, v.name, v.credit, v.req_type, v.semester, v.source, v.sort_order
+  from v
+  where not exists (select 1 from public.courses c where c.dept_id = v.dept_id and c.code = v.code)
+  on conflict (id) do nothing
+  returning 1
+),
+upd as (
+  update public.courses c set semester = v.semester
+  from v
+  where c.dept_id = v.dept_id and c.code = v.code
+    and c.semester is distinct from v.semester
+  returning 1
 )
-on conflict (id) do nothing;
+select (select count(*) from ins) as courses_inserted, (select count(*) from upd) as courses_semester_backfilled;
