@@ -46,8 +46,11 @@
     font-family:var(--font-ui);
     background:var(--paper);
     color:var(--ink);
-    line-height:1.55;
+    font-size:14.5px;
+    line-height:1.65;
     -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    text-rendering:optimizeLegibility;
     min-height:100vh;
   }
   h1,h2,h3,h4{margin:0;font-weight:600;}
@@ -96,7 +99,7 @@
   .header-controls .field-inline{
     display:flex;flex-direction:column;gap:2px;
   }
-  .header-controls label{font-size:10.5px;color:#B9C4BC;padding-inline-start:2px;}
+  .header-controls label{font-size:12px;color:#B9C4BC;padding-inline-start:2px;}
   .hc-select, .hc-input{
     background:#22392F;
     border:1px solid #3B5147;
@@ -132,7 +135,7 @@
   .btn-sm{padding:5px 10px;font-size:12px;border-radius:6px;}
 
   .header-note{
-    font-size:11px;color:#93A79C;max-width:1440px;margin:6px auto 0;padding:0 2px;
+    font-size:12.5px;color:#93A79C;max-width:1440px;margin:6px auto 0;padding:0 2px;
   }
 
   /* ---------- Stats strip ---------- */
@@ -150,7 +153,7 @@
     box-shadow:var(--shadow-card);
   }
   .stat-card .num{font-size:22px;font-weight:700;color:var(--ink);font-family:var(--font-code);}
-  .stat-card .lbl{font-size:11.5px;color:var(--muted);margin-top:3px;}
+  .stat-card .lbl{font-size:13px;color:var(--muted);margin-top:3px;}
   .stat-card.accent .num{color:var(--accent);}
   .stat-card.hybrid .num{color:var(--hybrid);}
   .stat-card.review .num{color:var(--review);}
@@ -192,11 +195,11 @@
   .nav-item.active{background:var(--accent-tint);border-color:#BFDACB;}
   .nav-item .nav-row1{display:flex;justify-content:space-between;align-items:center;gap:6px;}
   .nav-item .nav-name{font-size:13px;font-weight:500;color:var(--ink);}
-  .nav-item .nav-count{font-size:11px;color:var(--muted);font-family:var(--font-code);flex:none;}
+  .nav-item .nav-count{font-size:12.5px;color:var(--muted);font-family:var(--font-code);flex:none;}
   .nav-bar{height:4px;border-radius:3px;background:var(--border-soft);overflow:hidden;}
   .nav-bar > span{display:block;height:100%;background:var(--accent);}
   .nav-item.all-item{border-bottom:1px solid var(--border-soft);margin-bottom:8px;padding-bottom:12px;border-radius:0;}
-  .nav-lock-flag{font-size:10.5px;color:var(--accent);}
+  .nav-lock-flag{font-size:12px;color:var(--accent);}
 
   .content-col{display:flex;flex-direction:column;gap:14px;min-width:0;}
 
@@ -247,11 +250,11 @@
     padding:16px 18px;display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap;
   }
   .dept-head h2{font-size:17px;}
-  .dept-head .dept-year{font-size:11.5px;color:var(--muted);font-family:var(--font-code);margin-top:3px;}
+  .dept-head .dept-year{font-size:13px;color:var(--muted);font-family:var(--font-code);margin-top:3px;}
   .dept-progress-line{display:flex;align-items:center;gap:8px;margin-top:8px;}
   .dept-progress-line .track{width:160px;height:6px;border-radius:4px;background:var(--border-soft);overflow:hidden;}
   .dept-progress-line .track>span{display:block;height:100%;background:var(--accent);}
-  .dept-progress-line .txt{font-size:11.5px;color:var(--muted);}
+  .dept-progress-line .txt{font-size:13px;color:var(--muted);}
   .dept-actions{display:flex;flex-direction:column;align-items:flex-end;gap:8px;}
   .stage-flag{
     font-size:12px;padding:6px 10px;border-radius:20px;display:inline-flex;align-items:center;gap:6px;
@@ -269,7 +272,7 @@
   .chev{transition:transform .15s ease;color:var(--muted);}
   details[open] .chev{transform:rotate(90deg);}
   .summary-mini{display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
-  .mini-stat{font-size:11.5px;color:var(--muted);font-family:var(--font-code);}
+  .mini-stat{font-size:13px;color:var(--muted);font-family:var(--font-code);}
   details.dept-block .dept-block-body{padding:0 16px 16px;border-top:1px solid var(--border-soft);}
 
   /* ---------- Course cards ---------- */
@@ -281,7 +284,7 @@
   }
   .course-top{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:6px;}
   .chip{
-    font-size:11px;padding:3px 8px;border-radius:20px;border:1px solid var(--border);
+    font-size:12.5px;padding:3px 8px;border-radius:20px;border:1px solid var(--border);
     background:#fff;color:var(--muted);white-space:nowrap;
   }
   .chip-code{font-family:var(--font-code);font-weight:600;color:var(--ink-soft);background:#fff;letter-spacing:.2px;}
@@ -308,10 +311,10 @@
   .status-btn[data-s="hybrid"].active{background:var(--hybrid);}
   .status-btn:disabled{opacity:.5;cursor:not-allowed;}
 
-  .undecided-flag{font-size:11px;color:var(--review);background:var(--review-tint);border:1px solid #E7D3AC;padding:2px 8px;border-radius:20px;display:inline-flex;align-items:center;gap:4px;}
+  .undecided-flag{font-size:12.5px;color:var(--review);background:var(--review-tint);border:1px solid #E7D3AC;padding:2px 8px;border-radius:20px;display:inline-flex;align-items:center;gap:4px;}
 
   .justify-wrap{margin-bottom:8px;}
-  .justify-wrap label{display:block;font-size:11px;color:var(--muted);margin-bottom:4px;}
+  .justify-wrap label{display:block;font-size:12.5px;color:var(--muted);margin-bottom:4px;}
   .justify-wrap textarea{
     width:100%;border:1px solid var(--border);border-radius:var(--radius-s);
     padding:8px 10px;font-size:13px;resize:vertical;min-height:40px;background:#fff;
@@ -319,7 +322,7 @@
   }
   .justify-wrap textarea:focus{outline:none;border-color:var(--accent);}
 
-  .meta-line{font-size:11px;color:var(--muted-2);margin-bottom:6px;}
+  .meta-line{font-size:12.5px;color:var(--muted-2);margin-bottom:6px;}
 
   .lecturer-box{border-top:1px dashed var(--border);padding-top:9px;margin-top:4px;}
   .lecturer-box-title{font-size:12px;font-weight:600;color:var(--ink-soft);margin-bottom:7px;display:flex;align-items:center;gap:6px;}
@@ -332,11 +335,11 @@
   .lect-chip.eligible{border-color:#BFDACB;}
   .lect-chip.excluded{border-color:#E3BEB6;background:var(--danger-tint);}
   .lect-chip .lect-name{font-weight:500;}
-  .lect-chip .lect-badge{font-size:10.5px;padding:2px 6px;border-radius:12px;}
+  .lect-chip .lect-badge{font-size:12px;padding:2px 6px;border-radius:12px;}
   .lect-chip.eligible .lect-badge{background:var(--accent-tint);color:var(--accent-deep);}
   .lect-chip.excluded .lect-badge{background:#F3D9D3;color:var(--danger);}
   .lect-assign-toggle{
-    border:1px solid var(--border);background:#fff;border-radius:12px;font-size:10.5px;padding:2px 8px;color:var(--muted);
+    border:1px solid var(--border);background:#fff;border-radius:12px;font-size:12px;padding:2px 8px;color:var(--muted);
   }
   .lect-assign-toggle.assigned{background:var(--accent);border-color:var(--accent-deep);color:#fff;}
   .lect-assign-toggle:disabled{opacity:.4;cursor:not-allowed;}
@@ -344,14 +347,14 @@
     border:none;background:transparent;color:var(--muted-2);font-size:13px;line-height:1;padding:2px 4px;border-radius:50%;
   }
   .lect-remove:hover{color:var(--danger);}
-  .coverage-warn{font-size:11.5px;color:var(--danger);background:var(--danger-tint);border:1px solid #E3BEB6;padding:5px 9px;border-radius:var(--radius-s);margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+  .coverage-warn{font-size:13px;color:var(--danger);background:var(--danger-tint);border:1px solid #E3BEB6;padding:5px 9px;border-radius:var(--radius-s);margin-bottom:8px;display:flex;align-items:center;gap:6px;}
 
   .add-lect-form{display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
   .add-lect-form input[type=text]{
     border:1px solid var(--border);border-radius:var(--radius-s);padding:6px 9px;font-size:12.5px;flex:1;min-width:130px;background:#fff;
   }
   .add-lect-form select{border:1px solid var(--border);border-radius:var(--radius-s);padding:6px 8px;font-size:12.5px;background:#fff;}
-  .residency-hint{font-size:10.5px;color:var(--muted);width:100%;}
+  .residency-hint{font-size:12px;color:var(--muted);width:100%;}
   .residency-hint.warn{color:var(--danger);}
 
   .add-course-toggle-wrap{padding:0 16px 16px;}
@@ -359,7 +362,7 @@
     border:1px dashed var(--border);border-radius:var(--radius-m);padding:12px;display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end;background:var(--surface-2);
   }
   .add-course-form .f-group{display:flex;flex-direction:column;gap:4px;}
-  .add-course-form label{font-size:11px;color:var(--muted);}
+  .add-course-form label{font-size:12.5px;color:var(--muted);}
   .add-course-form input,.add-course-form select{border:1px solid var(--border);border-radius:var(--radius-s);padding:7px 9px;font-size:13px;background:#fff;}
   .add-course-form input[name=cname]{min-width:220px;}
 
@@ -383,7 +386,7 @@
   .drawer-body{overflow:auto;padding:10px 14px;flex:1;}
   .drawer-filter{padding:0 16px 10px;}
   .log-entry{padding:9px 0;border-bottom:1px solid var(--border-soft);font-size:12.5px;}
-  .log-entry .log-ts{font-family:var(--font-code);font-size:10.5px;color:var(--muted-2);}
+  .log-entry .log-ts{font-family:var(--font-code);font-size:12px;color:var(--muted-2);}
   .log-entry .log-actor{font-weight:600;color:var(--ink-soft);}
   .log-entry .log-dept{color:var(--accent);}
 
@@ -412,7 +415,7 @@
   details[open] .chev{transform:rotate(-90deg);}
   .chev{display:inline-block;transition:transform .3s cubic-bezier(.2,.8,.2,1);}
   /* Fix: year label inside collapsed blocks had no styling */
-  .summary-left .dept-year{font-size:11.5px;color:var(--muted);font-family:var(--font-code);margin-top:2px;}
+  .summary-left .dept-year{font-size:13px;color:var(--muted);font-family:var(--font-code);margin-top:2px;}
   /* Fix: banners touched screen edges below 1440px */
   #lockedBannerHost,#vpBannerHost{padding:0 20px;}
 
@@ -426,7 +429,7 @@
 
   /* Save status pill */
   .save-state{
-    display:inline-flex;align-items:center;gap:6px;font-size:11px;color:#B9C4BC;
+    display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:#B9C4BC;
     border:1px solid #3B5147;padding:3px 10px;border-radius:20px;margin-inline-start:4px;white-space:nowrap;
     transition:color .2s ease,border-color .2s ease;
   }
@@ -615,7 +618,7 @@
   .toast.t-warn .toast-bar{background:#E0B566;}
   @keyframes toastBar{to{transform:scaleX(0)}}
 
-  .kbd{font-family:var(--font-code);font-size:10.5px;border:1px solid var(--border);border-bottom-width:2px;border-radius:4px;padding:0 5px;color:var(--muted);background:#fff;}
+  .kbd{font-family:var(--font-code);font-size:12px;border:1px solid var(--border);border-bottom-width:2px;border-radius:4px;padding:0 5px;color:var(--muted);background:#fff;}
 
   @media (prefers-reduced-motion: reduce){
     *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;scroll-behavior:auto !important;}
@@ -650,7 +653,7 @@
   .gate-body{padding:20px 22px 22px;}
   .gate-body h2{font-size:17px;margin-bottom:4px;}
   .gate-sub{font-size:13px;color:var(--muted);margin:0 0 16px;}
-  .gate-foot{font-size:11.5px;color:var(--muted);margin-top:16px;line-height:1.75;border-top:1px dashed var(--border);padding-top:12px;}
+  .gate-foot{font-size:13px;color:var(--muted);margin-top:16px;line-height:1.75;border-top:1px dashed var(--border);padding-top:12px;}
   .gate-step{animation:riseIn .35s cubic-bezier(.2,.8,.2,1) both;}
 
   .seg{display:flex;background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:3px;margin-bottom:16px;gap:3px;}
@@ -660,7 +663,7 @@
 
   .field{display:flex;flex-direction:column;gap:5px;margin-bottom:12px;}
   .field > label{font-size:12px;color:var(--ink-soft);font-weight:500;}
-  .field .hint{font-size:11px;color:var(--muted);}
+  .field .hint{font-size:12.5px;color:var(--muted);}
   .field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
   .input{
     border:1px solid var(--border);border-radius:8px;padding:10px 12px;font-size:14px;
@@ -704,19 +707,19 @@
   .user-chip{display:flex;align-items:center;gap:8px;padding:4px 4px 4px 12px;border:1px solid #3B5147;border-radius:24px;background:rgba(255,255,255,.04);}
   .avatar{width:30px;height:30px;border-radius:50%;flex:none;background:linear-gradient(160deg,#4F8F74,var(--accent-deep));display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;color:#fff;}
   .u-name{font-size:12.5px;color:#fff;line-height:1.25;max-width:170px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-  .u-role{font-size:10.5px;color:#B9C4BC;max-width:170px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-  .count-badge{display:inline-block;background:#E0B566;color:#3A2A08;border-radius:10px;padding:0 6px;font-size:11px;font-weight:700;min-width:18px;text-align:center;line-height:18px;}
+  .u-role{font-size:12px;color:#B9C4BC;max-width:170px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .count-badge{display:inline-block;background:#E0B566;color:#3A2A08;border-radius:10px;padding:0 6px;font-size:12.5px;font-weight:700;min-width:18px;text-align:center;line-height:18px;}
   .count-badge.pulse{animation:badgePulse 1.8s ease-in-out infinite;}
   @keyframes badgePulse{50%{box-shadow:0 0 0 4px rgba(224,181,102,.25)}}
 
   .banner-warn{background:var(--review-tint);border:1px solid #E7D3AC;color:#6B4712;}
-  .nav-mine{font-size:10.5px;color:var(--hybrid);font-weight:500;}
-  .lect-tag{font-size:10px;padding:1px 6px;border-radius:10px;background:var(--hybrid-tint);color:var(--hybrid);white-space:nowrap;}
+  .nav-mine{font-size:12px;color:var(--hybrid);font-weight:500;}
+  .lect-tag{font-size:11.5px;padding:1px 6px;border-radius:10px;background:var(--hybrid-tint);color:var(--hybrid);white-space:nowrap;}
   .self-nom{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px;}
-  .self-nom .hint{font-size:11px;color:var(--muted);}
+  .self-nom .hint{font-size:12.5px;color:var(--muted);}
   .add-lect-form [data-manual]{display:contents;}
   .add-lect-form select[name=lpick]{max-width:260px;}
-  .log-foot{font-size:11px;color:var(--muted-2);text-align:center;padding:10px 0 4px;}
+  .log-foot{font-size:12.5px;color:var(--muted-2);text-align:center;padding:10px 0 4px;}
 
   /* Sheet (accounts, my profile) */
   .sheet-backdrop{
@@ -750,7 +753,7 @@
   .user-main strong{font-size:14px;}
   .user-email{display:block;font-size:12px;color:var(--muted);direction:ltr;text-align:right;unicode-bidi:plaintext;margin-top:1px;}
   .user-meta{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px;}
-  .user-note{font-size:11.5px;color:var(--danger);margin-top:6px;}
+  .user-note{font-size:13px;color:var(--danger);margin-top:6px;}
   .user-actions{display:flex;flex-wrap:wrap;gap:6px;align-items:center;}
   .user-actions select{border:1px solid var(--border);border-radius:6px;padding:6px 8px;font-size:12px;background:#fff;max-width:200px;}
   .chip-ok{color:var(--accent-deep);background:var(--accent-tint);border-color:#BFDACB;}
@@ -1022,7 +1025,7 @@ function findCourse(dept, id){ return dept.courses.find(c => c.id === id); }
 function canEditDept(deptId){
   if(!me || !state || state.finalApproval) return false;
   if(me.role === 'vp') return true;
-  return me.role === 'head' && me.dept_id === deptId;
+  return me.role === 'head' && Array.isArray(me.dept_ids) && me.dept_ids.includes(deptId);
 }
 function canNominate(){
   return !!me && ['lecturer','head'].includes(me.role) && !!state && !state.finalApproval;
@@ -1232,7 +1235,7 @@ async function fetchAll(){
     sb.from('course_lecturers').select('*').order('created_at'),
     sb.from('app_settings').select('final_approved,final_approved_by_name,final_approved_at').eq('id', 1).maybeSingle(),
     sb.from('audit_log').select('ts,actor_label,dept_name,text').order('ts', { ascending:false }).limit(400),
-    sb.from('profiles').select('id,email,full_name,requested_role,role,dept_id,residency,status,email_verified,review_note,created_at,reviewed_at').order('created_at', { ascending:false }),
+    sb.from('profiles').select('id,email,full_name,requested_role,role,dept_ids,residency,status,email_verified,review_note,created_at,reviewed_at').order('created_at', { ascending:false }),
   ]);
   const failed = results.find(r => r.error);
   if(failed) throw failed.error;
@@ -1291,7 +1294,7 @@ async function reloadData(){
       await enterWithProfile(mine || null);
       return;
     }
-    const roleChanged = mine.role !== me.role || mine.dept_id !== me.dept_id;
+    const roleChanged = mine.role !== me.role || JSON.stringify(mine.dept_ids) !== JSON.stringify(me.dept_ids);
     me = mine;
     state = next;
     if(view.type === 'dept' && !findDept(view.deptId)) view = { type:'all' };
@@ -1524,22 +1527,12 @@ async function reopenFinal(){
 }
 
 /* Accounts (VP) */
-async function approveUser(uid, role, dept){
+async function approveUser(uid, role, depts){
   const p = state.profiles.find(x => x.id === uid);
   if(!p) return;
   if(!ROLE_LABELS[role]){ showToastMsg('اختر الصفة', 'warn'); return; }
-  if(role === 'head' && !dept){ showToastMsg('حدّد القسم لرئيس القسم', 'warn'); return; }
-  if(role === 'head'){
-    const other = state.profiles.find(x => x.id !== uid && x.status === 'approved' && x.role === 'head' && x.dept_id === dept);
-    if(other){
-      const ok = await uiConfirm({
-        title: 'يوجد رئيس قسم معتمد',
-        message: `«${other.full_name}» معتمد مسبقًا رئيسًا لقسم «${deptName(dept)}». هل تريد إضافة «${p.full_name}» رئيسًا للقسم نفسه أيضًا؟`,
-        okText: 'اعتماد', tone: 'warn',
-      });
-      if(!ok) return;
-    }
-  }
+  depts = Array.isArray(depts) ? depts.filter(Boolean) : (depts ? [depts] : []);
+  if(role === 'head' && !depts.length){ showToastMsg('حدّد قسمًا واحدًا على الأقل لرئيس القسم — من الطبيعي أن يُسند له أكثر من مساق', 'warn'); return; }
   if(role === 'vp' && p.role !== 'vp'){
     const ok = await uiConfirm({
       title: 'منح صلاحية نائب العميد',
@@ -1550,7 +1543,7 @@ async function approveUser(uid, role, dept){
   }
   return guarded('user-'+uid, async ()=>{
     const res = await dbWrite(()=> sb.from('profiles')
-      .update({ status:'approved', role, dept_id: dept || null, review_note:'' }).eq('id', uid).select('*'),
+      .update({ status:'approved', role, dept_ids: role === 'head' ? depts : [], review_note:'' }).eq('id', uid).select('*'),
       { success: p.status === 'approved' ? `تم تحديث صلاحية «${p.full_name}»` : `تم اعتماد حساب «${p.full_name}»` });
     if(res.ok && res.data[0]){
       Object.assign(p, res.data[0]);
@@ -1693,7 +1686,7 @@ function renderAll(){
 function renderHeaderControls(){
   const el = document.getElementById('headerControls');
   const pend = pendingRegistrations();
-  const roleLine = ROLE_LABELS[me.role] + (me.role === 'head' && me.dept_id ? ' — ' + deptName(me.dept_id) : '');
+  const roleLine = ROLE_LABELS[me.role] + (me.role === 'head' && me.dept_ids && me.dept_ids.length ? ' — ' + me.dept_ids.map(deptName).join('، ') : '');
   el.innerHTML = `
     <button class="user-chip" id="profileBtn" title="حسابي" style="cursor:pointer">
       <span style="text-align:right">
@@ -1727,7 +1720,9 @@ function renderHeaderControls(){
   } else if(me.role === 'vp'){
     note.textContent = 'أنت المسؤول عن اللوحة: تعتمد حسابات الموظفين، وتعدّل جميع الأقسام، وتصدر الاعتماد النهائي.';
   } else if(me.role === 'head'){
-    note.textContent = `رئيس قسم «${deptName(me.dept_id)}»: تعدّل مقررات قسمك وتختار محاضريه، وتطّلع على بقية الأقسام.`;
+    const mine = (me.dept_ids || []).map(deptName).filter(Boolean);
+    const deptsTxt = mine.length > 1 ? `أقسامك «${mine.join('، ')}»` : `قسم «${mine[0] || '—'}»`;
+    note.textContent = `رئيس ${deptsTxt}: تعدّل مقررات ${mine.length > 1 ? 'أقسامك' : 'قسمك'} وتختار محاضريها، وتطّلع على بقية الأقسام.`;
   } else if(me.role === 'lecturer'){
     note.textContent = 'محاضر: تطّلع على الخطة وترشّح نفسك للمقررات الحضورية بعد اعتماد قوائمها، وقرار التكليف لرئيس القسم.';
   } else {
@@ -1822,7 +1817,7 @@ function renderNav(){
   state.departments.forEach(d=>{
     const s = deptStats(d);
     const active = view.type==='dept' && view.deptId===d.id;
-    const mine = me.dept_id === d.id && me.role === 'head';
+    const mine = me.role === 'head' && Array.isArray(me.dept_ids) && me.dept_ids.includes(d.id);
     html += `<div class="nav-item ${active?'active':''}" data-nav="dept" data-id="${esc(d.id)}" role="button" tabindex="0">
       <div class="nav-row1"><span class="nav-name">${esc(d.name)}</span><span class="nav-count">${s.decided}/${s.total}</span></div>
       <div class="nav-bar">${barSpan('nav-'+d.id, s.pct)}</div>
@@ -2209,6 +2204,10 @@ function deptOptions(selected, allowEmpty){
   return (allowEmpty ? `<option value="">بدون قسم</option>` : '') +
     state.departments.map(d => `<option value="${esc(d.id)}" ${d.id===selected?'selected':''}>${esc(d.name)}</option>`).join('');
 }
+function deptMultiOptions(selectedIds){
+  const sel = new Set(selectedIds || []);
+  return state.departments.map(d => `<option value="${esc(d.id)}" ${sel.has(d.id)?'selected':''}>${esc(d.name)}</option>`).join('');
+}
 function roleOptions(selected){
   return ['lecturer','head','viewer','vp'].map(r => `<option value="${r}" ${r===selected?'selected':''}>${ROLE_LABELS[r]}</option>`).join('');
 }
@@ -2218,7 +2217,7 @@ function userCardHTML(p){
   const meta = [];
   if(p.status === 'pending') meta.push(`<span class="chip chip-role">طلب: ${esc(ROLE_LABELS[p.requested_role])}</span>`);
   else if(p.role) meta.push(`<span class="chip chip-role">${esc(ROLE_LABELS[p.role])}</span>`);
-  if(p.dept_id) meta.push(`<span class="chip">${esc(deptName(p.dept_id))}</span>`);
+  (p.dept_ids || []).forEach(id => meta.push(`<span class="chip">${esc(deptName(id))}</span>`));
   meta.push(p.residency ? `<span class="chip ${p.residency==='gaza'?'chip-ok':'chip-bad'}">${RES_LABELS[p.residency]}</span>` : `<span class="chip chip-warn">لم يحدد الإقامة</span>`);
   if(p.status === 'pending') meta.push(p.email_verified ? `<span class="chip chip-ok">✓ أكّد بريده</span>` : `<span class="chip chip-warn">⏳ لم يُكمل تأكيد البريد</span>`);
   if(p.status === 'suspended') meta.push(`<span class="chip chip-bad">معلّق</span>`);
@@ -2230,7 +2229,7 @@ function userCardHTML(p){
     actions = `<span class="chip chip-ok">حسابك</span>`;
   } else {
     const selects = `<select data-f="role" aria-label="الصفة">${roleOptions(roleSel)}</select>
-      <select data-f="dept" aria-label="القسم">${deptOptions(p.dept_id, true)}</select>`;
+      <select data-f="dept" aria-label="الأقسام (يمكن اختيار أكثر من مساق)" multiple size="3" style="min-width:160px;">${deptMultiOptions(p.dept_ids)}</select>`;
     if(p.status === 'pending'){
       actions = `${selects}
         <button class="btn btn-primary btn-sm" data-u="approve" ${p.email_verified ? '' : 'disabled title="بانتظار تأكيد البريد"'}>اعتماد</button>
@@ -2306,7 +2305,7 @@ function renderUsersSheet(){
     const roleSel = card.querySelector('[data-f=role]');
     const deptSel = card.querySelector('[data-f=dept]');
     card.querySelectorAll('[data-u]').forEach(btn => btn.addEventListener('click', ()=>{
-      if(btn.dataset.u === 'approve') approveUser(uid, roleSel.value, deptSel.value);
+      if(btn.dataset.u === 'approve') approveUser(uid, roleSel.value, Array.from(deptSel.selectedOptions).map(o=>o.value));
       else if(btn.dataset.u === 'reject') rejectUser(uid);
       else if(btn.dataset.u === 'suspend') suspendUser(uid);
     }));
@@ -2324,7 +2323,7 @@ function renderProfileSheet(){
       <input class="input ltr" value="${esc(me.email)}" readonly></div>
     <div class="field-row">
       <div class="field"><label>الصفة</label><input class="input" value="${esc(ROLE_LABELS[me.role])}" readonly></div>
-      <div class="field"><label>القسم</label><input class="input" value="${esc(deptName(me.dept_id) || '—')}" readonly></div>
+      <div class="field"><label>${me.dept_ids && me.dept_ids.length > 1 ? 'الأقسام' : 'القسم'}</label><input class="input" value="${esc((me.dept_ids || []).map(deptName).filter(Boolean).join('، ') || '—')}" readonly></div>
     </div>
     <div class="field"><label for="pfRes">مكان الإقامة الحالي ${needRes ? '*' : ''}</label>
       <select class="input" id="pfRes">
@@ -2648,7 +2647,7 @@ function renderStatus({ kind, profile, text }){
       <dt>الاسم</dt><dd>${esc(p.full_name)}</dd>
       <dt>البريد</dt><dd class="email-ltr">${esc(p.email)}</dd>
       <dt>الصفة المطلوبة</dt><dd>${esc(ROLE_LABELS[p.requested_role] || '—')}</dd>
-      ${p.dept_id ? `<dt>القسم</dt><dd>${esc(deptName(p.dept_id) || (publicDepartments.find(d=>d.id===p.dept_id)||{}).name || '')}</dd>` : ''}
+      ${p.dept_ids && p.dept_ids.length ? `<dt>${p.dept_ids.length > 1 ? 'الأقسام' : 'القسم'}</dt><dd>${esc(p.dept_ids.map(id => deptName(id) || (publicDepartments.find(d=>d.id===id)||{}).name || '').filter(Boolean).join('، '))}</dd>` : ''}
     </dl>` : '';
   const content = {
     pending: { icon:'⏳', cls:'wait', title:'طلبك قيد المراجعة', sub:'وصل طلبك إلى نائب العميد للشؤون الأكاديمية. ستُفتح اللوحة تلقائيًا على هذه الصفحة فور اعتماده.' },
@@ -2694,7 +2693,7 @@ async function startApp(){
     renderStatus({ kind:'error', text: friendlyError(err) });
     return;
   }
-  if(me.role === 'head' && me.dept_id && findDept(me.dept_id)) view = { type:'dept', deptId: me.dept_id };
+  if(me.role === 'head' && me.dept_ids && me.dept_ids.length === 1 && findDept(me.dept_ids[0])) view = { type:'dept', deptId: me.dept_ids[0] };
   renderAll();
   subscribeRealtime();
   setTimeout(()=> document.body.classList.remove('is-booting'), 1400);
