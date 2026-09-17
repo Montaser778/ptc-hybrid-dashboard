@@ -1037,8 +1037,7 @@ function findCourse(dept, id){ return dept.courses.find(c => c.id === id); }
 
 function canEditDept(deptId){
   if(!me || !state || state.finalApproval) return false;
-  if(me.role === 'vp') return true;
-  return me.role === 'head' && Array.isArray(me.dept_ids) && me.dept_ids.includes(deptId);
+  return me.role === 'vp' || me.role === 'head';
 }
 function canNominate(){
   return !!me && ['lecturer','head'].includes(me.role) && !!state && !state.finalApproval;
@@ -1734,8 +1733,8 @@ function renderHeaderControls(){
     note.textContent = 'أنت المسؤول عن اللوحة: تُدير حسابات الموظفين (الصفة والأقسام)، وتعدّل جميع الأقسام، وتصدر الاعتماد النهائي.';
   } else if(me.role === 'head'){
     const mine = (me.dept_ids || []).map(deptName).filter(Boolean);
-    const deptsTxt = mine.length > 1 ? `أقسامك «${mine.join('، ')}»` : `قسم «${mine[0] || '—'}»`;
-    note.textContent = `رئيس ${deptsTxt}: تعدّل مقررات ${mine.length > 1 ? 'أقسامك' : 'قسمك'} وتختار محاضريها، وتطّلع على بقية الأقسام.`;
+    const mineTxt = mine.length ? ` (قسمك المُسنَد: ${mine.join('، ')})` : '';
+    note.textContent = `رئيس قسم: تعدّل مقررات جميع الأقسام وتختار محاضريها${mineTxt}.`;
   } else if(me.role === 'lecturer'){
     note.textContent = 'محاضر: تطّلع على الخطة وترشّح نفسك للمقررات الحضورية بعد اعتماد قوائمها، وقرار التكليف لرئيس القسم.';
   } else {

@@ -162,8 +162,9 @@ $$;
 
 create or replace function app.can_edit_dept(p_dept text) returns boolean
 language sql stable security definer set search_path = public as $$
+  -- كل رئيس قسم يقدر يعدّل مقررات ومحاضري كل الأقسام، وليس قسمه المُسنَد فقط
   select not app.final_locked()
-     and (app.is_vp() or (app.my_role() = 'head' and p_dept = any(app.my_depts())))
+     and (app.is_vp() or app.my_role() = 'head')
 $$;
 
 create or replace function app.course_dept(p_course text) returns text
