@@ -275,9 +275,22 @@
   .mini-stat{font-size:13px;color:var(--muted);font-family:var(--font-code);}
   details.dept-block .dept-block-body{padding:0 16px 16px;border-top:1px solid var(--border-soft);}
 
+  /* ---------- Semester groups ---------- */
+  .sem-group+.sem-group{margin-top:4px;}
+  .sem-group-head{
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+    padding:10px 16px 8px;position:sticky;top:0;background:var(--surface);z-index:2;
+  }
+  details.dept-block .sem-group-head{padding:14px 0 8px;position:static;background:transparent;}
+  .sem-badge{
+    font-size:13px;font-weight:700;color:var(--accent-deep);background:var(--accent-tint);
+    border:1px solid #BFDACB;padding:5px 14px;border-radius:20px;
+  }
+  .sem-count{font-size:11.5px;color:var(--muted);font-family:var(--font-code);}
+
   /* ---------- Course cards ---------- */
   .course-list{display:flex;flex-direction:column;gap:10px;padding:0 16px 16px;}
-  details.dept-block .course-list{padding:14px 0 0;}
+  details.dept-block .course-list{padding:0;}
   .course-card{
     border:1px solid var(--border-soft);border-radius:var(--radius-m);
     padding:13px 15px;background:var(--surface-2);
@@ -1217,7 +1230,7 @@ let publicDepartments = [];
 function mapCourse(c, lecturers){
   return {
     id: c.id, deptId: c.dept_id, code: c.code, name: c.name, credit: c.credit,
-    reqType: c.req_type, source: c.source, status: c.status, decided: c.decided,
+    reqType: c.req_type, semester: c.semester, source: c.source, status: c.status, decided: c.decided,
     justification: c.justification || '',
     updatedBy: c.updated_by_name || '', updatedAt: fmtTs(c.updated_at),
     lecturers: (lecturers || []).map(mapLecturer),
@@ -1610,9 +1623,9 @@ async function saveMyProfile(name, residency){
 }
 
 function exportCSV(){
-  const rows = [['القسم','خطة البرنامج','كود المقرر','اسم المقرر','الساعات','نوع المتطلب','الحالة','المبرر','محاضرون مكلّفون','مرشحون غير مكلّفين','مستبعدون (خارج غزة)','آخر تحديث']];
+  const rows = [['القسم','خطة البرنامج','الفصل الدراسي','كود المقرر','اسم المقرر','الساعات','نوع المتطلب','الحالة','المبرر','محاضرون مكلّفون','مرشحون غير مكلّفين','مستبعدون (خارج غزة)','آخر تحديث']];
   state.departments.forEach(d => d.courses.forEach(c => rows.push([
-    d.name, d.year, c.code, c.name, c.credit, c.reqType,
+    d.name, d.year, semesterLabel(c.semester), c.code, c.name, c.credit, c.reqType,
     c.decided ? STATUS_LABELS[c.status].label : 'لم يُحسم',
     c.justification,
     c.lecturers.filter(l=>l.assigned).map(l=>l.name).join('، '),
@@ -1995,14 +2008,37 @@ function deptHeaderHTML(dept){
   </div>`;
 }
 
+const SEM_LABELS = {
+  0:'مقررات اختيارية', 1:'الفصل الأول', 2:'الفصل الثاني', 3:'الفصل الثالث', 4:'الفصل الرابع',
+  5:'الفصل الخامس', 6:'الفصل السادس', 7:'الفصل السابع', 8:'الفصل الثامن', 9:'الفصل التاسع', 10:'الفصل العاشر',
+};
+function semesterLabel(n){ return n == null ? 'مقررات إضافية (خارج الخطة)' : (SEM_LABELS[n] || ('الفصل ' + n)); }
+function groupCoursesBySemester(courses){
+  const groups = []; const idx = {};
+  courses.forEach(c=>{
+    const key = c.semester == null ? 'null' : String(c.semester);
+    if(!(key in idx)){ idx[key] = groups.length; groups.push({ semester: c.semester, courses: [] }); }
+    groups[idx[key]].courses.push(c);
+  });
+  return groups;
+}
+function semesterGroupsHTML(dept, courses, editable){
+  const groups = groupCoursesBySemester(courses);
+  return groups.map(g => `
+    <div class="sem-group">
+      <div class="sem-group-head"><span class="sem-badge">${esc(semesterLabel(g.semester))}</span><span class="sem-count">${g.courses.length} مقرر</span></div>
+      <div class="course-list">${g.courses.map(c => courseCardHTML(dept, c, editable)).join('')}</div>
+    </div>
+  `).join('');
+}
 function deptPanelInnerHTML(dept){
   const editable = canEditDept(dept.id);
   const courses = dept.courses.filter(c => courseMatchesFilter(c, dept));
   const cardsHTML = courses.length
-    ? courses.map(c => courseCardHTML(dept, c, editable)).join('')
+    ? semesterGroupsHTML(dept, courses, editable)
     : `<div class="empty-state">لا توجد مقررات مطابقة لمعايير البحث في هذا القسم.</div>`;
   return `
-    <div class="course-list">${cardsHTML}</div>
+    ${cardsHTML}
     <div class="add-course-toggle-wrap">
       ${editable ? `<button class="btn btn-sm" data-action="toggle-add-course" aria-expanded="false">+ إضافة مقرر غير مدرج بالخطة</button>
       <div class="add-course-form" data-add-course-form style="display:none;margin-top:10px;">
